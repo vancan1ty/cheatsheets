@@ -1,0 +1,50 @@
+\vskip 0pt
+Spin 1/2 Identities:
+\vskip 3pt
+\Dis 5pt 
+\baselineskip=22pt
+\Fm\ket{+x} = {1 \over \sqrt{2}}(\ket{+z}+\ket{-z})\Mf
+\Fm\ket{-x} = {1 \over \sqrt{2}}(\ket{+z}-\ket{-z})\Mf
+\Fm\ket{+y} = {1 \over \sqrt{2}}(\ket{+z}+i\ket{-z})\Mf
+\Fm\ket{-y} = {1 \over \sqrt{2}}(\ket{+z}-i\ket{-z})\Mf
+\EndDis
+%% $$\ket{+x} = {1 \over \sqrt{2}}(\ket{+z}+\ket{-z}),\enskip
+%% \ket{-x} = {1 \over \sqrt{2}}(\ket{+z}-\ket{-z}),$$
+%% $$\ket{+y} = {1 \over \sqrt{2}}(\ket{+z}+i\ket{-z}), \enskip
+%% \ket{-y} = {1 \over \sqrt{2}}(\ket{+z}-i\ket{-z})$$
+Identities:
+\vskip 3pt
+\Dis 5pt
+\baselineskip=24pt
+\Fm e^{i x} = \cos x + i \sin x, \qquad e^{i \pi} = -1. \Mf
+\Fm e^{x} = 1 + {1 \over 1}x + {1 \over 2!}x^2 + {1 \over 3!}x^3 + ... \Mf
+\Fm \sin x = {e^{ix} - e^{-ix} \over 2 i},\Mf
+\Fm \cos x = {e^{ix} + e^{-ix} \over 2}\Mf
+\Fm \tan x = -i {e^{ix} - e^{-ix} \over e^{ix} + e^{-ix}} = -i {e^{2ix} - 1 \over e^{2ix} + 1}\Mf
+\EndDis
+Definitions: 
+
+Self-adjoint $=$ Hermitian $=> A=A^\dagger$
+
+Unitary $=> AA^\dagger=A^\dagger A=I$
+
+Switch from bra to ket by taking complex conjugate.
+
+$\delta-\gamma=\pm  {\pi \over 2} $
+\medskip
+
+Photon Polarization \& Spin:
+
+$\phi$: angle between cut axis of the polarizer and the corresponding main axis ($\ket{\sl x}$ or $\ket{\sl y}$). \vskip -8pt
+$$\eqalign{\ket{\sl x^\prime} &= \cos{\phi}\ket{\sl x} + \sin{\phi}\ket{\sl y}\cr
+\ket{\sl y^\prime} &= -\sin{\phi}\ket{\sl x} + \cos{\phi}\ket{\sl y}\cr
+\ket{\sl R} &= {1 \over \sqrt{2}}(\ket{\sl x} + i\ket{\sl y})\cr
+\ket{\sl L} &= {1 \over \sqrt{2}}(\ket{\sl x} - i\ket{\sl y})\cr
+} $$
+
+Transform from $\ket{\sl x^\prime}$-$\ket{\sl y^\prime}$ basis to the $\ket{\sl x}$-$\ket{\sl y}$ basis.\vskip -8pt
+$$S = \left(\matrix{\brakettwo{\sl x}{\sl x^\prime} & \brakettwo{\sl x}{\sl y^\prime} \cr
+\brakettwo{\sl y}{\sl x^\prime} & \brakettwo{\sl y}{\sl y^\prime}}\right) = \left(\matrix{\cos{\phi} & -\sin{\phi} \cr \sin{\phi} & \cos{\phi}}\right)$$
+
+$$\ket{\sl R^\prime} = e^{-i\phi}\ket{\sl R} = \hat R(\phi{\bf k})\ket{\sl R} = e^{-i\hat J_z\phi/\hbar}\ket{\sl R}$$
+$$\hat J_z\ket{\sl R} = \hbar\ket{\sl R}, \quad \hat J_z\ket{\sl L} = -\hbar\ket{\sl L} $$

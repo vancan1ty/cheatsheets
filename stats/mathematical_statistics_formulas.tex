@@ -1,0 +1,328 @@
+%TIKZ enables powerful plotting functionality
+%\input tikz
+%\usetikzlibrary{intersections,arrows}
+%\input mbboard
+\input ../core/macros.tex
+\tolerance=1000
+\sloppy
+
+%\font\yo=cmr9
+%\yo
+
+\def\xpair{{x_1,x_2}}
+
+% the following two lines only work with pdftex.  set the paper size to letter, as pdftex
+% defaults to A4 and this is not what we want here.
+\pdfpagewidth 8.5 true in
+\pdfpageheight 11 true in
+\nopagenumbers
+
+\def\compressedDisplay#1{\vskip -8pt\relax$$#1$$}
+
+\voffset=-0.75 in
+\hoffset=-0.75 in
+\hsize=8in
+\vsize=10.5in
+\parindent=0pt
+
+\font\bigger =cmr10 scaled\magstep2
+\font\smallfont=cmr7
+
+%\centerline{Currell Berry -- {\bf Mathematical Statistics Formulas} -- \number\year --\number\month --\number\day}
+%\smallskip % This puts a little extra space after the title line.
+
+%\splittopskip=18.3pt
+\def\strutA#1#2{\vrule height#1 depth#2 width0pt}
+
+\dimen1=3.93in
+\setbox1=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}%{\bigger Theorems}
+%{\bf multiplication rule:} exp 1 has $m$ outcomes, exp 2 has $n$ outcomes, if we perform 1 then 2 then we have $mn$ outcomes.
+%
+%{\bf independent:} $P(A \cap B) = P(A)P(B)$
+%
+%\hbox to \dimen1{\vbox{{\bf mutually independent:} every possible collection from $C_1,C_2,\dots,C_3$ satisfy independence conditions
+%}}
+%
+%{\bf random variable:} a function $X$ is called a random variable if it assigns each element $c \in C$ to one and only one number $X(c)=x$.
+%{\bf discrete r.v.:} r.v. is discrete if its space is either finite or countable.
+%
+%pmf is for discrete case, pdf is for continuous case.\quad
+%{\bf pmf} $p_x(x) = P[X = x]$, for $x \in D$\quad
+%{\bf support} of a r.v. is the points in space where its pmf has a positive probability, or its pdf has a positive density.\quad
+{\bf cdf} $F_X(x) = P_X((-\infty,x])=P({c\in C : X(x)\le x})$\quad
+Given $F_X(x) = \int_{-\infty}^xf_x(t)\ dt$, $f_x$ is called the {\bf pdf}.\quad
+{\bf CDF Transformation Technique} given X and some transformation of X, say Y=g(X), we can often obtain the CDF of Y from the CDF of X, and then differentiate to get pdf of Y.\quad
+{\bf CDF Tech. for One-to-one Correspondences} $Y=g(X) \Rightarrow f_Y(y) = f_X(g^{-1}(y)) \left|{dx \over dy}\right|,\ {\rm for}\ y \in S_y$\quad
+%{\bf Expectation} Given X with pdf f(x), if $\int_{-\infty}^{\infty}|x|f(x)\enskip dx < \infty$, then $E(X) = \int_{-\infty}^{\infty}f(x)dx$\quad
+%{\bf Properties of Expectation:} $Y=g(x), \int_{-\infty}^\infty |g(x)|f_X(x)dx < \infty \Rightarrow E(Y) = \int_{-\infty}^\infty g(x)f_X(x)dx$ (continuous case). Same for discrete with summation instead of integral. Expectation is {\it linear} (additivity \& homogenity).
+{\bf mean} $\mu = E(X)$, {\bf variance} $\sigma^2=E[(X-\mu)^2]=E[X^2]-E[X]^2$. {\bf standard deviation } $=\sqrt{\sigma^2}=\sigma$.
+{\it nth raw moment} $E(X^n)$ {\it central moment} moment around the mean (to better describe shape of distribution).
+First moment = mean, second central moment = variance, third central scaled moment = skewness, fourth central scaled moment = kurtosis.
+{\bf moment generating function/mgf } $M(t)=E(e^{tX})$ (defined over $-h < t < h$, assuming that $E(e^{tX})$ exists for $-h < t < h$).
+$M_X(t)=E(e^{tX})=1+tE(X)+{t^2E(X^2) \over 2!} + {t^3E(X^3) \over 3!} + \dots$, therefore to obtain the i'th raw moment we must merely differentiate $i$ times $dt$ and set $t=0$.
+{\bf Inequalities:} Theorem 1.10.1: given $X$,$m \in \blackboard{N}, k \in \blackboard{N} \land k < m$, If $E[X^m]$ exists, then $E[X^k]$ exists.\quad
+{\bf Markov's Inequality:} Let $u(X)$ be a nonnegative function.  If $E[u(X)]$ exists, then for every $c > 0$, $P[u(X) \geq c] \leq {E[u(X)]\over c}$.\quad
+{\bf Chebyshev's Inequality:} Assume $\sigma^2$ exists.  Then, for every $k>0$, $P(|X-\mu| \geq k\sigma) \leq {1 \over k^2}$.\quad 
+{\bf Convex } concave-up (like $y=x^2$), strictly convex excludes function like $y=x$\quad%PUTREALFORMULA?
+{\bf Jensen's Inequality:} $\phi$ convex on open interval $I$, $X$'s support is contained in $I$, $E[X]$ exists $\Rightarrow \phi[E(X)]\leq E[\phi(X)]$\quad 
+%{\bf Multivariate}%2.1
+%{\bf Random vector \ddag} Joint CDF, joint pmf/pdf, marginal pmf/pdf (given $(X_1,X_2)$, not $P(X_1,X_2)$ but rather $P(X_1)$, for example), mgf for random vectors, expected value,
+
+%{\bf multivariate transformations:} \comment{REVIEW!!!} need one-to-one transformations for below change-of-variable formulas {\bf discrete}
+%\vskip -8pt
+%$$
+%p_{Y_1,Y_2} = \cases{
+%p_{X_1,X_2}[w_1(y_1,y_2), w_2(y_1,y_2)], &$(y1,y2) \in {\cal T}$\cr
+%0 & elsewhere\cr
+%}
+%$$
+%{\bf continuous} $\int\int_A f_{X_1,X_2}(x_1,x_2)\enskip dx_1dx_2 = \int\int_B[w_1(y_1, y_2), w_2(y_1, y_2)] |J|\enskip dy_1dy_2$, where $|J|$ denotes the jacobian determinant.
+%\vskip -20pt
+%$$
+%f_{Y_1,Y_2} = \cases{
+%f_{X_1,X_2}[w_1(y_1,y_2), w_2(y_1,y_2)]|J|, &$(y1,y2) \in {\cal T}$\cr
+%0 & elsewhere\cr
+%}
+%$$
+%\vskip -10pt
+three techniques -- change-of-variable, cdf, mgf transformation.
+%{\bf Conditional pmf} $p_\xpair(x_2|x_1) = {p_\xpair(\xpair) \over p_{x_2}(x_2)}$, $x_1 \in S_{X_1}$\quad
+%{\bf Conditional pdf} $f_\xpair(x_2|x_1) = {f_\xpair(\xpair) \over f_{x_2}(x_2)}$, $f_{x_2}(x_2)>0$\quad
+{\bf Theorem 2.3.1} Let $(X_1,X_2)$ be a random vector with finite $\sigma^2$ for $X_2$. Then (a) $E[E(X_2|X_1)]=E(X_2)$, and (b) $Var[E(X_2|X_1)] \leq Var(X_2)$.\quad
+
+{\bf Covariance} ${\rm cov}(X,Y) = E[(X-\mu_1)(Y-\mu_2)] = E(XY) - \mu_1\mu_2$.\quad
+{\bf Correlation Coeff.} $\rho = {cov(X,Y)\over \sigma_1\sigma_2}$\quad
+$E(XY) = \mu_1\mu_2 + {\rm cov}(X,Y)$.\quad $-1 \leq \rho \leq 1$
+
+$X_1,X_2$ independent $\Leftrightarrow f(x1,x2) = f_1(x_1)f_2(x_2) \Leftrightarrow f(x1,x2) = g(x_1)h(x_2)$ (where $h,g$ are nonnegative functions) $\Leftrightarrow F(x_1,x_2)=F_1(x_1)F_2(x_2) \forall (x_1,x_2) \in \blackboard{R}^2$.\quad Independence $\Rightarrow E[u(X_1)v(X_2)] = E[u(X_1)]E[v(X_2)]$.\quad Variance-covariance matrix.\comment{TODO: PUT IN DEF!}
+
+{\bf Linear Combinations of R.V.:} Let $T = \sum_{i=1}^na_iX_i$. {\bf Thm 2.8.1}  $E[|X_i|] < \infty \Longrightarrow E(T) = \sum_{i=1}^na_iE(X_i)$.%in intuitive cheatsheat, put simpler versions of these formulas
+{\bf Thm 2.8.2} Let $W = \sum_{i=1}^mb_iY_i$. $E[|X_i^2|] < \infty, E[|Y_i^2|] < \infty\enspace \forall\enspace i \Longrightarrow Cov(T,W) = \sum_{i=1}^n\sum_{j=1}^ma_ib_jCov(X_i,Y_j)$.
+{\bf Cor 2.8.1} Provided $E[X_i^2] < \infty, for i = 1,\dots,n$, $Var(T)=\sum_{i=1}^n{a_i^2Var(X_i)+2\sum_{i<j}Cov(X_i,X_j)}$.\quad
+{\bf Cor 2.8.2} $X_1,\dots,X_n$ iid, with finite $\sigma^2 \Longrightarrow Var(T) = \sum_{i=1}^na_i^2Var(X_i)$.\quad
+${\overline X} = n^{-1}\sum_{i=1}^nX_i \Rightarrow E(\overline X) = \mu$ and Var$({\overline X}) = {\sigma^2 \over n}$.\quad
+{\bf Sample Variance} $S^2 = (n-1)^{-1}\sum_{i=1}^n(X_i-{\overline X})^2 \Rightarrow E(S^2)=\sigma^2$.\quad
+
+{\bf Cauchy-Schwartz Inequality} If $X,Y$ have finite variances $E|XY|\leq\sqrt{(E(X^2)E(Y^2))}$
+
+{\bf Simple Linear Regression} $y = u_y+\rho{\sigma_y \over \sigma_x}(x-\mu_x)$.\quad
+{\bf Conditional Normal} variance = $\sigma_2^2(1-\rho^2)$\quad
+random sample, point estimator, estimate\quad
+Let $T=T(X_1,\dots,X_n)$ be a statistic.  $T$ is an {\bf unbiased estimator} of $\theta$ if $E(T)=\theta$.
+{\bf likelihood function} $L(\theta) = L(\theta;x_1,x_2,\dots,x_n)=\prod_{i=1}^nf(x_i;\theta)$\quad
+{\bf mle} $\hat\theta = $ Argmax$L(\theta)$.\quad
+{\bf Confidence Interval} Given random sample, $0 < \alpha < 1$, two statistics L and U.  We say that the interval $(L,U)$ is a $(1-\alpha)100\%$ confidence interval for $\theta$ if $1-\alpha = P_\theta[\theta \in (L,U)]$.\quad confidence coefficient.\quad
+{\bf pth quantile} of X is $\xi_p = F^{-1}(p)$.\quad
+{\bf order statistic} With $X_1,X_2,\dots,X_n$ as random sample, $Y_1<Y_2<\dots<Y_n$ are the corresponding order statistics.\quad
+{\bf sample quantile} $Y_k$, where $k$ is greatest integer $\leq [p (n+1)]$.\quad
+{\bf Distribution free c.i. for $\xi_p$} Consider order stats $Y_i<Y_j$ and event $Y_i<\xi_p<Y_j$.  Then $P(Y_i<\xi_p<Y_j)=\sum_{w=i}^{j-1}{n \choose w}p^w(1-p)^{n-w}$.
+{\bf Critical region} ($C$) a {\bf test} of $H_0$ vs $H_1$ is based on a subset $C$ of $D$. Within $C$, we reject $H_0$.\quad
+{\bf Type 1 error } false rejection of $H_0$, {\bf Type 2} false acceptance of $H_0$.
+{\bf size} = {\bf significance level} $\alpha = \max_{\theta \in w_0}{P_\theta[(X_1,\dots,X_n) \in C]}$\quad
+{\bf Power function} we want to maximize $P_\theta[(X_1,\dots,X_n) \in C]$\quad
+{\bf p-value} observed ``tail'' prob. of a statistic being at least as extreme as the particular observed value when $H_0$ is true\quad
+{\bf Bootstrap} \comment{Later!}\quad
+{\bf Convergence in Probability} Let ${X_n}$ be a sequence of r.v.s.  We say that $X_n$ c.i.p. to $X$ if, for all $\epsilon > 0$, $\lim_{n\rightarrow \infty}P[|X_n-X| \geq \epsilon] = 0$\quad
+{\bf Convergence in Distribution} Let $C(F_X)$ denote set of all points where $F_X$ is continuous.  We say that $X_n$ c.i.d. to $X$ if $\lim_{n \rightarrow \infty}F{X_n}(x) = F_X(x)$, for all $x \in C(F_X)$. (X can be called asymptotic dist or limiting dist). \quad
+%{\bf $\Delta$ method} \comment{Later!}\quad
+{\bf Central Limit Theorem} $X_1,\dots,X_n$ from dist with $\mu$ and positive $\sigma^2$.  Then $Y_n=(\sum_{i=1}^{n}X_i-n\mu)/\sqrt{n}\sigma = \sqrt{n}(\overline X_n - \mu)/\sigma$ converges in distribution to $N(0,1)$.\quad
+{\bf Regularity Conditions} (R0) pdfs distinct, (R1) pdfs have common support for all $\theta$, (R2) $\theta_0 \in \Omega$, (R3) $f(x;\theta)$ is twice differentiable fn of $\theta$, (R4) ${d \over d\theta^2}\int(x;\theta)$ exists\quad
+{\bf Fisher Info} $I(\theta)=E\left[\left({\partial \log f(X;\theta)\over \partial \theta}\right)^2\right] = $\rm Var$\left({\partial \log f(X;\theta)\over \partial \theta}\right)$\quad
+{\bf Score fn} $\partial \log f(x;\theta) \over \partial \theta$ (mle $\hat \theta$ solves score=0). $E$(score)=0, $\sum_{i=1}^n{\partial \log{f(X_i;\theta)} \over \partial \theta} = {\partial \log L(\theta, {\bf X}) \over \partial \theta}$. Variance of prev fn is $n I(\theta)$\quad
+{\bf Rao-Cramer Lower Bound} $X_1,\dots,X_n$ iid with pdf $f(x;\theta)$ for $\theta \in \Omega$. Assume (R0)-(R4) hold. Let $Y = u(X_1,\dots,X_n)$ be a statistic with $E(Y) = k(\theta)$. Then Var$(Y) \geq {[k\prime (\theta)]^2 \over nI(\theta)}$. (Corollary) if $k(\theta)=\theta$, then we have Var$(Y) \geq {1 \over nI(\theta)}$. {\it Efficient estimator} unbiased estimator Y which obtains Rao-Cramer lower bound. {\it Efficiency} ${\rm rao-cramer\ bound \over actual\ variance}$\quad 
+{\bf Likelihood-Ratio Test} $\Lambda = {L(\theta_0) \over L(\hat \theta)}$ $\Lambda \leq 1$, but if $H_0$ is true, $\Lambda$ should be close to 1. For a signficance level $\alpha$, we have the intuitive test ``Reject $H_0$ in favor of $H_1$ if $\Lambda \leq c$.\quad
+%{\bf EM} \comment{TODO!}\quad
+{\bf MVUE} $Y=u(X_1,\dots,X_n)$ is MVUE of $\theta$ if $E(Y)=\theta$ and Var$(Y) \leq $Var(any other unbiased estimator of $\theta$).
+{\bf decision rule} $\delta(y)$ estimator from observed value of Y to point estimate of $\theta$. A numerically determined point estimate of a parameter $\theta$ is a {\it decision}.\quad
+{\bf Loss Fn} $\cal L$: reflects diff between true value $\theta$ and point estimate $\delta(y)$. with each pair $[\theta,\delta(y)], \theta \in \Omega$, we associate a nonnegative ${\cal L}[\theta, \delta(y)]$. Expected val of Loss Fn is called {\bf Risk Fn}\quad
+{\bf Minimax Criterion} Minimize the maximum of the risk function.
+{\bf min mse estimator} minimizes $E\{[\theta - \delta(Y)]^2\}$\quad
+$Y_1=u_1(X_1,\dots,X_n)$ is a {\bf sufficient statistic} IFF ${f(x_1;\theta)\cdots f(x_n;\theta) \over f_{Y_1}[u_1(x_1,\dots,x_n);\theta]} = H(x_1,\dots,x_n)$, where H does not depend on $\theta \in \Omega$ (partitions the sample space such that the conditional sample vec given $Y_1$ does not depend on $\theta$).\quad
+{\bf Neyman Factorization} $Y_1$ is a sufficient statistic IFF $\exists$ two nonnegative fns $k_1,k_2$ s.t. $f(x_1;\theta)\cdots f(x_n;\theta) = k_1[u_1(x_1,\dots,x_n);\theta]k_2(x_1,\dots,x_n)$, where $k_2$ does not depend on $\theta$.\quad
+{\bf Rao-Blackwell} Let $Y_1$ suff statistic, $Y_2=u_2(X_1,\dots,X_n)$, not a fn of $Y_1$ alone, be an unbiased estimator of $\theta$.  Then $E(Y_2|y_1) = \varphi(y_1)$ defines a statistic $\varphi(Y_1)$.  $\varphi$ is a fn of the suff stat for $\theta$; it is an unbiased estimator of $\theta$; and its variance $\leq Var(Y_2)$.\quad
+{\bf 7.3.2} If $Y_1$ suff statistic for $\theta$ exists and if $\hat \theta$ also exists uniquely, then $\hat \theta$ is a fn of $Y_1$.\quad
+{\bf Complete Family} Let r.v. $Z$ have pdf/pmf $\in \{h(z;\theta):\theta \in \Omega\}$. If $E[u(Z)]=0$, for every $\theta \in \Omega$, requires that $u(z)$ be zero except on a set of points that has prob. 0 f.e. $h$, then the fam. above is called a complete family of pdfs/pmfs. \quad
+{\bf 7.4.1} Given $Y_1$ suff., $f_{Y_1}$ complete. If there is a fn of $Y_1$ that is an unbiased estimator of $\theta$, then this fn of $Y_1$ is the unique MVUE of $\theta$. (also $Y_1$ is a {\bf complete sufficient statistic}\quad
+{\bf Ancillary Statistic} contains no info about parameter \quad
+
+}
+
+\setbox7=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}
+{\bf Exponential Class} Consider\vskip -10pt $$f(x;\theta)= \cases{exp[p(\theta)K(x)+H(x)+q(\theta)] & $x \in S$ \cr 0 & elsewhere}$$\quad
+\vskip -10pt
+f is $\in$ regular exponential class if 1. $S$ does not depend on $\theta$, 2. $p(\theta)$ is a nontrivial continuous fn of $\theta \in \Omega$, 3. (a) if X is a continuous r.v., then each of $K'(x) \not\equiv 0$ and $H(x)$ is a continuous fn of $x \in S$. (b) if X is a discrete r.v., then $K(x)$ is a nontrivial fn of $x \in S$.
+{\bf 7.5.1} exponential random sample. Consider $Y_1=\sum_{i=1}^{n}K(X_i)$. Then 1. pdf of $Y_1$ has form $R(y_1)exp(p(\theta)y_1+nq(\theta)]$. 2. $E(Y_1) = -n{q\prime (\theta) \over p \prime(\theta)}$ 3. $Var(Y_1) = {n \over p\prime (\theta)^3}\left\{p\prime \prime (\theta)q \prime (\theta) - q \prime \prime(\theta)p \prime (\theta)\right\}$.
+{\bf 7.5.2} $f(x;\theta)$ pdf for exponential class. then given random sample $Y_1=\sum_1^nK(X_i)$ is a suff stat for $\theta$ and the fam $\{f_{Y_1}(y_1;\theta) : a < \delta\}$ is complete. That is $Y_1$ is a complete suff stat for $\theta$.
+%{\bf Common Processes} Bernoulli (coin-flipping with some $p$ of success), Poisson (randomly occurring events with the following three properties: A. B. C.).
+
+{\bf Uniform} Any continuous or discrete random variable X whose pdf or pmf is constant on the support of X.\quad
+{\bf Binomial } ``How many successes out $n$ random trials''\quad
+{\bf Negative Binomial} ``How many trials before $n$ successes''\quad
+{\bf Geometric} ``How many trials before 1 success. e.g. `waiting time' between successes''.\quad
+{\bf Multinomial} Generalization of the Binomial distribution, where each experiment can have more than two possible outcomes.\quad
+{\bf Hypergeometric} distribution arises when sampling from two classes without replacement.\quad
+{\bf Poisson} ``number of events in a given amount of time while running a poisson process'' (analogous to binomial distribution but based on poisson instead of bernoulli).\quad
+{\bf Gamma} $\Gamma(\alpha,\beta)$ Waiting time between n occurences in a poisson process. Poisson analogue of Negative Binomial distribution.\quad
+{\bf Exponential} Waiting time between a single occurence in a poisson process. Poisson analogue of Geometric distribution.\quad
+{\bf Chi-Square} $\chi^2(r)$ Gamma distribution with $\alpha=r/2$, where $r \in \blackboard N$, and $\beta=2$. $r$ is ``number of degrees of freedom''. Sampling from multinomial distributions is related to $\chi^2$\quad
+{\bf Beta} Various uses.\quad
+{\bf Normal} Arises extremely frequently in nature, due to the Central Limit Theorem.\quad
+
+{\bf Common Terms} Prior probabilities, posterior probabilities, space/range of r.v. $X$, support of r.v. $X$., discrete r.v., continuous r.v.,
+
+{\bf Symbols}
+\Hrule
+\halign{$#$\hfil&\enskip#\hfil&\vtop{\parindent=0pt\hsize=2.4in\strut#\strut}\cr
+   & \bf Name & \bf Note \cr
+%B & $\sigma$-field & Collection of events $\in$ $C$, closed under countable complements, unions, and intersections \cr
+C & sample space &  \cr
+C^c & Complement & ``Complement of C'' \cr
+D & sample space & space$\{(X_1,\dots,X_n)\}$\cr
+E(X) & expectation & expectation of X\cr
+M(X) & mgf & moment generating function $E(e^{tX})$.\cr
+P(X) & pdf & probability density function of X\cr
+S & support & $S$ often used to denote support of r.v.\cr
+S^2 & & sample variance \cr
+\sigma^2 & & population variance \cr
+X,Y & r.v. & common letters to denote random variables.\cr
+\mu & mean & is same as expectation\cr
+\theta_0 & true value & true value of parameter $\theta_0$\cr
+\xi_p & & 100pth distribution percentile\cr
+}
+
+{\bigger Miscellaneous}
+
+{\bf Geometric series:} You can derive these by setting up a formula like $c^0+c^1+c^2+\dots = S$, multiply both sides by $c$, subtract equations and solve for $S$. \quad $\sum_{i=0}^n c^i = {c^{n+1} - 1 \over c -1}, \quad c \neq 1,\quad \sum_{i=0}^\infty c^i = {1 \over 1 - c},\quad \sum_{i=1}^\infty c^i = {c \over 1 - c}, \quad \vert c \vert < 1$.
+
+{\bf Gamma function} $\Gamma(n)=(n-1)!$\quad
+$\int xe^x\ dx$ do it by parts, $u=e^x, v=x$.\quad
+{\bf binom. coeff.} $ (a+b)^n=\sum_{k=0}^n{n \choose k}a^kb^{n-k}$.\quad
+{\bf condit. prob. } $P(C_2|C_1)={P(C_1 \cap C_2) \over P(C_1)}$.\quad
+$P(C_1 \cap C_2)={P(C_1)P(C_2|C_1)}$\quad
+{\bf bayes} $P(A | B) = {P(B | A)P(A) \over P(B)}$\quad
+$\overline X\ of\ N(\theta,\sigma^2) \propto N(\theta,\sigma^2/n)$\quad
+
+}
+
+\setbox20=\vbox{
+{\parindent=0pt
+
+\def\tablerule{\noalign{\hrule}}
+\def\mstartstrut{\vrule height10.5pt depth3.5pt width0pt}
+\def\mendstrut{\vrule height 8.5pt depth4.5pt width0pt}
+
+\tabskip=0pt
+%\halign{\vtop{\hsize=0.8 in\mstartstrut#\mendstrut}\hfil&\kern0.1in \vtop{\hsize=1.4in\mstartstrut#\mendstrut}\hfil&\kern0.1in \vtop{\hsize=2.0in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \vtop{\hsize=0.4in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \vtop{\hsize=0.8in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \vtop{\hsize=1.2in\mstartstrut$#$\mendstrut}\cr
+\raggedright
+\halign{\vtop{\hsize=0.8 in\mstartstrut#\mendstrut}\hfil&\kern0.1in \mstartstrut#\mendstrut\hfil&\kern0.1in \vtop{\hsize=2.0in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \mstartstrut$#$\mendstrut\hfil&\kern0.1in \mstartstrut$#$\mendstrut\hfil&\kern0.1in \vtop{\hsize=1.9in\mstartstrut$#$\mendstrut}\cr
+\bf name & \bf note & \bf $\bf pdf$ & \bf \mu & \bf \sigma^2 & \bf mgf  \cr\noalign{\hrule height 1pt}
+\multispan6{\centerline{\mstartstrut Discrete \mendstrut}}\cr\tablerule
+Bernoulli($p$) & $0<p<1$ & p^x(1-p)^{1-x}, x=0,1 & p & p(1-p) & [(1-p)+pe^t], \enskip\scriptstyle-\infty < t < \infty\cr\tablerule
+Binomial($p$) & $0<p<1, n=1,2,\dots$ & {n \choose x}p^x(1-p)^{n-x}, x=0,1,2,\dots,n & np & np(1-p) & [(1-p)+pe^t]^n, \enskip\scriptstyle -\infty < t < \infty\cr\tablerule
+Geometric($p$) & $0<p<1$ & p(1-p)^{x}, x=0,1,2,\dots & 1-p\over p & 1-p \over p^2 & p[1-(1-p)e^t]^{-1}, t < -\log{1-p}\cr\noalign{\vskip -0pt\hrule}
+Hypergeom ($N,D,n$) &\raggedright $n=1,2,\dots,{\rm min}\{N,D\}$ & {{N - D \choose n - x}{D \choose x}\over{N \choose n}}, x= 0,1,\dots,n& n{D\over N} & n{D\over N}{N-D\over N}{N-n \over N-1} & {\rm complicated\dots} \cr\tablerule
+Neg. Binom($p,r$) & $0<p<1,r=1,2,\dots$ & {x+r-1 \choose r-1}p^r(1-p)^x, x=0,1,2,\dots & pr \over r(1-p) & 1-p \over p^2 & p^r[1-(1-p)e^t]^{-r}, t < -\log(1-p)\cr\noalign{\hrule}
+Poisson($\lambda$) & %name
+$\lambda > 0$ & %note
+e^{-\lambda}{\lambda^x\over x!}&%PDF
+\lambda &%mean
+\lambda & %variance
+\exp{\lambda(e^t-1)}\cr\tablerule %mgf
+\multispan6{\centerline{\mstartstrut Continuous \mendstrut}}\cr\tablerule
+Beta($\alpha,\beta$) & %name
+$\alpha > 0, \beta > 0$ & %note
+{\Gamma(\alpha+\beta)\over \Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}, \enskip\scriptstyle 0 < x < 1&%PDF
+\alpha \over \alpha + \beta &%mean
+\alpha\beta \over (\alpha+\beta+1)(\alpha+\beta)^2& %variance
+1+\sum_{i=1}^\infty\left(\prod_{j=0}^{k-1}{\alpha+j\over \alpha+\beta+j}\right){t^i\over i!},\break\scriptstyle-\infty < t < \infty\cr\tablerule %mgf
+Cauchy($x$) & %name
+ & %note
+{1\over \pi}{1 \over x^2+1}, \enskip\scriptstyle -\infty < x < \infty&%PDF
+$n/a$ &%mean
+$n/a$ & %variance
+{\rm n/a} \cr\tablerule %mgf
+$\chi^2(r)$ & %name
+$=\Gamma(r/2,2)$. $r>0$,  & %note
+{1\over \Gamma(r/2)2^{r/2}}x^{(r/2)-1}e^{-x/2}, x > 0&%PDF
+r &%mean
+2r & %variance
+(1-2t)^{-r/2}, t<1/2 \cr\tablerule %mgf
+Expontl.($\lambda$) & %name
+$=\Gamma(1,1/\lambda)$. $\lambda>0$,& %note
+\lambda e^{-\lambda x}, x > 0&%PDF
+1 \over \lambda &%mean
+1 \over \lambda^2 & %variance
+[1-(t/\lambda)]^{-1}, t<\lambda \cr\tablerule %mgf
+%TODO, add F
+$\Gamma(\alpha,\beta)$& %name
+$\alpha>0,\beta>0$& %note
+{1\over \Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}e^{-x/\beta}, x > 0&%PDF
+\alpha \beta &%mean
+\alpha \beta^2 & %variance
+(1-\beta t)^{-\alpha}, t<1/\beta \cr\tablerule %mgf
+Laplace($\theta$)& %name
+$-\infty < \theta < \infty$& %note
+{1\over 2} e^{-|x-\theta|}, \enskip\scriptstyle -\infty < x < \infty&%PDF
+\theta &%mean
+2 & %variance
+e^{t \theta}{1 \over 1-t^2},\enskip\scriptstyle -1 < t < 1 \cr\tablerule %mgf
+Logistic($\theta$)& %name
+$-\infty < \theta < \infty$& %note
+{exp\{-(x-\theta)\}\over (1+exp\{-(x-\theta)\})^2},\enskip\scriptstyle -\infty < x < \infty&%PDF
+\theta &%mean
+\pi^2\over 3 & %variance
+e^{t \theta}\Gamma(1-t)\Gamma(1+t),\enskip\scriptstyle -1 < t < 1 \cr\tablerule %mgf
+$N(\mu,\sigma^2)$& %name
+$-\infty < \mu < \infty, \sigma > 0$& %note
+{1 \over \sqrt{2\pi}\sigma}{\exp{\left(-{1\over 2}{(x-\mu)^2 \over \sigma^2}\right)}},\enskip\scriptstyle -\infty < x < \infty&%PDF
+\mu &%mean
+\sigma^2 & %variance
+\exp(\mu t + (1/2)\sigma^2t^2),\enskip\scriptstyle -\infty < t < \infty \cr\tablerule %mgf
+$t(r)$& %name
+$r>0$& %note
+{\Gamma[(r+1)/2]  \over \sqrt{\pi r} \Gamma(r/w)} {1 \over (1+x^2/r)^{(r+1)/2}},\enskip\scriptstyle -\infty < x < \infty&%PDF
+0 \scriptstyle {\rm\ if\ } r>1&%mean
+{r\over r-2} \scriptstyle {\rm\ if\ } r>2 & %variance
+{\rm n/a} \cr\tablerule %mgf
+Unif($a,b$)& %name
+$\scriptstyle -\infty < a < b < \infty$& %note
+{1 \over b-a},\enskip\scriptstyle a < x < b &%PDF
+a+b\over2&%mean
+(b-a)^2\over 12& %variance
+e^{bt}-e^{at} \over (b-a)^t, \enskip\scriptstyle -\infty < t < \infty \cr\tablerule %mgf
+}}}
+
+
+%below we populate the pages!
+\dimen0=\ht1 % The \adjdemerits reference page holds the definition of \tstory
+\advance\dimen0 by \dp1
+\advance\dimen0 by \splittopskip
+\divide\dimen0 by 2
+\setbox0=\vsplit1 to \dimen0
+\setbox2=\hbox to \dimen1{\vbox to \dimen0{\unvbox0\vfill}}
+\setbox3=\hbox to \dimen1{\vbox to \dimen0{\unvbox1\vfill}}
+
+\vbox{
+\vskip -7pt
+\hbox{\smallfont \centerline{Statistics Reference Card. Based on ``Intro to Mathematical Statistics'' by Hogg,McKean,Craig, chapters 1-7.  Currell Berry}}
+\hbox to \hsize{\box2\hfil\box3}
+}
+%\medskip
+%\hrule
+\vfill
+\eject
+
+\dimen0=\ht7 
+\advance\dimen0 by \dp7
+\advance\dimen0 by \splittopskip
+\divide\dimen0 by 2
+\setbox4=\vsplit7 to \dimen0
+\setbox5=\hbox to \dimen1{\vbox to \dimen0{\unvbox4\vfill}}
+\setbox6=\hbox to \dimen1{\vbox to \dimen0{\unvbox7\vfill}}
+
+%\hrule
+\hbox to \hsize{\box5\hfil\box6}
+\hrule
+\hbox to \hsize{\box20}
+
+\end

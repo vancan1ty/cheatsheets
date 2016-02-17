@@ -1,0 +1,328 @@
+%pages to come back to
+%390
+
+%TIKZ enables powerful plotting functionality
+%\input tikz
+%\usetikzlibrary{intersections,arrows}
+\input ../core/macros.tex
+%\tolerance=1000
+\sloppy
+
+
+% the following two lines only work with pdftex.  set the paper size to letter, as pdftex
+% defaults to A4 and this is not what we want here.
+\pdfpagewidth 8.5 true in
+\pdfpageheight 11 true in
+\nopagenumbers
+
+\voffset=-0.75 in
+\hoffset=-0.75 in
+\hsize=8in
+\vsize=10.5in
+\parindent=0pt
+
+\font\smallfont=cmr7
+
+\centerline{Currell Berry -- {\bf Formulas} -- \number\year --\number\month --\number\day}
+\smallskip % This puts a little extra space after the title line.
+
+\splittopskip=18.3pt
+\def\strutA#1#2{\vrule height#1 depth#2 width0pt}
+
+\dimen1=3.85in
+\setbox1=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}{\bf Newton's Laws}
+
+First: Momentum stays the same as long as $\vec{F_{\rm net}} = 0$.
+
+Second: $ \vec{F_{\rm net}} = m\vec{a}$.
+
+Third: Every force occurs as one member of an action/reaction pair of forces.
+\smallskip
+{\bf Conservation}
+
+Momentum, energy, and angular momentum are conserved for an isolated system.  Mass is conserved in normal situations.
+\smallskip
+{\bf Linear Motion}
+\Dis 5pt 
+\baselineskip=22pt
+\Fm d = v_it+{1 \over 2}at^2\Mf
+\Fm v_f = v_i+at\Mf
+\Fm v_f^2 = v_i^2+2ad\Mf
+\Fm v_f^2 = v_i^2+2ad\Mf
+\Fm K={1 \over 2}mv^2\Mf
+\Fm \vec{p}=m\vec{v}\Mf
+\Fm J_x=\int_{t_i}^{t_f}{F_x(t)\ dt}\Mf
+\EndDis
+{\bf Springs}
+\Dis 5pt 
+\baselineskip=22pt
+\Fm $Hooke's law: $(F_{sp})_s=-k\Delta s\Mf
+\Fm U_s= {1 \over 2}k(\Delta s)^2\Mf
+\EndDis
+
+{\bf Rotational Motion}
+\Dis 5pt 
+\baselineskip=22pt
+\Fm \omega_f=\omega_i + \alpha\Delta t\Mf
+\Fm \theta_f=\theta_i + \omega_i\Delta t + {1 \over 2}\alpha(\Delta t)^2\Mf
+\Fm \omega_f^2=\omega_i^2 + 2\alpha\Delta \theta\Mf
+\Fm a_{\rm tangential}=\alpha r\Mf
+\Fm a_{\rm centripital}=v^2/r=\omega^2r\Mf
+\Fm x_{\rm cm} = {1 \over M}\int{x\ dm}\Mf
+\Fm I=\sum_im_ir_i^2\Mf
+\Fm I=\int{r^2 dm}\Mf
+\Fm K_{\rm rot}={1 \over 2}I\omega^2\Mf
+\Fm E_{\rm mech}=K_{\rm rot}+U_g={1 \over 2}I\omega^2+Mgy_{\rm cm}\Mf
+\Fm $parallel axis theorem: $ I = I_{\rm cm}+Md^2\Mf
+\Fm \tau \equiv rF\sin{\phi}\Mf
+\Fm \alpha = {\tau_{\rm net}\over I}\Mf
+\Fm v_{\rm cm}=R\omega\Mf
+\Fm K_{\rm rolling}=K_{\rm rot}+K_{\rm cm}\Mf
+\Fm \vec{\tau}=\vec{r}\times\vec{F}\Mf
+\Fm \vec{L}=\vec{r}\times\vec{p}\Mf
+\Fm {d\vec{L}/dt}=\vec{\tau}_{net}\Mf
+\Fm \vec{L}=I\vec{\omega}\Mf
+\EndDis
+
+{\bf Planets}
+\Dis 5pt 
+\baselineskip=22pt
+\Fm $$ F_{\rm 1 on 2}=F_{\rm 2 on 1}={Gm_1m_2 \over r^2}\Mf
+\Fm $Satellite Speed: $ v=\sqrt{GM\over r}\Mf
+\Fm $Escape Velocity: $ v=\sqrt{2GM\over r}\Mf
+\Fm $On Surface: $ g={GM\over R_L}\Mf
+\Fm U_g={Gm_1m_2 \over r}\Mf
+\Fm $Kepler's 3rd: $ T^2=\left(4\pi^2 \over GM \right)r^3\Mf
+\Fm $Kepler's 2nd: $ {\Delta A \over\Delta t} = {L \over 2m}\Mf
+\EndDis
+
+{\bf Simple Harmonic/Circular Motion}
+
+Uniform circular motion projected onto one dimension is simple harmonic motion.
+
+Any system with a linear restoring force will undergo simple harmonic motion around the equilibrium position.
+\Dis 5pt 
+\baselineskip=22pt
+\Fm x(t) = A\cos{(\omega t + \phi_0)}\Mf
+\Fm v_x(t) = -\omega A\sin{(\omega t + \phi_0)}\Mf
+\Fm $pendulum: $ \omega = 2\pi f = \sqrt{g \over L}\Mf
+
+\Fm $damped oscillator: $ x(t) = Ae^{-bt/2m}\cos(\omega t + \phi_0)\Mf
+\Fm $time constant: $ \tau = m/b\Mf
+\Fm $damped system: $ E = E_0e^{-t/\tau}\Mf
+\EndDis
+
+
+{\bf Fluids and Elasticity}
+
+Archimedes' principle: The magnitude of the buoyant force equals the weight of the fluid displaced by the object.
+
+Ideal-fluid model: Incompressible. Smooth, laminar flow. Nonviscuous.
+
+Bernoulli's is a statement of energy conservation.
+%TODO come back and fix up elasticity stuff
+\Dis 5pt 
+\baselineskip=22pt
+\Fm p = F/A\Mf
+\Fm p_g = p-1\Mf
+\Fm \rho = m/V \Mf
+\Fm v_1A_1=v_2A_2\Mf
+\Fm $Bernoulli's: $ p_1+{1 \over 2}\rho g y_1 = p_2 + {1 \over 2}\rho v_2^2 + \rho gy_2\Mf
+\Fm (F/A) = Y(\Delta L/L)\Mf
+\Fm p = -B(\Delta V/V)\Mf
+\EndDis
+
+{\bf Matter}
+
+Phases: solid, liquid gas. Ideal-gas model. Isochoric process $\rightarrow$ $V$ constant and $W$=0, Isobaric $\rightarrow$ $p$=constant, Isothermal $\rightarrow$ $T$ constant and $\Delta E_{th}=0$, Adiabatic $\rightarrow$ $Q$=0. conduction, convection, radiation, evaporation. 
+
+%CB TODO come back and figure out monatomic, diatomic gases, elemental solids.
+%CB TODO ideal gas summary?
+Second law: entropy cannot decrease.
+\Dis 5pt 
+\baselineskip=22pt
+\Fm $Ideal Gas Law: $ pV = nRT \Mf
+
+\Fm $First Law of Thermo: $ \Delta E_{th}= W + Q \Mf
+\Fm W = -\int_{V_{\rm i}}^{V_{\rm f}}{p\ dV} \Mf
+\Fm $specific heat: $ Q = Mc\Delta T \Mf
+\Fm \epsilon_{\rm avg}={3 \over 2}k_{\rm B}T\Mf
+\Fm p = {2 \over 3}{N \over V}\epsilon_{\rm avg}\Mf
+\EndDis
+
+{\bf Waves}
+
+Transverse, Longitudinal.  Snapshot graph, history graph. Superposition, nodes, and antinodes.
+\Dis 5pt 
+\baselineskip=22pt
+\Fm v = \lambda f\Mf
+\Fm \omega = vk\Mf
+\Fm D(x,t) = A\sin{(kx - \omega t + \phi_0)}\Mf
+\Fm I = P/a\Mf
+\Fm I \propto A^2\Mf
+\Fm $Doppler: $ f_{\pm} = {f_0 \over 1 \mp v_s/v}\Mf
+\Fm $Doppler: $ f_{\pm} = 1 \pm {v_o \over v}f_0 \Mf
+\EndDis
+Double slit. angles of bright fringes: $\theta_m=m{\lambda \over d}$ where m = $0,1,2,\dots$, $d$ is slit spacing.
+\quad $I_{double}=4I_1\cos^2{{\pi d \over \lambda L}y}$.
+
+Diffraction grating: angles of bright fringes: $d\sin{\theta_m} = mA$, $m=0,1,2,\dots$.
+
+Single slit: angles of dark fringes $\theta_p=p{\lambda \over a}$, $p = 1,2,3,\dots$
+
+Circular aperture: $w = 2y_1=2L\tan{\theta_1}\approx {2.44\lambda L\over D}$
+
+{\bf New}
+\Dis 5pt 
+\baselineskip=22pt
+\Fm $de broglie: $ \lambda = {h \over p} = {h \over mv}\Mf
+\Fm E_n =n^2 {h^2 \over 8mL^2},\enskip n = 1,2,3,\dots \Mf
+\Fm $snells: $ n_1\sin(\theta_1) = n_2\sin(\theta_2) \Mf
+\EndDis
+
+
+
+}
+
+\setbox7=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}
+{\bf Base SI Units} length:~m, mass:~kg, time:~s, current:~A(ampere), temp:~K, amount:~mol, luminous intensity: cd(candela)
+
+{\bf Symbols}
+\Hrule
+\halign{$#$\hfil&\enskip#\hfil&\vtop{\parindent=0pt\hsize=2.4in\strut#\strut}\cr
+   & \bf Name & \bf Units \cr
+A & area & $\rm m^2$ \cr
+    & amplitude & \cr
+a & acceleration & $\rm m/s^2$ \cr
+& area & \cr
+\vec{B} & magnetic field 1 & $\rm 1\  tesla = 1\ T \equiv 1\ N/A\ m$ (flux density)\cr
+b & damping constant & kg/s\cr
+C & capacitance & $\rm 1\ farad = 1\ F \equiv 1\ C/V$\cr
+c & speed of light & 299,792,458\ m/s \cr
+  & specific heat & J / kg K \cr
+d & distance & m \cr
+\vec{E} & electric field & 1\ N/C = 1\ V/m \cr
+E & energy & 1\ {\rm joule} = 1\ J = $\rm 1\ kg\ m^2 / s^2$\cr
+e & various & 2.71828\dots, electron, elem. charge.\cr
+F & force & 1\ N = $\rm 1\ kg\ m / s^2$ \cr
+f & frequency & frequency (1  Hz = 1/s)\cr
+  & various & function, friction (N) \cr
+G & gravity constant & $\rm 6.674*10^{-11}\ N\ m^2/kg^2$ \cr
+g & accel. d.t. gravity & $\rm m / s^2$ \cr
+\vec{H} & magnetic field 2 & A/m (field strength)\cr
+h & height & m \cr
+h & planck's constant & $\rm 6.626*10^{-34}\ J\ s$\cr
+\hbar & reduced planck's & $\rm h / 2\pi$\cr
+I & intensity & $\rm W / m^2$ \cr
+  & electric current & 1 ampere = 1 A = 1 C/s \cr
+  & mmnt. of inertia & $\rm kg\ m^2 $ -- ``rotational mass'' \cr
+i & imaginary unit & $\sqrt{-1}$ \cr
+\bf\hat i & x-axis unit vec & also $\bf\hat j$, $\bf\hat k$ for y and z axes\cr
+J & impulse & kg\ m/s  -- equiv to $\Delta P$\cr
+K & kinetic energy & J\cr
+k_{\rm B} & boltzmann const. & ${\rm 1.381*10^{-23}\ J/K} = R/N_A$\cr
+   & wave number & ${\rm rad}/m$ -- ``spacial freq. of wave''\cr
+   & spring constant & J/$\rm m^2$\cr
+L & inductance & $\rm 1\ henry=1\ H  \equiv 1\ Wb/A = 1\ T\ m^2/A$\cr
+  & ang. momentum & $\rm kg\ m^2/s$\cr
+l & length & $\rm m$\cr
+m & mass & kg\cr
+N & various & normal vector, atomic number\cr
+N_{\rm A} & avogadro's num & $6.02*10^{23}$ 1/mol\cr
+n & ind. of refraction & unitless -- n = c/v \cr
+ & quantum number & $n=1,2,3,\dots$, parameterizes quantum energy state for particle\cr
+\vec{p} & momentum & kg m/s -- $\vec{p} \equiv m\vec{v}$ \cr
+p & pressure & 1 pascal = 1 Pa $\equiv$ $\rm 1\ N/m^2$ \cr
+Q & heat & 1 joule = 1 J = 0.2389 cal \cr
+q & elect. charge & 1 coulumb = 1 C = 1 A s -- ($q$ or $Q$)\cr
+R & elect. resistance & 1 ohm = 1 $\Omega$ = 1 V/A\cr
+ & gas constant & 8.314 J/mol K\cr
+r & radius & m\cr
+S & entropy & \cr
+S & entropy & \cr
+s & arc length & m\cr
+  & position & m\cr
+T & period & s\cr
+  & abs. temperature & 1 kelvin = 1 K = $T_C$+273\cr
+t & time & s\cr
+U & potential energy & 1 joule = 1 J\cr
+$u$ & atomic mass unit & 1 u = $1.66 * 10^{-27}$ kg\cr
+V & voltage & 1 volt = 1 V = 1 J/C\cr
+  & volume & $\rm m^3$\cr
+\vec{v} & velocity & m/s\cr
+W & work & 1 N m = 1 kg $\rm m^2/s^2$ = 1 J\cr
+w & width & m \cr
+x & displacement & m \cr
+Z & elec. impedance & 1 ohm = 1 $\Omega$ \cr
+\alpha & ang. accel & rad/$s^2$\cr
+\Delta & change in var. & used to signify change i.e. $\Delta x$\cr
+\epsilon & permittivity & F/m = $\epsilon_r\epsilon_0$\cr
+\epsilon_0 & vac. permittivity & $8.854*10^{-12}$ F/m\cr
+\theta & angle & rad \cr
+\lambda & wavelength & m \cr
+\mu & mag. moment & A $m^2$ \cr
+\mu & coeff. friction & unitless\cr
+\mu & permeability & H/m = $\rm N/A^2$ -- $\mu = \mu_0\mu_r$\cr
+\mu_0 & perm const. & $r\pi * 10^-7 {\rm T\ m/A}$\cr
+\pi & $\pi$ & 3.14159\dots\cr
+\rho & mass density & $\rm kg/m^3$ --- $\rho = m/V$\cr
+& resistivity &$\rm \Omega\ m$ --- $\rho = 1/\sigma$\cr
+\sigma & conductivity & 1/$\Omega$ m\cr
+\tau & torque & N m --- $\tau = \vec{r}\times\vec{F}$\cr
+ & time constant & different for circuits, oscillations, etc\dots\cr
+ & 2$\pi$& 6.28319\dots\cr
+\Phi & field strength & units vary dep. on context\cr
+\Phi_m & magnetic flux & 1 weber = 1 Wb = 1 T $m^2$\cr
+\phi & phase & radians --- operand to sinusoidal fn.\cr
+\psi & wave function & unitless, represents q.m. state\cr
+\Omega & elec. resistance & 1 ohm = 1 $\Omega$ = 1 V/A\cr
+\omega & ang. velocity & rad/s\cr
+}
+
+\medskip
+\Dis 5pt 
+\baselineskip=22pt
+\Fm F \rightarrow N = {kg\ m \over s^2}\Mf
+\Fm F \rightarrow N = {kg m \over s^2}\Mf
+\Fm F \rightarrow N = {kg m \over s^2}\Mf
+\Fm F \rightarrow N = {kg m \over s^2}\Mf
+\Fm F \rightarrow N = {kg m \over s^2}\Mf
+\Fm F \rightarrow N = {kg m \over s^2}\Mf
+\EndDis
+{\bf Miscellaneous}
+
+$\vec{A}\times\vec{B} \equiv AB\sin \alpha$, in the direction given by right-hand rule
+}
+
+%below we populate the pages!
+\dimen0=\ht1 % The \adjdemerits reference page holds the definition of \tstory
+\advance\dimen0 by \dp1
+\advance\dimen0 by \splittopskip
+\divide\dimen0 by 2
+\setbox0=\vsplit1 to \dimen0
+\setbox2=\hbox to \dimen1{\vbox to \dimen0{\unvbox0\vfill}}
+\setbox3=\hbox to \dimen1{\vbox to \dimen0{\unvbox1\vfill}}
+
+\hrule
+\hbox to \hsize{\box2\hfil\box3}
+\medskip
+\hrule
+\vfill
+\eject
+
+\dimen0=\ht7 
+\advance\dimen0 by \dp7
+\advance\dimen0 by \splittopskip
+\divide\dimen0 by 2
+\setbox4=\vsplit7 to \dimen0
+\setbox5=\hbox to \dimen1{\vbox to \dimen0{\unvbox4\vfill}}
+\setbox6=\hbox to \dimen1{\vbox to \dimen0{\unvbox7\vfill}}
+
+\hrule
+\hbox to \hsize{\box5\hfil\box6}
+
+{\smallfont Currell Berry, 2016}
+\medskip
+\hrule
+
+\end

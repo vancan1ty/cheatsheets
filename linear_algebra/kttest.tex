@@ -1,0 +1,10 @@
+\newif\ifknuthtex
+\expandafter\ifx\csname pdfpagewidth\endcsname\relax
+\knuthtextrue
+\else
+\pdfpagewidth 8.5 true in
+\pdfpageheight 11 true in
+\fi
+
+This is \ifknuthtex Knuth's \TeX\else pdfTeX\fi
+\bye

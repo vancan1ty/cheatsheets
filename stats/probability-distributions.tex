@@ -1,0 +1,463 @@
+%
+% plain-TeX file
+%
+\ifx\pdfoutput\undefined
+\input mbboard
+\input mathabx
+\fi
+%\input typofrmt
+%\input typotabl
+\useoptions{magstep1,a4,english,preprint}
+
+\title{Probability Distributions}
+\author{Anthony Phan, \today}
+\maketitle
+
+\overfullrule=0pt
+\def\description{\medbreak\bgroup
+	\def\item##1{\medbreak\hangindent\parindent\leavevmode
+		\hskip-\parindent{{\tt##1}.}\enspace\ignorespaces}%
+	\def\subitem##1{\smallbreak\hangindent2\parindent\leavevmode
+		{\it##1.}\enspace\ignorespaces}%
+	\def\subsubitem##1{\par\hangindent3\parindent\leavevmode
+		\hskip\parindent{##1.}\enspace\ignorespaces}%
+	\let\itemitem=\subitem}%
+\def\enddescription{\egroup\medbreak}%
+\def\cs#1{\hbox{\tt\string#1}}%
+\def\var#1{\ifmmode#1\else$#1$\fi}% usual variable
+\def\vari#1{\ifmmode\hbox{\it#1}\else{\it#1}\fi}% variable in italic
+\def\vartype#1{\ifmmode\hbox{\tt#1}\else{\tt#1}\fi}% variable type
+
+\section{Continuous Probability distributions\footnote{{\it See}\/ \cs{probability-distributions.h}}}
+
+\description
+
+\item{lnGamma(\vartype{double} $x$)} Logarithm of the Eulerian Gamma
+function, $\ln(\Gamma(x))$.
+
+\item{Gamma(\vartype{double} $x$)} Eulerian Gamma function
+$$
+	\mathbb R_+^*\longrightarrow[\sqrt
+	\pi,+\infty\mathclose[,\qquad x\longmapsto \Gamma(x)
+	=\int_0^{+\infty}t^{x-1}\,{\rm e}^{-t}\,{\rm d}t.
+$$
+Remember that for $n\in\mathbb N$, $n!=\Gamma(n+1)$.
+
+\item{Beta(\vartype{double} $x$, \vartype{double} $y$)} Eulerian Beta function
+$$
+	(\mathbb R_+^*)^2\longrightarrow\mathbb R_+^*,\qquad
+	x\longmapsto {\rm B}(x, y)=\int_{0}^{1}u^{x-1}(1-u)^{y-1}\,{\rm d}u
+	={\Gamma(x)\times\Gamma(y)\over\Gamma(x+y)}\,.
+$$
+
+
+% Gamma distributions
+
+\item{gammapdf(\vartype{double} $x$, \vartype{double} $a$, \vartype{double} $\lambda$)} Probability density function of
+the Gamma distribution with parameter $a>0$, $\lambda>0$.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto
+	\mathbb 1_{\mathbb R_+}(x){\lambda^a\over\Gamma(a)}\, x^{a-1}\,{\rm
+	e}^{-\lambda x}.
+$$
+
+\item{gammacdf(\vartype{double} $x$, \vartype{double} $a$, \vartype{double} $\lambda$)} Cumulative distribution function
+of the Gamma distribution with parameter $a>0$, $\lambda>0$.
+$$
+	\mathbb R\longrightarrow[0,1\mathclose[,\qquad
+	x\longmapsto\mathbb 1_{\mathbb R_+}(x){\lambda^a\over\Gamma(a)}
+	\int_0^x t^{a-1}\,{\rm e}^{-\lambda t}\,{\rm d}t.
+$$
+
+\item{gammaicdf(\vartype{double} $p$, \vartype{double} $a$, \vartype{double} $\lambda$)} Inverse cumulative
+distribution function of the Gamma distribution with parameter $a>0$, $\lambda>0$.
+$$
+	[0,1\mathclose[\longrightarrow\mathbb R_+,\qquad
+	p\longmapsto\mathop{\rm gammaicdf}(p,a,\lambda).
+$$
+It is set to $0$ for $p<\cs{accuracy}$ and to \cs{infinity} for
+$p>1-\cs{accuracy}$.
+
+% N(0,1) distribution
+
+\item{normlimit} Numerical parameter for normal computations: if $X$ is a
+random variable with law $\mathcal N(0,1)$, the normal distribution
+with mean $0$ and standard deviation $1$, then $\mathbb
+P\{X\geq\cs{normlimit}\}=\mathbb
+P\{X\leq-\cs{normlimit}\}\approx0$. Its value is (unreasonably) set to
+$\cs{normlimit} = 10$ ($\cs{normlimit} = 4$ should be sufficient).
+
+\item{normalpdf(\vartype{double} $x$)} Probability density function of
+$\mathcal N(0,1)$.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto{\rm
+	e}^{-x^2\!/2}/\sqrt{2\pi}.
+$$
+
+
+\item{normalcdf (\vartype{double} $x$)} Cumulative distribution function of
+$\mathcal N(0,1)$.
+$$
+	\mathbb R\longrightarrow\mathopen]0,\mathclose1[,\qquad
+	x\longmapsto\Phi(x)=\int_{-\infty}^x{\rm e}^{-z^2\!/2}\, {{\rm
+	d} z\over\sqrt{2\pi}}
+	={1\over2}+{1\over\sqrt{2\pi}}\sum_{n=0}^\infty
+	{(-1)^n\,x^{2n+1}\over (2n+1)\times n!}\,.
+$$
+It is computed with its associated power series when
+$|x|<\cs{normlimit}$, and set to $0$ or $1$ otherwise.
+
+\item{normalcdf\_(\vartype{double} $x$)} Cumulative distribution function
+of $\mathcal N(0,1)$.  It is just another implementation of the
+previous function with a Gamma cumulative distribution function since
+$$
+	\Phi(x)= {1\over2}\,\bigl(\mathop{\rm sgn}(x)
+	\times\mathop{\rm gammacdf}(x^2\!/2,1/2)+1,1\bigr),
+	\qquad\hbox{for all $x\in\mathbb R$.}
+$$
+
+\item{normalicdf(\vartype{double} $p$)} Inverse cumulative
+distribution function of $\mathcal N(0,1)$.
+$$
+	\mathopen]0,1\mathclose[\longrightarrow\mathbb R,\qquad
+	p\longmapsto\mathop{\rm
+	normalicdf}(p)=\Phi^{-1}(p).
+$$
+It is set to $\pm\cs{infinity}$ for $p$ outside of
+$\mathopen]\cs{accuracy},1-\cs{accuracy}\mathclose[$.
+Of course, there is also \cs{normalicdf\_}\dots
+
+\remark
+Normal distributions with mean $m$ and standard deviation $\sigma$ are not inplemented since they an be easily derived from the standard normal distribution. For instance, one can set
+\verbatim
+double gaussianpdf(double x, double m, double sigma){
+  return normalpdf((x-m)/sigma)/sigma;}
+double gaussiancdf(double x, double m, double sigma){
+  return normalcdf((x-m)/sigma);}
+double gaussianicdf(double p, double m, double sigma){
+  return sigma*normalicdf(p)+m;}
+\endverbatim
+in order to get the probability, cumulative, inverse cumulative distribution functions of the $\mathcal N(m,\sigma^2)$ distribution with $m\in\mathbb R$ and $\sigma>0$.
+\endremark
+
+% $\chi^2$ distributions
+
+\item{chisquarepdf(\vartype{double} $x$, \vartype{double} $\nu$)} Probability density function
+of $\chi^2(\nu)$, the chi-square (Pearson) distribution with $\nu>0$
+degrees of freedom.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto\mathbb
+	1_{\mathbb R_+}(x) \,{x^{\nu/2-1}{\rm e}^{-x/2}\over
+	2^{\nu/2}\,\Gamma(\nu/2)}\,.
+$$
+
+\item{chisquarecdf(\vartype{double} $x$, \vartype{double} $\nu$)} Cumulative distribution
+function of $\chi^2(\nu)$.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto\mathbb
+	1_{\mathbb R_+}(x) \int_0^x\,{t^{\nu/2-1}{\rm e}^{-t/2} \,{{\rm
+	d}t\over 2^{\nu/2}\,\Gamma(\nu/2)}}\,.
+$$
+
+\item{chisquareicdf(\vartype{double} $p$, \vartype{double} $\nu$)} Inverse cumulative
+distribution function of $\chi^2(\nu)$.
+$$
+	[0,1\mathclose[\longrightarrow\mathbb R_+,\qquad
+	p\longmapsto\mathop{\rm chisquareicdf}(p,\nu).
+$$
+It is set to $0$ for $p<\cs{accuracy}$ and to \cs{infinity} for
+$p>1-\cs{accuracy}$.
+
+% Beta distributions
+
+\item{betapdf(\vartype{double} $x$, \vartype{double} $a$, \vartype{double} $b$)} Probability density function
+of the Beta distribution with parameters $a>à$ and $b>0$.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto\mathbb
+	1_{[0,1]}(x)\,x^{a-1}(1-x)^{b-1}\!/{\rm B}(a,b).
+$$
+
+\item{betacdf(\vartype{double} $x$, \vartype{double} $a$, \vartype{double} $b$)} Cumulative distribution
+function of the Beta distribution with parameters $a>0$ and $b>0$.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto
+	\int_0^x\mathbb 1_{[0,1]}(u)\,u^{a-1}(1-u)^{b-1} \,{{\rm
+	d}u\over {\rm B}(a,b)}\,.
+$$
+
+\item{betaicdf(\vartype{double} $p$, \vartype{double} $a$, \vartype{double} $b$)} Inverse cumulative
+distribution function of the Beta distribution with parameters $a>0$
+and $b>0$.
+$$
+	[0,1]\longrightarrow\mathbb R_+,\qquad
+	p\longmapsto\mathop{\rm betaicdf}(p,a,b).
+$$
+It is set to $0$ for $p<\cs{accuracy}$ and to $1$ for
+$p>1-\cs{accuracy}$.
+
+% Student's (T) distributions
+
+\item{studentpdf(\vartype{double} $x$, \vartype{double} $\nu$)} Probability density function of
+$\mathcal T(\nu)$, the Student distribution with $\nu>0$ degrees of
+freedom.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto
+  	{1\over\sqrt{\nu}\,{\rm B}(\nu/2,1/2)} \biggl(1+{x^2\over
+  	\nu}\biggr)^{\!\!-(\nu+1)/2} .
+$$
+
+\item{studentcdf(\vartype{double} $x$, \vartype{double} $\nu$)} Cumulative distribution
+function of $\mathcal T(\nu)$.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto
+  	\int_{-\infty}^x \biggl(1+{z^2\over \nu}\biggr)^{\!\!-(\nu+1)/2}
+  	{{\rm d}z\over\sqrt{\nu}\,{\rm B}(\nu/2,1/2)} .
+$$
+\item{studenticdf(\vartype{double} $p$, \vartype{double} $\nu$)} Inverse cumulative
+distribution function of $\mathcal T(\nu)$.
+$$
+	\mathopen]0,1\mathclose[\longrightarrow\mathbb R,\qquad
+	p\longmapsto\mathop{\rm studenticdf}(p,\nu).
+$$
+It is set to $\pm\cs{infinity}$ for $p$ outside of
+$\mathopen]\cs{accuracy},1-\cs{accuracy}\mathclose[$.
+
+% Fisher's (F) distributions
+
+\item{fisherpdf(\vartype{double} $x$, \vartype{double} $\nu_1$, \vartype{double} $\nu_2$)} Probability density
+function of $\mathcal F(\nu_1,\nu_2)$, the Fisher distribution with
+$\nu_1>0$ and $\nu_2>0$ degrees of freedom ($\nu_1$ is the numerator degree
+of freedom, $\nu_2$ the demominator degree of freedom).
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto
+	\mathbb 1_{\mathbb R_+}(x)\,{(\nu_1/\nu_2)^{\nu_1/2}\,x^{\nu_1/2-1}
+	\over {\rm B}(\nu_1/2,\nu_2/2)(1+x\times \nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}.
+$$
+
+\item{fishercdf(\vartype{double} $x$, \vartype{double} $\nu_1$, \vartype{double} $\nu_2$)} Cumulative distribution
+function of $\mathcal F(\nu_1,\nu_2)$.
+$$
+	\mathbb R\longrightarrow\mathbb R_+,\qquad x\longmapsto
+	\mathbb 1_{\mathbb R_+}(x)\int_0^x
+	{(\nu_1/\nu_2)^{\nu_1/2}\,z^{\nu_1/2-1} \over {\rm B}(\nu_1/2,\nu_2/2)(1+z\times
+	\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}} \,{\rm d}z.
+$$
+
+\item{fishericdf(\vartype{double} $p$, \vartype{double} $\nu_1$, \vartype{double} $\nu_2$)} Inverse cumulative
+distribution function of $\mathcal F(\nu_1, \nu_2)$.
+$$
+	[0,1\mathclose[\longrightarrow\mathbb R_+,\qquad
+	p\longmapsto\mathop{\rm fishericdf}(p,\nu_1,\nu_2).
+$$
+It is set to $0$ for $p<\cs{accuracy}$ and to \cs{infinity} for
+$p>1-\cs{accuracy}$.
+
+\section{Discrete Probability distributions\footnote{{\it See}\/ \cs{probability-distributions.h}}}
+
+About quantiles, please note that $q_p=k+0.5$ when
+$F(k)=p$ for $k\in\mathbb N$.
+
+% Poisson's distributions
+
+\item{poissonpdf(\vartype{double} $x$, \vartype{double} $\lambda$)} Probability distribution
+function of $\mathcal P(\lambda)$, the Poisson distribution with
+parameter $\lambda\geq0$.
+$$
+	\mathbb R\longrightarrow[0,1],\qquad x\longmapsto\cases{{\rm
+	e}^{-\lambda}\,\lambda^x\!/x!& if $x\in\mathbb N$,\cr 0
+	&otherwise.}
+$$
+\item{poissoncdf(\vartype{double} $x$, \vartype{double} $\lambda$)} Cumulative distribution
+function of $\mathcal P(\lambda)$.
+
+\item{poissonicdf(\vartype{double} $p$, \vartype{double} $\lambda$)} Inverse cumulative
+distribution function of $\mathcal P(\lambda)$.
+
+% Binomial distributions
+
+\item{binomialpdf(\vartype{double} $x$, \vartype{int} $n$, \vartype{double} $\pi$)} Probability distribution
+function of $\mathcal B(n,\pi)$, the binomial distribution with
+parameters $n\in\mathbb N^*$ and $\pi\in[0,1]$.
+$$
+	\mathbb R\longrightarrow[0,1],\qquad
+	x\longmapsto\cases{C_n^x\,\pi^x(1-\pi)^{n-x}& if
+	$x\in\{0,1,\dots,n\}$,\cr 0 &otherwise.}
+$$
+
+\item{binomialcdf(\vartype{double} $x$, \vartype{int} $n$, \vartype{double} $\pi$)} Cumulative distribution
+function of $\mathcal B(n,\pi)$.
+
+\item{binomialicdf(\vartype{double} $p$, \vartype{int} $n$, \vartype{double} $\pi$)} Inverse cumulative
+distribution function of $\mathcal B(n,\pi)$.
+
+% Geometric distributions
+
+\item{geometricpdf(\vartype{double} $x$, \vartype{double} $\pi$)} Probability distribution
+function of $\mathcal G(\pi)$, the geometrical distribution with
+parameter $\pi\in[0,1]$. Describe the law of the first success rank in
+an infinitely repeated Bernoulli trial with parameter $\pi\in[0,1]$.
+Thus, it is given by
+$$
+	\mathbb R\longrightarrow[0,1], \qquad x\longmapsto
+	\cases{\pi(1-\pi)^{x-1}& if $x\in\{1,2,3,\dots\}$,\cr 0 &
+	otherwise.}
+$$
+
+\item{geometriccdf(\vartype{double} $x$, \vartype{double} $\pi$)} Cumulative distribution
+function of $\mathcal G(\pi)$. It returns the sum up to $x$ of the
+previous probabilities. Thus it is given by
+$$
+	\mathbb R\longrightarrow[0,1], \qquad x\longmapsto
+	\cases{1-(1-\pi)^{\mathop{\rm floor}x}& if $x\geq1$,\cr 0 &
+	otherwise.}
+$$
+
+\item{geometricicdf(\vartype{double} $p$, \vartype{double} $\pi$)} Inverse cumulative
+distribution function of $\mathcal G(\pi)$.
+$$
+	[0,1]\longrightarrow\{1,1.5,2,2.5,3,3.5,\dots\}, \qquad
+	p\longmapsto\mathop{\rm geometricicdf}(p,\pi).
+$$
+
+\item{negativebinomialpdf(\vartype{double} $x$, \vartype{int} $n$, \vartype{double} $\pi$)} Probability
+distribution function of the negative binomial ditribution with
+parameters $n\in\mathbb N^*$ and $\pi\in[0,1]$. Describe the law of the
+$n$-th success rank, $n\in\mathbb N^*$, in an infinitely repeated
+Bernoulli trial with parameter $\pi\in[0,1]$.  Thus, it is given by
+$$
+	\mathbb R\longrightarrow[0,1],\qquad x\longmapsto
+	\cases{C_{x-1}^{n-1}\,\pi^n(1-\pi)^{x-n}& if
+	$x\in\{n,n+1,n+2,\dots\}$,\cr 0 & otherwise.}
+$$
+One can remark that the negative binomial distributions for $n=1$ are
+just the corresponding geometric ones. It is certainly better when
+$n=1$ to use functions related to geometric distributions instead of
+negative binomial distributions related ones.
+
+\item{negativebinomialcdf(\vartype{double} $x$, \vartype{int} $n$, \vartype{double} $\pi$)} Cumulative
+distribution function of the negative binomial ditribution with
+parameters $n\in\mathbb N^*$ and $\pi\in[0,1]$. One can easily prove
+that it is given by
+$$
+	\mathbb R\longrightarrow[0,1], \qquad x\longmapsto
+	1-\mathop{\rm binomialcdf}(n-1,\mathop{\rm floor} x,\pi).
+$$
+
+\item{negativebinomialicdf(\vartype{double} $p$, \vartype{int} $n$, \vartype{double} $\pi$)} Inverse
+cumulative distribution function of the negative binomial ditribution
+with parameters $n\in\mathbb N^*$ and $\pi\in[0,1]$.
+$$
+	[0,1]\longrightarrow\{n,n+0.5,n+1,n+1.5,\dots\}, \qquad
+	p\longmapsto\mathop{\rm
+	negativebinomialicdf}(p,n,\pi).
+$$
+
+% Hypergeometric distributions
+
+\item{hypergeometricpdf(\vartype{double} $x$, \vartype{int} $N$, \vartype{int} $n$, \vartype{double} $\pi$)} Probability
+distribution function of $\mathcal H(N, n,\pi)$, the
+hypergeometrical distribution with parameters $N\geq n\in\mathbb N^*$
+and $\pi\in[0,1]$.  One should have $N\pi\in\mathbb N$.
+$$
+\eqalign{
+	\mathbb R&\longrightarrow[0,1],\cr
+	x&\longmapsto\cases{\displaystyle
+	{C_{N\pi}^x\,C_{N(1-\pi)}^{n-x}\over C_N^n}& if
+	$x\in\{\max(0,n-N(1-\pi)),\dots,\min(n,N\pi)\}$,\cr 0 &otherwise.}
+	}
+$$
+
+\item{hypergeometriccdf(\vartype{double} $x$, \vartype{int} $N$, \vartype{int} $n$, \vartype{double} $\pi$)} Cumulative
+distribution function of $\mathcal H(N, n,\pi)$.
+
+\item{hypergeometricicdf(\vartype{double} $p$, \vartype{int} $N$, \vartype{int} $n$, \vartype{double} $\pi$)} Inverse
+cumulative distribution function of $\mathcal H(N,n,\pi)$.
+
+\section{Rather specific Probability distributions\footnote{{\it See}\/ \cs{probability-distributions.h}}}
+
+\item{Kolmogorovcdf(\vartype{double} $x$, \vartype{int} $n$)} Cumulative
+distribution function of Kolmogorov distributions.
+These are the famous probability distributions involved in
+Kolmogorov--Smirnov (two-sided) Goodness of Fit tests
+with statistic
+$$
+	K_n={\|F-F_n\|}_\infty=\sup_{x\in\mathbb R}\bigl|F(x)-F_n(x)\bigr|
+	=\max\nolimits_{i = 1}^n \bigl(F(X_{(i)})-(i-1)/n\bigr)
+	\vee\bigl(i/n-F(X_{(i)})\bigr).
+$$
+Their
+computation is based on ``Evaluating Kolmogorov's Distribution''
+by George Marsa\-glia and Wai Wan Tsang.
+
+\item{kolmogorovicdf(\vartype{double} $p$, \vartype{int} $n$)} Inverse
+cumulative distribution function of Kolmogorov distributions.
+(Please do not use it since it is based on the bisection
+method or dichotomy.)
+
+\item{klmcdf(\vartype{double} $x$, \vartype{int} $n$)}
+Cumulative distribution function of the limiting distributions
+associated to Kolmogorov distribution by Dudley's asymptotic
+formula (1964):
+$$
+	\lim_{n\to\infty}\mathbb P\bigl\{K_n\leq u/\!\sqrt n\bigr\}
+	=1+2\sum_{k=1}^\infty(-1)^k\exp\bigl(-2k^2u^2\bigr),
+$$
+with some numerical adjustments (Stephens M.A., 1970).
+
+\item{klmicdf(\vartype{double} $p$, \vartype{int} $n$)} Inverse
+cumulative distribution function of the previous distributions.
+
+
+\item{kpmcdf(\vartype{double} $x$, \vartype{int} $n$)}
+Cumulative distribution function of the distribution involved in the
+one sided  Goodness of Fit tests with statistic
+$$
+	K^+_n=\sup_{x\in\mathbb R}\bigl(F(x)-F_n(x)\bigr)
+	=\max\nolimits_{1\leq i\leq n}
+	\Bigl({i\over n}-F\bigl(X_{(i)}\bigr)\Bigr)
+$$
+or
+$$
+	K^-_n=\sup_{x\in\mathbb R}\bigl(F_n(x)-F(x)\bigr)
+	=\max\nolimits_{1\leq i\leq n}
+	\Bigl(F\bigl(X_{(i)}\bigr)-{i-1\over n}\Bigr)
+$$
+which share the same distribution: for $x\in[0,1]$,
+$$
+\eqalign{
+        \hbox{\tt kpmcdf}(x,n)
+        =\Proba\bigl\{K^\pm_n\leq x\bigr\}
+	&=x\sum_{0\leq k\leq nx}{n\choose k}(k/n-x)^k(x+1-k/n)^{n-k-1}\cr
+        &=1-x\sum_{nx<k\leq n}{n\choose k}(k/n-x)^k(x+1-k/n)^{n-k-1},\cr
+}
+$$
+the second formula being the one used for computations.
+
+\item{kpmicdf(\vartype{double} $p$, \vartype{int} $n$)} Inverse
+cumulative distribution function of the previous distributions.
+
+\enddescription
+
+\newpage
+\section*{Appendix: tables\footnote{{\it See}\/ \cs{probability-tables.c}}}
+
+\def\truc#1#2{\subsection*{#1}#2\medbreak
+\input #1.table\relax\breakupto{0.25\vsize}}
+
+\truc{normalcdf}{This table provides $\Phi(z)$ for $0\leq z<3$,
+where $\Phi$ is the cumulative distribution function of te standard
+normal distribution.}
+\truc{normalicdf}{This table provides $\Phi^{-1}(\alpha)$ for
+$0.5\leq\alpha<1$. Note that $\Phi^{-1}(1-\alpha)=-\Phi^{-1}(\alpha)$.}
+\truc{normalicdfbis}{This table provides $\Phi^{-1}(1-\alpha/2)$ for
+$0<\alpha<1$.}
+\truc{normalicdfter}{This table provides $\Phi^{-1}(1-\alpha/2)$ for
+very small values of $\alpha$.}
+\truc{chisquareicdf}{This table provides $\cs{chisquareicdf}(1-\alpha,\nu)$.}
+\truc{studenticdf}{This table provides $\cs{studenticdf}(1-\alpha/2,\nu)$.}
+\truc{fishericdf}{This table provides $\cs{fishericdf}(1-\alpha,\nu_1,\nu_2)$
+with $\alpha=0.05$. Values are roughly rounded.}
+\truc{kolmogorovicdf}{This table provides $\cs{kolmogorovicdf}(1-\alpha,n)$.}
+\truc{klmicdf}{This table provides $\cs{klmicdf}(1-\alpha,n)$, the usual asymptotic approximation of the Kolmogorov inverse cumulative distribution function.}
+
+\bye

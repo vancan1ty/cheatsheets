@@ -1,0 +1,18 @@
+    \documentclass{article}
+    \usepackage{amsmath}
+    \usepackage{caption}
+
+    \DeclareCaptionType{mycapequ}[][List of equations]
+    \captionsetup[mycapequ]{labelformat=empty}
+
+    \begin{document}
+    \listofmycapequs
+
+    \begin{mycapequ}[!ht]
+      \caption{Newton's Second Law}
+      \begin{equation}
+        F=ma
+      \end{equation}
+    \end{mycapequ}
+
+    \end{document}

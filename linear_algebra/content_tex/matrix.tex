@@ -1,0 +1,27 @@
+Identities:
+\vskip 3pt
+\Dis 5pt
+\baselineskip=24pt
+\Fm e^{i x} = \cos x + i \sin x, \qquad e^{i \pi} = -1. \Mf
+\Fm e^{x} = 1 + {1 \over 1}x + {1 \over 2!}x^2 + {1 \over 3!}x^3 + ... \Mf
+\Fm \sin x = {e^{ix} - e^{-ix} \over 2 i},\Mf
+\Fm \cos x = {e^{ix} + e^{-ix} \over 2}\Mf
+\Fm \tan x = -i {e^{ix} - e^{-ix} \over e^{ix} + e^{-ix}} = -i {e^{2ix} - 1 \over e^{2ix} + 1}\Mf
+\EndDis
+Fundamental Theorem of Linear Maps:
+Suppose $V$ is finite-dimensional and $T \in L(V,W)$. Then range $T$ is finite-dimensional and $$ {\rm dim\ } V = {\rm dim\ null\ } T + {\rm dim\ range\ } T $$
+
+Sum of subspaces: The smallest containing subspace.  Analogous to unions of subsets.
+
+Direct sum: Suppose $s=U_1,...,U_m$ are subspaces of $V$.  The sum $s$ is called a direct sum if each element of $s$ can be written in only one way as a sum of $u_1 + ... + u_m$.  We use $\oplus$ notation to denote direct sum.
+
+\vskip 10pt
+\centerline{Change-of-Basis Matrix}
+\vskip -5pt
+$$S_{z \to x} = \left(
+\matrix{\brakettwo{+x}{+z} & \brakettwo{+x}{-z} \cr
+\brakettwo{-x}{+z} & \brakettwo{-x}{-z}}
+\right)$$
+Given $\hat A$ in $S_z$ basis, we can apply $\hat A$ on arbitrary state q in basis b by applying.
+$$ S\hat A S^\dagger$$
+where S is the change-of-basis matrix from b to z.

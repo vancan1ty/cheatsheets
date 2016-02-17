@@ -1,0 +1,29 @@
+\pdfpagewidth 8.5 true in
+\pdfpageheight 11 true in
+
+\gdef\tstory{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a libero vitae dui ultricies consectetur non nec lacus. Etiam mollis ultrices cursus. Sed blandit tristique consectetur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse non dui ut tortor ultricies tempus ut volutpat felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut maximus augue in erat pharetra viverra. Aenean vehicula tellus sed orci accumsan porta. Vestibulum auctor eros at metus pulvinar, sed dignissim turpis lacinia. Nunc sit amet urna nisi. Nam fringilla ligula in turpis ultrices semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc ornare metus ac turpis tincidunt pulvinar. Etiam consectetur tempus nisi semper hendrerit. Sed dignissim vestibulum faucibus. Quisque mollis, ipsum eu dictum lacinia, magna nulla iaculis metus, non posuere nisl nisi accumsan metus. Aliquam erat volutpat. Phasellus aliquet ullamcorper orci, sit amet ultrices enim. Proin massa nulla, porta vel sem in, pellentesque semper urna. Nullam posuere pulvinar dignissim. Quisque porttitor scelerisque massa, in tristique nulla. Maecenas felis purus, ultrices vel egestas eu, sollicitudin ut ante. Maecenas faucibus ut lorem quis venenatis. Nulla facilisi. Duis nec nisi vitae augue finibus molestie sed a urna. Proin tincidunt quis mi accumsan lacinia.}
+
+\splittopskip=18.3pt
+\def\strutA#1#2{\vrule height#1 depth#2 width0pt}
+
+\setbox1=\vbox{\hsize=3.0in\strutA{\splittopskip}{0pt}\tstory}
+\dimen0=\ht1 % The \adjdemerits reference page holds the definition of \tstory
+\advance\dimen0 by \dp1
+\advance\dimen0 by \splittopskip
+\divide\dimen0 by 2
+\setbox0=\vsplit1 to \dimen0
+\setbox2=\vbox to \dimen0{\unvbox0\vfill}
+\setbox3=\vbox to \dimen0{\unvbox1\vfill}
+
+\hrule
+\hbox to \hsize{\box2\hfil\box3}
+\hrule
+%hsize: \the\hsize
+
+%vsize: \the\vsize
+
+%hoffset: \the\hoffset
+
+%voffset: \the\voffset
+
+\end

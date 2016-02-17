@@ -1,0 +1,32 @@
+$$
+\eqalign{
+{\rm Identity}&\qquad \sum_{i}{}{\ket{u_i}\bra{u_i}} = 1\cr
+{\rm Rotation}&\qquad R(\phi {\bf k}) = e^{-iJ_z\phi / \hbar}\cr
+}
+$$
+\vskip 10pt
+\centerline{Change-of-Basis Matrix}
+\vskip -5pt
+$$S_{z \to x} = \left(
+\matrix{\brakettwo{+x}{+z} & \brakettwo{+x}{-z} \cr
+\brakettwo{-x}{+z} & \brakettwo{-x}{-z}}
+\right)$$
+\vskip 10pt
+Matrix Operators ($S_z$ basis)
+$$
+\hat P_+ = \left( \matrix{1&0\cr0&0} \right) \qquad \hat P_- = \left( \matrix{0&0\cr0&1} \right)
+$$
+$$ \hat J_z \mathrel{\mathop{\longrightarrow}_{S_z}}\left(
+\matrix{\hbar/2 & 0 \cr 0 & \hbar/2 }\right)$$
+$$ \hat J_z \mathrel{\mathop{\longrightarrow}_{S_z}}\left(
+\matrix{\hbar/2 & 0 \cr 0 & \hbar/2 }\right)$$
+When doing rotations on eigenstates of $\hat J_z$, we get a diagonal rotation matrix.
+$$
+\hat R(\phi {\bf k}) \mathrel{\mathop{\longrightarrow}_{S_z}} \left(\matrix{
+e^{-i\phi/2} & 0 \cr
+0 & e^{i\phi/2} \cr
+} \right)
+$$
+Given $\hat A$ in $S_z$ basis, we can apply $\hat A$ on arbitrary state q in basis b by applying.
+$$ S\hat A S^\dagger$$
+where S is the change-of-basis matrix from b to z

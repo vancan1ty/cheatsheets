@@ -1,0 +1,91 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{braket}
+\usepackage[cm]{fullpage}
+\usepackage{fancyhdr}
+\usepackage[compact]{titlesec}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RO,RE]{--Currell Berry--}
+\fancyfoot[C]{-- Updated 9-24-2014 --}
+\fancyfoot[RO, LE] {\thepage}
+\newcounter{ctEqn}
+\setcounter{ctEqn}{0}
+
+%macro below: first argument: caption.  second argument: equation
+\newcommand{\eqentry}[2]{
+\setlength{\abovedisplayskip}{0pt}%
+\setlength{\belowdisplayskip}{0pt}%
+\addtocounter{ctEqn}{1}%
+\begin{flalign*}
+(\arabic{ctEqn}) \textbf{ #1} &&  #2%
+\end{flalign*}
+}
+
+%adds some text on below an overflowing equation without starting a new
+%entry of its own
+\newcommand{\eqadd}[1]{
+\begin{flalign*}
+&&  #1
+\end{flalign*}
+}
+
+\newcommand{\eqadj}[1]{\hfill{#1}}
+
+%arguments: caption and text body
+\newcommand{\textentry}[2]{
+\addtocounter{ctEqn}{1}%
+
+\noindent (\arabic{ctEqn}) \textbf{#1} #2
+}
+
+%argument: header text.  resets my counter, calls subsection
+\newcommand{\msubsection}[1]{
+\setcounter{ctEqn}{0}%
+\subsection*{#1}
+}
+
+\newcommand{\textadd}[1]{
+\hfill #1%
+}
+
+\begin{document}
+\section*{\center Quantum Mechanics Equations Sheet}
+
+{\setlength{\belowdisplayskip}{0pt}
+\msubsection{Test 1 stuff}
+\vspace{-4 pt}
+\eqentry{definition of hbar}{\hbar = \frac{h}{2\pi} \mbox{, where h is planck's constant}}
+\eqentry{uncertainty}{\sqrt{\langle {S_z}^{2} \rangle - \langle S_z \rangle ^{2}} = \Delta S_z \mbox{, where $\Delta S_z$ is uncertainty}}
+\eqentry{Completeness Relation}{ \sum_{i}{}{\ket{u_i}\bra{u_i}} = 1}
+In a discrete basis $\{\ket{u_i}\}$, an operator is represented by the numbers
+\eqentry{Representations of Operators}{\mbox{to represent operator A in basis $\{\ket{u_i}\}$: }A_{ij} = \Bra{u_i}A\Ket{u_j}}
+\eqentry{Definition of Raising Operator}{S_+ = S_x+iS_y}
+\eqentry{Definition of Lowering Operator}{S_- = S_x-iS_y}
+add or subtract the above two equations from each other to obtain for mulas for $S_x$ and $S_y$ respectively
+
+\eqentry{Rotation Operator}{R(\phi \textbf{k}) = e^{-iJ_z\phi / \hbar}}}
+(if you want to rotate in another basis, substitute corresponding $J$ operator)
+
+\eqentry{Components of Raising Operator}{S_+ \Ket{s,m} = \sqrt{s(s+1)-m(m+1)}\hbar \ket{s, m+1}}
+
+
+\msubsection{Spin $1/2$}
+\eqentry{$\ket{+x}$ in terms of z basis}{\ket{+x} = \frac{1}{\sqrt{2}}\ket{+z} + \frac{1}{\sqrt{2}}\ket{-z}}
+\eqentry{$\ket{-x}$ in terms of z basis}{\ket{-x} = \frac{1}{\sqrt{2}}\ket{+z} - \frac{1}{\sqrt{2}}\ket{-z}}
+\eqentry{$\ket{+y}$ in terms of z basis}{\ket{+y} = \frac{1}{\sqrt{2}}\ket{+z} + \frac{i}{\sqrt{2}}\ket{-z}}
+\eqentry{$\ket{-y}$ in terms of z basis}{\ket{-y} = \frac{1}{\sqrt{2}}\ket{+z} + \frac{i}{\sqrt{2}}\ket{-z}}
+
+
+\msubsection{Photon Stuff}
+
+\eqentry{$\Ket{R}$ in terms of $\Ket{x}$ and $\Ket{y}$}{ \frac{1}{\sqrt{2}} (\Ket{x} + i\Ket{y})}
+\eqentry{$\Ket{L}$ in terms of $\Ket{x}$ and $\Ket{y}$}{ \frac{1}{\sqrt{2}} (\Ket{x} - i\Ket{y})}
+
+
+\end{document}

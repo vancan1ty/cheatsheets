@@ -1,0 +1,53 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[cm]{fullpage}
+\newcommand{\mname}{My name is: Currell Berry}
+\begin{document}
+
+
+\section*{\centering Math 2403 Formula Sheet}
+\section{Chapter 2}
+
+\begin{flalign*}% left aligned
+\cos\theta_1 \cos\theta_2-\sin\theta_1\sin\theta_2 &= \cos(\theta_1 +\theta_2) &\\
+\sin\theta_1 \cos\theta_2 + \cos\theta_1 \sin\theta_2 &= \sin(\theta_1+\theta_2) &% Need tailing alignment char to get all the way left
+\end{flalign*}
+
+
+\verb!book!
+The first five International Congresses of Mathematicians
+were held in the following cities:
+\begin{quote}
+\begin{tabular}{lll}
+Chicago&U.S.A.&1893\\
+Z\"{u}rich&Switzerland&1897\\
+Paris&France&1900\\
+Heidelberg&Germany&1904\\
+Rome&Italy&1908
+\end{tabular}
+\end{quote}
+
+\begin{description}
+\item[General FOLDE:] \(\frac{dy}{dt}+p(t)y = g(t)\). \text{integrating factor} $u(t) = e^{p(t) \,dt}$
+
+\end{description}
+\begin{tabular}{c|c|c}
+General FOLDE \(\frac{dy}{dt}+p(t)y = g(t)\).  integrating factor $u(t) = e^{p(t) \,dt}$ &
+this is a long body of text & but not as long as this body of text \\
+\end{tabular}
+\begin{equation}
+f(x) =sin(x)-e^{(-3x)}
+\end{equation}
+that is placed on a line by itself
+\[
+u(t) = e^{\int_0^\infty p(t) \,dt}
+\]
+\begin{figure}[h] 
+\centering
+\includegraphics[scale=1]{singraph} 
+\caption{Graph of sin(x)}
+\label{fig: awesome image}
+\end{figure}
+\end{document}
