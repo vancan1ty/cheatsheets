@@ -6,8 +6,10 @@
 \tolerance=1000
 \sloppy
 
-%\font\yo=cmr9
-%\yo
+\newif\iflong %makes control seqs \iflong, \longtrue, \longfalse
+\longfalse
+\def\piflong#1{\iflong#1
+\else\fi}%
 
 \def\xpair{{x_1,x_2}}
 
@@ -35,10 +37,12 @@
 \def\strutA#1#2{\vrule height#1 depth#2 width0pt}
 
 \dimen1=3.93in
-\setbox1=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}%{\bigger Theorems}
-%{\bf multiplication rule:} exp 1 has $m$ outcomes, exp 2 has $n$ outcomes, if we perform 1 then 2 then we have $mn$ outcomes.
-%
-%{\bf independent:} $P(A \cap B) = P(A)P(B)$
+\newbox\bigbox
+
+\setbox\bigbox=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}%{\bigger Theorems}
+\piflong{{\bf multiplication rule:} exp 1 has $m$ outcomes, exp 2 has $n$ outcomes, if we perform 1 then 2 then we have $mn$ outcomes.}%
+\piflong{}%
+\piflong{{\bf independent:} $P(A \cap B) = P(A)P(B)$}%
 %
 %\hbox to \dimen1{\vbox{{\bf mutually independent:} every possible collection from $C_1,C_2,\dots,C_3$ satisfy independence conditions
 %}}
@@ -145,9 +149,6 @@ $Y_1=u_1(X_1,\dots,X_n)$ is a {\bf sufficient statistic} IFF ${f(x_1;\theta)\cdo
 {\bf 7.4.1} Given $Y_1$ suff., $f_{Y_1}$ complete. If there is a fn of $Y_1$ that is an unbiased estimator of $\theta$, then this fn of $Y_1$ is the unique MVUE of $\theta$. (also $Y_1$ is a {\bf complete sufficient statistic}\quad
 {\bf Ancillary Statistic} contains no info about parameter \quad
 
-}
-
-\setbox7=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}
 {\bf Exponential Class} Consider\vskip -10pt $$f(x;\theta)= \cases{exp[p(\theta)K(x)+H(x)+q(\theta)] & $x \in S$ \cr 0 & elsewhere}$$\quad
 \vskip -10pt
 f is $\in$ regular exponential class if 1. $S$ does not depend on $\theta$, 2. $p(\theta)$ is a nontrivial continuous fn of $\theta \in \Omega$, 3. (a) if X is a continuous r.v., then each of $K'(x) \not\equiv 0$ and $H(x)$ is a continuous fn of $x \in S$. (b) if X is a discrete r.v., then $K(x)$ is a nontrivial fn of $x \in S$.
@@ -204,7 +205,9 @@ $\overline X\ of\ N(\theta,\sigma^2) \propto N(\theta,\sigma^2/n)$\quad
 
 }
 
-\setbox20=\vbox{
+\newbox\bigtable
+
+\setbox\bigtable=\vbox{
 {\parindent=0pt
 
 \def\tablerule{\noalign{\hrule}}
@@ -294,35 +297,51 @@ e^{bt}-e^{at} \over (b-a)^t, \enskip\scriptstyle -\infty < t < \infty \cr\tabler
 
 
 %below we populate the pages!
-\dimen0=\ht1 % The \adjdemerits reference page holds the definition of \tstory
-\advance\dimen0 by \dp1
-\advance\dimen0 by \splittopskip
-\divide\dimen0 by 2
-\setbox0=\vsplit1 to \dimen0
-\setbox2=\hbox to \dimen1{\vbox to \dimen0{\unvbox0\vfill}}
-\setbox3=\hbox to \dimen1{\vbox to \dimen0{\unvbox1\vfill}}
+\newdimen\fullcolheight
+\fullcolheight=10.5 in
+\newdimen\remaindercolheight
+
+\def\makeandprintfullheightcols{
+%split the text twice to 10.5 inches, 
+
+\setbox40=\vsplit\bigbox to \fullcolheight
+\setbox60=\hbox to \dimen1{\vbox to \fullcolheight{\unvbox40\vfill}}
+\setbox41=\vsplit\bigbox to \fullcolheight
+\setbox61=\hbox to \dimen1{\vbox to \fullcolheight{\unvbox41\vfill}}
 
 \vbox{
 \vskip -7pt
 \hbox{\smallfont \centerline{Statistics Reference Card. Based on ``Intro to Mathematical Statistics'' by Hogg,McKean,Craig, chapters 1-7.  Currell Berry}}
-\hbox to \hsize{\box2\hfil\box3}
+\hbox to \hsize{\box60\hfil\box61}
 }
 %\medskip
 %\hrule
-\vfill
+%\vfill
 \eject
+}
 
-\dimen0=\ht7 
-\advance\dimen0 by \dp7
-\advance\dimen0 by \splittopskip
-\divide\dimen0 by 2
-\setbox4=\vsplit7 to \dimen0
-\setbox5=\hbox to \dimen1{\vbox to \dimen0{\unvbox4\vfill}}
-\setbox6=\hbox to \dimen1{\vbox to \dimen0{\unvbox7\vfill}}
+\def\makeandprintequalheightcols{
+%now put the remainder on the page with equal height splitting.
 
-%\hrule
-\hbox to \hsize{\box5\hfil\box6}
+%do calculation for splitting two equal height columns
+\remaindercolheight=\ht\bigbox
+\advance\remaindercolheight by \dp\bigbox
+\advance\remaindercolheight by \splittopskip
+\divide\remaindercolheight by 2
+
+\setbox40=\vsplit\bigbox to \remaindercolheight
+\setbox60=\hbox to \dimen1{\vbox to \remaindercolheight{\unvbox40\vfill}}
+\setbox41=\vsplit\bigbox to \remaindercolheight
+\setbox61=\hbox to \dimen1{\vbox to \remaindercolheight{\unvbox41\vfill}}
+
+\hbox to \hsize{\box60\hfil\box61}
+}
+
+\makeandprintfullheightcols
+
+\makeandprintequalheightcols
+
 \hrule
-\hbox to \hsize{\box20}
+\hbox to \hsize{\box\bigtable}
 
 \end
