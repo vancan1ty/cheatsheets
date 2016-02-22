@@ -10,6 +10,8 @@
 \longfalse
 \def\piflong#1{\iflong#1
 \else\fi}%
+\long\def\lpiflong#1{\iflong#1
+\else\fi}%
 
 \def\xpair{{x_1,x_2}}
 
@@ -40,25 +42,20 @@
 \newbox\bigbox
 
 \setbox\bigbox=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}%{\bigger Theorems}
-\piflong{{\bf multiplication rule:} exp 1 has $m$ outcomes, exp 2 has $n$ outcomes, if we perform 1 then 2 then we have $mn$ outcomes.}%
-\piflong{}%
-\piflong{{\bf independent:} $P(A \cap B) = P(A)P(B)$}%
-%
-%\hbox to \dimen1{\vbox{{\bf mutually independent:} every possible collection from $C_1,C_2,\dots,C_3$ satisfy independence conditions
-%}}
-%
-%{\bf random variable:} a function $X$ is called a random variable if it assigns each element $c \in C$ to one and only one number $X(c)=x$.
-%{\bf discrete r.v.:} r.v. is discrete if its space is either finite or countable.
-%
-%pmf is for discrete case, pdf is for continuous case.\quad
-%{\bf pmf} $p_x(x) = P[X = x]$, for $x \in D$\quad
-%{\bf support} of a r.v. is the points in space where its pmf has a positive probability, or its pdf has a positive density.\quad
+\piflong{{\bf multiplication rule:} exp 1 has $m$ outcomes, exp 2 has $n$ outcomes, if we perform 1 then 2 then we have $mn$ outcomes.\quad}%
+\piflong{{\bf independent:} $P(A \cap B) = P(A)P(B)$\quad}%
+\piflong{{\bf mutually independent:} every possible collection from $C_1,C_2,\dots,C_3$ satisfy independence conditions\quad}%
+\piflong{{\bf random variable:} a function $X$ is called a random variable if it assigns each element $c \in C$ to one and only one number $X(c)=x$.\quad}%
+\piflong{{\bf discrete r.v.:} r.v. is discrete if its space is either finite or countable.\quad}%
+\piflong{pmf is for discrete case, pdf is for continuous case.\quad}%
+\piflong{{\bf pmf} $p_x(x) = P[X = x]$, for $x \in D$\quad}%
+\piflong{{\bf support} of a r.v. is the points in space where its pmf has a positive probability, or its pdf has a positive density.\quad}%
 {\bf cdf} $F_X(x) = P_X((-\infty,x])=P({c\in C : X(x)\le x})$\quad
 Given $F_X(x) = \int_{-\infty}^xf_x(t)\ dt$, $f_x$ is called the {\bf pdf}.\quad
 {\bf CDF Transformation Technique} given X and some transformation of X, say Y=g(X), we can often obtain the CDF of Y from the CDF of X, and then differentiate to get pdf of Y.\quad
 {\bf CDF Tech. for One-to-one Correspondences} $Y=g(X) \Rightarrow f_Y(y) = f_X(g^{-1}(y)) \left|{dx \over dy}\right|,\ {\rm for}\ y \in S_y$\quad
-%{\bf Expectation} Given X with pdf f(x), if $\int_{-\infty}^{\infty}|x|f(x)\enskip dx < \infty$, then $E(X) = \int_{-\infty}^{\infty}f(x)dx$\quad
-%{\bf Properties of Expectation:} $Y=g(x), \int_{-\infty}^\infty |g(x)|f_X(x)dx < \infty \Rightarrow E(Y) = \int_{-\infty}^\infty g(x)f_X(x)dx$ (continuous case). Same for discrete with summation instead of integral. Expectation is {\it linear} (additivity \& homogenity).
+\piflong{{\bf Expectation} Given X with pdf f(x), if $\int_{-\infty}^{\infty}|x|f(x)\enskip dx < \infty$, then $E(X) = \int_{-\infty}^{\infty}f(x)dx$\quad}%
+\piflong{{\bf Properties of Expectation:} $Y=g(x), \int_{-\infty}^\infty |g(x)|f_X(x)dx < \infty \Rightarrow E(Y) = \int_{-\infty}^\infty g(x)f_X(x)dx$ (continuous case). Same for discrete with summation instead of integral. Expectation is {\it linear} (additivity \& homogenity).\quad}%
 {\bf mean} $\mu = E(X)$, {\bf variance} $\sigma^2=E[(X-\mu)^2]=E[X^2]-E[X]^2$. {\bf standard deviation } $=\sqrt{\sigma^2}=\sigma$.
 {\it nth raw moment} $E(X^n)$ {\it central moment} moment around the mean (to better describe shape of distribution).
 First moment = mean, second central moment = variance, third central scaled moment = skewness, fourth central scaled moment = kurtosis.
@@ -69,29 +66,33 @@ $M_X(t)=E(e^{tX})=1+tE(X)+{t^2E(X^2) \over 2!} + {t^3E(X^3) \over 3!} + \dots$, 
 {\bf Chebyshev's Inequality:} Assume $\sigma^2$ exists.  Then, for every $k>0$, $P(|X-\mu| \geq k\sigma) \leq {1 \over k^2}$.\quad 
 {\bf Convex } concave-up (like $y=x^2$), strictly convex excludes function like $y=x$\quad%PUTREALFORMULA?
 {\bf Jensen's Inequality:} $\phi$ convex on open interval $I$, $X$'s support is contained in $I$, $E[X]$ exists $\Rightarrow \phi[E(X)]\leq E[\phi(X)]$\quad 
-%{\bf Multivariate}%2.1
-%{\bf Random vector \ddag} Joint CDF, joint pmf/pdf, marginal pmf/pdf (given $(X_1,X_2)$, not $P(X_1,X_2)$ but rather $P(X_1)$, for example), mgf for random vectors, expected value,
+\lpiflong{
 
-%{\bf multivariate transformations:} \comment{REVIEW!!!} need one-to-one transformations for below change-of-variable formulas {\bf discrete}
-%\vskip -8pt
-%$$
-%p_{Y_1,Y_2} = \cases{
-%p_{X_1,X_2}[w_1(y_1,y_2), w_2(y_1,y_2)], &$(y1,y2) \in {\cal T}$\cr
-%0 & elsewhere\cr
-%}
-%$$
-%{\bf continuous} $\int\int_A f_{X_1,X_2}(x_1,x_2)\enskip dx_1dx_2 = \int\int_B[w_1(y_1, y_2), w_2(y_1, y_2)] |J|\enskip dy_1dy_2$, where $|J|$ denotes the jacobian determinant.
-%\vskip -20pt
-%$$
-%f_{Y_1,Y_2} = \cases{
-%f_{X_1,X_2}[w_1(y_1,y_2), w_2(y_1,y_2)]|J|, &$(y1,y2) \in {\cal T}$\cr
-%0 & elsewhere\cr
-%}
-%$$
-%\vskip -10pt
+}%
+\piflong{{\bf Multivariate:\quad}}%2.1
+\piflong{{\bf Random vector \ddag} Joint CDF, joint pmf/pdf, marginal pmf/pdf (given $(X_1,X_2)$, not $P(X_1,X_2)$ but rather $P(X_1)$, for example), mgf for random vectors, expected value,\quad}%
+\piflong{{\bf multivariate transformations:} \comment{REVIEW!!!} need one-to-one transformations for below change-of-variable formulas\quad}%
+\piflong{{\bf discrete}
+\vskip -8pt
+$$
+p_{Y_1,Y_2} = \cases{
+p_{X_1,X_2}[w_1(y_1,y_2), w_2(y_1,y_2)], &$(y1,y2) \in {\cal T}$\cr
+0 & elsewhere\cr
+}
+$$
+}%
+\piflong{{\bf continuous} $\int\int_A f_{X_1,X_2}(x_1,x_2)\enskip dx_1dx_2 = \int\int_B[w_1(y_1, y_2), w_2(y_1, y_2)] |J|\enskip dy_1dy_2$, where $|J|$ denotes the jacobian determinant.\quad}%
+\piflong{\vskip -20pt
+$$
+f_{Y_1,Y_2} = \cases{
+f_{X_1,X_2}[w_1(y_1,y_2), w_2(y_1,y_2)]|J|, &$(y1,y2) \in {\cal T}$\cr
+0 & elsewhere\cr
+}
+$$
+\vskip -10pt}%
 three techniques -- change-of-variable, cdf, mgf transformation.
-%{\bf Conditional pmf} $p_\xpair(x_2|x_1) = {p_\xpair(\xpair) \over p_{x_2}(x_2)}$, $x_1 \in S_{X_1}$\quad
-%{\bf Conditional pdf} $f_\xpair(x_2|x_1) = {f_\xpair(\xpair) \over f_{x_2}(x_2)}$, $f_{x_2}(x_2)>0$\quad
+\piflong{{\bf Conditional pmf} $p_\xpair(x_2|x_1) = {p_\xpair(\xpair) \over p_{x_2}(x_2)}$, $x_1 \in S_{X_1}$\quad}%
+\piflong{{\bf Conditional pdf} $f_\xpair(x_2|x_1) = {f_\xpair(\xpair) \over f_{x_2}(x_2)}$, $f_{x_2}(x_2)>0$\quad}%
 {\bf Theorem 2.3.1} Let $(X_1,X_2)$ be a random vector with finite $\sigma^2$ for $X_2$. Then (a) $E[E(X_2|X_1)]=E(X_2)$, and (b) $Var[E(X_2|X_1)] \leq Var(X_2)$.\quad
 
 {\bf Covariance} ${\rm cov}(X,Y) = E[(X-\mu_1)(Y-\mu_2)] = E(XY) - \mu_1\mu_2$.\quad
@@ -128,14 +129,14 @@ Let $T=T(X_1,\dots,X_n)$ be a statistic.  $T$ is an {\bf unbiased estimator} of 
 {\bf Bootstrap} \comment{Later!}\quad
 {\bf Convergence in Probability} Let ${X_n}$ be a sequence of r.v.s.  We say that $X_n$ c.i.p. to $X$ if, for all $\epsilon > 0$, $\lim_{n\rightarrow \infty}P[|X_n-X| \geq \epsilon] = 0$\quad
 {\bf Convergence in Distribution} Let $C(F_X)$ denote set of all points where $F_X$ is continuous.  We say that $X_n$ c.i.d. to $X$ if $\lim_{n \rightarrow \infty}F{X_n}(x) = F_X(x)$, for all $x \in C(F_X)$. (X can be called asymptotic dist or limiting dist). \quad
-%{\bf $\Delta$ method} \comment{Later!}\quad
+\piflong{{\bf $\Delta$ method} \comment{Later!}\quad}%
 {\bf Central Limit Theorem} $X_1,\dots,X_n$ from dist with $\mu$ and positive $\sigma^2$.  Then $Y_n=(\sum_{i=1}^{n}X_i-n\mu)/\sqrt{n}\sigma = \sqrt{n}(\overline X_n - \mu)/\sigma$ converges in distribution to $N(0,1)$.\quad
 {\bf Regularity Conditions} (R0) pdfs distinct, (R1) pdfs have common support for all $\theta$, (R2) $\theta_0 \in \Omega$, (R3) $f(x;\theta)$ is twice differentiable fn of $\theta$, (R4) ${d \over d\theta^2}\int(x;\theta)$ exists\quad
 {\bf Fisher Info} $I(\theta)=E\left[\left({\partial \log f(X;\theta)\over \partial \theta}\right)^2\right] = $\rm Var$\left({\partial \log f(X;\theta)\over \partial \theta}\right)$\quad
 {\bf Score fn} $\partial \log f(x;\theta) \over \partial \theta$ (mle $\hat \theta$ solves score=0). $E$(score)=0, $\sum_{i=1}^n{\partial \log{f(X_i;\theta)} \over \partial \theta} = {\partial \log L(\theta, {\bf X}) \over \partial \theta}$. Variance of prev fn is $n I(\theta)$\quad
 {\bf Rao-Cramer Lower Bound} $X_1,\dots,X_n$ iid with pdf $f(x;\theta)$ for $\theta \in \Omega$. Assume (R0)-(R4) hold. Let $Y = u(X_1,\dots,X_n)$ be a statistic with $E(Y) = k(\theta)$. Then Var$(Y) \geq {[k\prime (\theta)]^2 \over nI(\theta)}$. (Corollary) if $k(\theta)=\theta$, then we have Var$(Y) \geq {1 \over nI(\theta)}$. {\it Efficient estimator} unbiased estimator Y which obtains Rao-Cramer lower bound. {\it Efficiency} ${\rm rao-cramer\ bound \over actual\ variance}$\quad 
 {\bf Likelihood-Ratio Test} $\Lambda = {L(\theta_0) \over L(\hat \theta)}$ $\Lambda \leq 1$, but if $H_0$ is true, $\Lambda$ should be close to 1. For a signficance level $\alpha$, we have the intuitive test ``Reject $H_0$ in favor of $H_1$ if $\Lambda \leq c$.\quad
-%{\bf EM} \comment{TODO!}\quad
+\piflong{{\bf EM} \comment{TODO!}\quad}%
 {\bf MVUE} $Y=u(X_1,\dots,X_n)$ is MVUE of $\theta$ if $E(Y)=\theta$ and Var$(Y) \leq $Var(any other unbiased estimator of $\theta$).
 {\bf decision rule} $\delta(y)$ estimator from observed value of Y to point estimate of $\theta$. A numerically determined point estimate of a parameter $\theta$ is a {\it decision}.\quad
 {\bf Loss Fn} $\cal L$: reflects diff between true value $\theta$ and point estimate $\delta(y)$. with each pair $[\theta,\delta(y)], \theta \in \Omega$, we associate a nonnegative ${\cal L}[\theta, \delta(y)]$. Expected val of Loss Fn is called {\bf Risk Fn}\quad
@@ -154,7 +155,12 @@ $Y_1=u_1(X_1,\dots,X_n)$ is a {\bf sufficient statistic} IFF ${f(x_1;\theta)\cdo
 f is $\in$ regular exponential class if 1. $S$ does not depend on $\theta$, 2. $p(\theta)$ is a nontrivial continuous fn of $\theta \in \Omega$, 3. (a) if X is a continuous r.v., then each of $K'(x) \not\equiv 0$ and $H(x)$ is a continuous fn of $x \in S$. (b) if X is a discrete r.v., then $K(x)$ is a nontrivial fn of $x \in S$.
 {\bf 7.5.1} exponential random sample. Consider $Y_1=\sum_{i=1}^{n}K(X_i)$. Then 1. pdf of $Y_1$ has form $R(y_1)exp(p(\theta)y_1+nq(\theta)]$. 2. $E(Y_1) = -n{q\prime (\theta) \over p \prime(\theta)}$ 3. $Var(Y_1) = {n \over p\prime (\theta)^3}\left\{p\prime \prime (\theta)q \prime (\theta) - q \prime \prime(\theta)p \prime (\theta)\right\}$.
 {\bf 7.5.2} $f(x;\theta)$ pdf for exponential class. then given random sample $Y_1=\sum_1^nK(X_i)$ is a suff stat for $\theta$ and the fam $\{f_{Y_1}(y_1;\theta) : a < \delta\}$ is complete. That is $Y_1$ is a complete suff stat for $\theta$.
-%{\bf Common Processes} Bernoulli (coin-flipping with some $p$ of success), Poisson (randomly occurring events with the following three properties: A. B. C.).
+\lpiflong{
+
+{\bf Common Processes} Bernoulli (coin-flipping with some $p$ of success), Poisson (randomly occurring events with the following three properties: A. B. C.).\quad}%
+\lpiflong{
+
+{\bf Common Distributions} \quad}%
 
 {\bf Uniform} Any continuous or discrete random variable X whose pdf or pmf is constant on the support of X.\quad
 {\bf Binomial } ``How many successes out $n$ random trials''\quad
@@ -175,7 +181,7 @@ f is $\in$ regular exponential class if 1. $S$ does not depend on $\theta$, 2. $
 \Hrule
 \halign{$#$\hfil&\enskip#\hfil&\vtop{\parindent=0pt\hsize=2.4in\strut#\strut}\cr
    & \bf Name & \bf Note \cr
-%B & $\sigma$-field & Collection of events $\in$ $C$, closed under countable complements, unions, and intersections \cr
+\piflong{B & $\sigma$-field & Collection of events $\in$ $C$, closed under countable complements, unions, and intersections \cr}%
 C & sample space &  \cr
 C^c & Complement & ``Complement of C'' \cr
 D & sample space & space$\{(X_1,\dots,X_n)\}$\cr
@@ -297,49 +303,21 @@ e^{bt}-e^{at} \over (b-a)^t, \enskip\scriptstyle -\infty < t < \infty \cr\tabler
 
 
 %below we populate the pages!
-\newdimen\fullcolheight
-\fullcolheight=10.5 in
-\newdimen\remaindercolheight
 
-\def\makeandprintfullheightcols{
-%split the text twice to 10.5 inches, 
-
-\setbox40=\vsplit\bigbox to \fullcolheight
-\setbox60=\hbox to \dimen1{\vbox to \fullcolheight{\unvbox40\vfill}}
-\setbox41=\vsplit\bigbox to \fullcolheight
-\setbox61=\hbox to \dimen1{\vbox to \fullcolheight{\unvbox41\vfill}}
+%\newdimen\fullcolheight
+%\fullcolheight=10.5 in
 
 \vbox{
 \vskip -7pt
-\hbox{\smallfont \centerline{Statistics Reference Card. Based on ``Intro to Mathematical Statistics'' by Hogg,McKean,Craig, chapters 1-7.  Currell Berry}}
-\hbox to \hsize{\box60\hfil\box61}
-}
-%\medskip
-%\hrule
-%\vfill
-\eject
+\hbox{\smallfont \centerline{Statistics Reference Card v0.5, Currell Berry. Based on ``Intro to Mathematical Statistics'' by Hogg,McKean,Craig, chapters 1-7. }}
+\makeandprintfullheightcols\bigbox{10.5 in}
 }
 
-\def\makeandprintequalheightcols{
-%now put the remainder on the page with equal height splitting.
-
-%do calculation for splitting two equal height columns
-\remaindercolheight=\ht\bigbox
-\advance\remaindercolheight by \dp\bigbox
-\advance\remaindercolheight by \splittopskip
-\divide\remaindercolheight by 2
-
-\setbox40=\vsplit\bigbox to \remaindercolheight
-\setbox60=\hbox to \dimen1{\vbox to \remaindercolheight{\unvbox40\vfill}}
-\setbox41=\vsplit\bigbox to \remaindercolheight
-\setbox61=\hbox to \dimen1{\vbox to \remaindercolheight{\unvbox41\vfill}}
-
-\hbox to \hsize{\box60\hfil\box61}
-}
-
-\makeandprintfullheightcols
-
-\makeandprintequalheightcols
+\iflong
+\makeandprintfullheightcols\bigbox{10.5 in}
+\else
+\makeandprintequalheightcols\bigbox
+\fi
 
 \hrule
 \hbox to \hsize{\box\bigtable}

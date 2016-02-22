@@ -23,14 +23,16 @@
 
 \font\smallfont=cmr7
 
-\centerline{Currell Berry -- {\bf Formulas} -- \number\year --\number\month --\number\day}
-\smallskip % This puts a little extra space after the title line.
+%\centerline{Currell Berry -- {\bf Formulas} -- \number\year --\number\month --\number\day}
+%\smallskip % This puts a little extra space after the title line.
 
-\splittopskip=18.3pt
+%\splittopskip=18.3pt
 \def\strutA#1#2{\vrule height#1 depth#2 width0pt}
 
-\dimen1=3.85in
-\setbox1=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}{\bf Newton's Laws}
+\dimen1=3.9in
+
+\newbox\bigbox
+\setbox\bigbox=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}{\bf Newton's Laws}
 
 First: Momentum stays the same as long as $\vec{F_{\rm net}} = 0$.
 
@@ -40,7 +42,7 @@ Third: Every force occurs as one member of an action/reaction pair of forces.
 \smallskip
 {\bf Conservation}
 
-Momentum, energy, and angular momentum are conserved for an isolated system.  Mass is conserved in normal situations.
+Momentum, energy, angular momentum, charge are conserved for an isolated system.  Mass is conserved in normal situations.
 \smallskip
 {\bf Linear Motion}
 \Dis 5pt 
@@ -51,7 +53,8 @@ Momentum, energy, and angular momentum are conserved for an isolated system.  Ma
 \Fm v_f^2 = v_i^2+2ad\Mf
 \Fm K={1 \over 2}mv^2\Mf
 \Fm \vec{p}=m\vec{v}\Mf
-\Fm J_x=\int_{t_i}^{t_f}{F_x(t)\ dt}\Mf
+\Fm \Delta K = J_x=\int_{t_i}^{t_f}{F_x(t)\ dt}\Mf
+\Fm \Delta p_s = W=\int_{s_i}^{s_f}{F_s\ ds}\Mf
 \EndDis
 {\bf Springs}
 \Dis 5pt 
@@ -172,6 +175,21 @@ Single slit: angles of dark fringes $\theta_p=p{\lambda \over a}$, $p = 1,2,3,\d
 
 Circular aperture: $w = 2y_1=2L\tan{\theta_1}\approx {2.44\lambda L\over D}$
 
+{\bf Electricity and Magnetism}
+\Dis 5pt 
+\baselineskip=22pt
+\Fm $Coulomb's $ F_{\rm 1\ on\ 2} = F_{\rm 2\ on\ 1}={K|q_1||q_2| \over r^2}\Mf
+\Fm \vec{E}(x,y,z) = {\vec{F}_{\rm on\ q}{\rm\ at\ } (x,y,z) \over q} \Mf
+\Fm $point charge: $\vec{E} = {1 \over 4\pi\epsilon_0}{q \over r^2}\hat{r}\Mf
+\Fm \vec{E}_{\rm dipole} = {1 \over 4\pi\epsilon_0}{2 \vec{p} \over r^3} $ (on axis)$\Mf
+\Fm $gauss's law $\phi_e = \oint \vec{E}\cdot d\vec{A}={Q_{\rm in} \over \epsilon_0}\Mf
+\Fm $unif. elec. field: $U_{\rm elec} = U_0 + qEs \Mf
+\Fm $point charges: $U_{\rm elec} = {Kq_1q_2 \over r} \Mf
+\Fm $dipole: $U_{\rm dipole} = -\vec{p}\cdot\vec{E} \Mf
+\EndDis
+
+
+
 {\bf New}
 \Dis 5pt 
 \baselineskip=22pt
@@ -180,11 +198,11 @@ Circular aperture: $w = 2y_1=2L\tan{\theta_1}\approx {2.44\lambda L\over D}$
 \Fm $snells: $ n_1\sin(\theta_1) = n_2\sin(\theta_2) \Mf
 \EndDis
 
-
-
 }
 
-\setbox7=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}
+\newbox\zbox
+
+\setbox\zbox=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}
 {\bf Base SI Units} length:~m, mass:~kg, time:~s, current:~A(ampere), temp:~K, amount:~mol, luminous intensity: cd(candela)
 
 {\bf Symbols}
@@ -204,6 +222,9 @@ d & distance & m \cr
 \vec{E} & electric field & 1\ N/C = 1\ V/m \cr
 E & energy & 1\ {\rm joule} = 1\ J = $\rm 1\ kg\ m^2 / s^2$\cr
 e & various & 2.71828\dots, electron, elem. charge.\cr
+ & electron & \cr
+ & elem. charge & $1.60 \times 10^{-19}$\cr
+& various & 2.71828\dots, electron, elem. charge.\cr
 F & force & 1\ N = $\rm 1\ kg\ m / s^2$ \cr
 f & frequency & frequency (1  Hz = 1/s)\cr
   & various & function, friction (N) \cr
@@ -220,6 +241,7 @@ i & imaginary unit & $\sqrt{-1}$ \cr
 \bf\hat i & x-axis unit vec & also $\bf\hat j$, $\bf\hat k$ for y and z axes\cr
 J & impulse & kg\ m/s  -- equiv to $\Delta P$\cr
 K & kinetic energy & J\cr
+& electrostatic c. & $8.99 \times 10^9 {\rm\ N\ m^2/C^2}$\cr
 k_{\rm B} & boltzmann const. & ${\rm 1.381*10^{-23}\ J/K} = R/N_A$\cr
    & wave number & ${\rm rad}/m$ -- ``spacial freq. of wave''\cr
    & spring constant & J/$\rm m^2$\cr
@@ -233,6 +255,7 @@ n & ind. of refraction & unitless -- n = c/v \cr
  & quantum number & $n=1,2,3,\dots$, parameterizes quantum energy state for particle\cr
 \vec{p} & momentum & kg m/s -- $\vec{p} \equiv m\vec{v}$ \cr
 p & pressure & 1 pascal = 1 Pa $\equiv$ $\rm 1\ N/m^2$ \cr
+\vec{p} & dipole moment & $qs$, from the negative to the positive charge\cr
 Q & heat & 1 joule = 1 J = 0.2389 cal \cr
 q & elect. charge & 1 coulumb = 1 C = 1 A s -- ($q$ or $Q$)\cr
 R & elect. resistance & 1 ohm = 1 $\Omega$ = 1 V/A\cr
@@ -272,6 +295,7 @@ Z & elec. impedance & 1 ohm = 1 $\Omega$ \cr
  & time constant & different for circuits, oscillations, etc\dots\cr
  & 2$\pi$& 6.28319\dots\cr
 \Phi & field strength & units vary dep. on context\cr
+\Phi_e & electric flux & $\int_{\rm surface}\vec{E}\cdot d\vec{A}$\cr
 \Phi_m & magnetic flux & 1 weber = 1 Wb = 1 T $m^2$\cr
 \phi & phase & radians --- operand to sinusoidal fn.\cr
 \psi & wave function & unitless, represents q.m. state\cr
@@ -283,11 +307,6 @@ Z & elec. impedance & 1 ohm = 1 $\Omega$ \cr
 \Dis 5pt 
 \baselineskip=22pt
 \Fm F \rightarrow N = {kg\ m \over s^2}\Mf
-\Fm F \rightarrow N = {kg m \over s^2}\Mf
-\Fm F \rightarrow N = {kg m \over s^2}\Mf
-\Fm F \rightarrow N = {kg m \over s^2}\Mf
-\Fm F \rightarrow N = {kg m \over s^2}\Mf
-\Fm F \rightarrow N = {kg m \over s^2}\Mf
 \EndDis
 {\bf Miscellaneous}
 
@@ -295,34 +314,17 @@ $\vec{A}\times\vec{B} \equiv AB\sin \alpha$, in the direction given by right-han
 }
 
 %below we populate the pages!
-\dimen0=\ht1 % The \adjdemerits reference page holds the definition of \tstory
-\advance\dimen0 by \dp1
-\advance\dimen0 by \splittopskip
-\divide\dimen0 by 2
-\setbox0=\vsplit1 to \dimen0
-\setbox2=\hbox to \dimen1{\vbox to \dimen0{\unvbox0\vfill}}
-\setbox3=\hbox to \dimen1{\vbox to \dimen0{\unvbox1\vfill}}
 
-\hrule
-\hbox to \hsize{\box2\hfil\box3}
-\medskip
-\hrule
-\vfill
-\eject
+\vbox{
+\vskip -7pt
+\hbox{\smallfont \centerline{Physics Reference Card v0.2, Currell Berry. Based on ``Physics for Scientists and Engineers'' by Randall Knight.}}
+\makeandprintfullheightcols\bigbox{10.5 in}
+}
 
-\dimen0=\ht7 
-\advance\dimen0 by \dp7
-\advance\dimen0 by \splittopskip
-\divide\dimen0 by 2
-\setbox4=\vsplit7 to \dimen0
-\setbox5=\hbox to \dimen1{\vbox to \dimen0{\unvbox4\vfill}}
-\setbox6=\hbox to \dimen1{\vbox to \dimen0{\unvbox7\vfill}}
+\makeandprintequalheightcols\zbox
 
-\hrule
-\hbox to \hsize{\box5\hfil\box6}
-
-{\smallfont Currell Berry, 2016}
-\medskip
-\hrule
+%{\smallfont Currell Berry, 2016}
+%\medskip
+%\hrule
 
 \end

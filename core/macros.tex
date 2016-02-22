@@ -141,3 +141,38 @@
 \def\sloppy{\tolerance 9999 \emergencystretch 3em\relax}
 \def\comment#1{}
 
+%#1 is the box to use
+%#2 is the height
+\def\makeandprintfullheightcols#1#2{
+%split the text twice to the dimension of #1 inches, 
+
+\setbox40=\vsplit#1 to #2
+\setbox60=\hbox to \dimen1{\vbox to #2{\unvbox40\vfill}}
+\setbox41=\vsplit#1 to #2
+\setbox61=\hbox to \dimen1{\vbox to #2{\unvbox41\vfill}}
+
+\hbox to \hsize{\box60\hfil\box61}
+%\medskip
+%\hrule
+%\vfill
+\eject
+}
+
+\newdimen\remaindercolheight
+%#1 is the box to use
+\def\makeandprintequalheightcols#1{
+%now put the remainder on the page with equal height splitting.
+
+%do calculation for splitting two equal height columns
+\remaindercolheight=\ht#1
+\advance\remaindercolheight by \dp#1
+\advance\remaindercolheight by \splittopskip
+\divide\remaindercolheight by 2
+
+\setbox40=\vsplit#1 to \remaindercolheight
+\setbox60=\hbox to \dimen1{\vbox to \remaindercolheight{\unvbox40\vfill}}
+\setbox41=\vsplit#1 to \remaindercolheight
+\setbox61=\hbox to \dimen1{\vbox to \remaindercolheight{\unvbox41\vfill}}
+
+\hbox to \hsize{\box60\hfil\box61}
+}
