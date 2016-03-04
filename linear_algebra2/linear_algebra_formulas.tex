@@ -1,0 +1,757 @@
+%TIKZ enables powerful plotting functionality
+%\input tikz
+%\usetikzlibrary{intersections,arrows}
+%\input mbboard
+\input fontch
+\input ../core/macros.tex
+
+\eightpoint
+
+\tolerance=1000
+\sloppy
+
+\newif\iflong %makes control seqs \iflong, \longtrue, \longfalse
+\longfalse
+\def\piflong#1{\iflong#1
+\else\fi}%
+\long\def\lpiflong#1{\iflong#1
+\else\fi}%
+
+\def\xpair{{x_1,x_2}}
+
+% the following two lines only work with pdftex.  set the paper size to letter, as pdftex
+% defaults to A4 and this is not what we want here.
+\pdfpagewidth 8.5 true in
+\pdfpageheight 11 true in
+\nopagenumbers
+
+\def\complex{{\bf C}}
+\def\real{{\bf R}}
+\def\field{{\bf F}}
+\def\polynomial{{\cal P}}
+\def\dim{{\rm dim}\ }
+\def\mnull{{\rm null}\ }
+\def\mrange{{\rm range}\ }
+\def\mspan{{\rm span}\ }
+\def\linear{{\cal L}}
+\def\mapmatrix{{\cal M}}
+
+\voffset=-0.75 in
+\hoffset=-0.75 in
+\hsize=8in
+\vsize=10.75in
+\parindent=0pt
+
+\font\bigger =cmr10 scaled\magstep1
+\font\smallfont=cmr7
+
+%\splittopskip=18.3pt
+\def\strutA#1#2{\vrule height#1 depth#2 width0pt}
+\def\chapter#1{\vskip 5pt {\bigger #1}}
+
+\dimen1=3.90in
+\newbox\bigbox
+
+
+%#1: width of left col
+%#2: width of right col
+\def\dtablestart#1#2{\halign\bgroup \vtop{\parindent=0pt\hsize=#1\strut##\strut}\hfil&\hskip 0.10 in\vtop{\parindent=0pt\hsize=#2\strut##\strut}\cr}
+\def\dtableend{\egroup}
+
+
+\setbox\bigbox=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}%{\bigger Theorems}
+{\bf Notation}\par
+$\bullet$ $\field$ denotes $\real$ or $\complex$.\par
+$\bullet$ $V$ and $W$ denote a vector spaces over $\field$.
+
+\chapter{Chapter 1}
+
+{\bf Def: complex numbers}\par
+$\bullet$ a {\it complex number} is an ordered pair $(a,b)$, where $a,b\in \real$, but we will write ths as $a+bi$.\par
+$\bullet$ the set of all complex numbers is denoted by $\complex$: $\complex = \{a+bi:a,b \in \real\}$.\par
+$\bullet$ Addition and multiplication on \complex are defined by $(a + bi) + (c + di) = (a+c) + (b+d)i$, $(a + bi)(c+di) = (ac-bd)+(ad+bc)i$, where $a,b,c,d \in \real$\par
+
+{\bf properties of complex arithmetic}
+
+\dtablestart{1.0 in}{2.8 in}
+{\it commutativity} &  $\alpha + \beta = \beta + \alpha $ and $\alpha \beta = \beta \alpha $ for all $\alpha, \beta \in \complex$\cr
+{\it associativity} &  $(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda) $ and $(\alpha \beta) \lambda$ = $\alpha(\beta\lambda)$ for all $\alpha,\beta,\lambda \in \complex$\cr
+{\it identities} &  $\lambda + 0 = \lambda$ and $\lambda 1 = \lambda$ for all $\lambda \in \complex$\cr
+{\it additive inverse} &  for every $\alpha \in \complex$, there exists a unique $\beta \in \complex$ such that $\alpha + \beta = 0$\cr
+{\it multiplicative inverse} &  for every $\alpha \in \complex$, with $\alpha \ne 0$, there exists a unique $\beta \in \complex$ such that $\alpha \beta = 1$\cr
+{\it distributive property} & $\lambda(\alpha + \beta) = \lambda\alpha + \lambda\beta $ for all $\lambda,\alpha,\beta \in \complex$.\cr
+\dtableend
+
+
+
+{\bf Def: $-\alpha$, subtraction, $1/\alpha$, division} Let $\alpha, \beta \in \complex$.\par
+$\bullet$ Let $-\alpha$ denote the additive inverse of $\alpha$. Thus $-\alpha$ is the unique complex number such that $\alpha + (-\alpha) = 0$.\par
+$\bullet$ {\it Subtraction} on $\complex$ is defined by $\beta-\alpha = \beta+(-\alpha)$.\par
+$\bullet$ For $\alpha \ne 0$, let $1/\alpha$ denote the multiplicative inverse of $\alpha$. Thus $1/\alpha$ is the unique complex number such that $\alpha(1/\alpha)=1$. {\it Division} on $\complex$ is defined by $\beta/\alpha = \beta(1/\alpha)$.\par
+
+{\bf Notation: F} Throughout this book, $\field$ stands for either $\real$ or $\complex$.
+
+{\bf Def: list, length} Suppose n is a nonnegative integer.  A {\it list} of {\it length} $n$ is an ordered collection of $n$ elements separated by commas and surrounded by parentheses. A list of length n looks like this: $(x_1,\dots,x_n).$ Two lists are equal IFF they have the same length and the same elements in the same order.
+
+{\bf Def: $\field^n$} $\field^n$ is the set of all lists of length $n$ of elements of $\field$: $\field^n = \{(x_1,\dots,x_n): x_j \in \field for j = 1,\dots,n\}$. For $(x_1\Dots x_n) \in \field^n$ and $j \in \{1\Dots n\}$, we say that $x_j$ is the $j^{\rm th}$ {\it coordinate} of $(x_1 \Dots x_n)$.
+
+{\bf Def: addition in $\field^n$} {\it Addition} in $\field^n$ is defined by adding corresponding coordinates: $(x_1\Dots x_n) + (y_1 \Dots y_n) = (x_1+y_1 \Dots x_n + y_n)$.
+
+{\bf Commutativity of addition in $\field^n$} If $x,y \in \field^n$, then $x+y = y+x$.
+
+{\bf Def: $0$} Let $0$ denote the list of length $n$ whose coordinates are all $0$: $0 = (0\Dots 0)$.
+
+{\bf Def: additive inverse in $\field^n$} For $x \in \field^n$, the {\it additive inverse} of $x$, denoted $-x$, is the vector $-x \in \field^n$ such that $x+(-x)=0$. In other words, if $x = (x_1 \Dots x_n)$, then $-x = (-x_1\Dots -x_n)$.
+
+{\bf Def: scalar multiplication in $\field^n$} The {\it product} of a number $\lambda$ and a vector in $\field^n$ is computed by multiplying each coordinate of the vector by $\lambda$: $\lambda(x_1\Dots x_n) = (\lambda x_1 \Dots \lambda x_n)$; here $\lambda \in \field$ and $(x_1 \Dots x_n) \in \field^n$.
+
+{\bf Def: addition, scalar multiplication} An {\it addition} on a set V is a function that assigns an element $u + v \in V$ to each pair of elements $u,v \in V$. A {\it scalar multiplication} on a set $V$ is a function that assigns an element $\lambda v \in V$ to each $\lambda \in \field$ and each $v \in V$.
+
+{\bf Def: vector space} A {\it vector space} is a set $V$ along with an addition on $V$ and a scalar multiplication on $V$ such that the following properties hold:
+
+\dtablestart{1.0 in}{2.8 in}
+{\it commutativity} &  $u + v = v + u $ for all $u, v \in V$\cr
+{\it associativities} &  $(u + v) + w = u + (v + w) $ and $(ab) v$ = $a(bv)$ for all $u,v,w \in V$ and all $a,b \in \field$\cr
+{\it additive identity} &  there exists an element $0 \in V$ such that $v + 0 = v$ for all $v \in V$.\cr
+{\it additive inverse} &  for every $v \in V$, there exists $w \in V$ such that $v + w = 0$\cr
+{\it multiplicative identity} &  $1v = v$ for all $v \in V$.\cr
+{\it distributive properties} & $a(u + v) = au + av $ and $(a + b)v = av + bv$ for all $a,b \in \field$ and all $u,v \in V$.\cr
+\dtableend
+
+{\bf Def: vector, point} Elements of a vector space are called {\it vectors} or {\it points}.
+
+{\bf Def: real vector space, complex vector space}\par
+$\bullet$ A vector space over $\real$ is called a {\it real vector space}.\par
+$\bullet$ A vector space over $\complex$ is called a {\it complex vector space}.\par
+
+{\bf Notation: $\field^S$}\par
+$\bullet$ If $S$ is a set, then $\field^S$ denotes the set of functions from $S$ to $\field$.\par
+$\bullet$ For $f,g \in \field^S$, the {\it sum} $f+g \in \field^S$ is the function defined by $(f+g)(x) = f(x)+g(x)$ for all $x \in S$.\par
+$\bullet$ For $\lambda \in \field$ and $f \in \field^S$, the {\it product} $\lambda f \in \field^S$ is the function defined by $(\lambda f)(x)=\lambda f(x)$ for all $x \in S$.\par
+
+{\bf Unique additive identity: } A vector space has a unique additive identity.
+
+{\bf Unique additive inverse: } Every element in a vector space has a unique additive inverse.
+
+{\bf Notation:} $-v, w-v$. \quad Let $v,w\in V$. Then\par
+$\bullet$ $-v$ denotes the additive inverse of $v$;\par
+$\bullet$ $w-v$ is defined to be $w+ (-v)$.\par
+
+{\bf The number 0 times a vector} $0v=0$ for every $v \in V$.
+
+{\bf The number times the vector 0} $a0 = 0$ for every $a \in \field$.
+
+{\bf The number -1 times a vector} $(-1)v = -v$ for every $v \in V$.
+
+{\bf Def: subspace} A subset $U$ of $V$ is called a {\it subspace} of $V$ if $U$ is also a vector space (using the same addition addition and scalar multiplication as on V).
+
+{\bf Conditions for a subspace} A subset $U$ of $V$ is a subspace of $V$ if and only if $U$ satisfies the following three conditions:
+
+\dtablestart{1.8 in}{2.0 in}
+{\it additive identity} &  $0 \in U$\cr
+{\it closed under addition} &  $u,w \in U$ implies $u + w \in U$\cr
+{\it closed under scalar multiplication} &  $a \in \field$ and $u \in U$ implies $au \in U$.\cr
+\dtableend
+
+{\bf Def: sum of subsets} Suppose $U_1 \Dots U_m$ are subsets of $V$. The {\it sum} of $U_1 \Dots U_m$, denoted $U_1+\cdots+U_m$, is the set of all possible sums of elements of $U_1 \Dots U_m$. More precisely, $U_1+\cdots+U_m = \{u_1+\cdots+u_m : u_1 \in U_1 \Dots u_m \in U_m\}$.
+
+{\bf Sum of subspaces is the smallest containing subspace} Suppose $U_1 \Dots U_m$ are subspaces of $V$. Then $U_1+\cdots+U_m$ is the smalles subspace of $V$ containing $U_1 \Dots U_m$.
+
+{\bf Def: direct sum} Suppose $U_1 \Dots U_m$ are subspaces of $V$.\par
+$\bullet$ The sum $U_1 + \cdots + U_m$ is called a {\it direct sum} if each element of $U_1 + \cdots + U_m$ can be written in only one way as a sum $u_1 + \cdots + u_m$, where each $u_j$ is in $U_j$.\par
+$\bullet$ If $U_1 + \cdots + U_m$ is a direct sum, then $U_1 \oplus \cdots \oplus U_m$ denotes $U_1 + \cdots + U_m$, with the $\oplus$ notation serving as an indication that this is a direct sum.
+
+{\bf Condition for a direct sum} Suppose $U_1 \Dots U_m$ are subspaces of $V$. Then $U_1 + \cdots + U_m$ is a direct sum IFF the only way to write 0 as a sum $u_1 + \cdots + u_m$, where each $u_j$ is in $U_j$, is by taking each $u_j$ equal to 0.
+
+{\bf Direct sum of two subspaces} Suppose $U$ and $W$ are subspaces of $V$. Then $U$ + $W$ is a direct sum IFF $U \cap W = \{0\}$.
+
+\chapter{Chapter 2}
+
+{\bf Notation: list of vectors} We will usually write lists of vectors without surrounding parentheses.
+
+{\bf Def: linear combination} A {\it linear combination} of a list $v_1\Dots v_m$ of vectors in $V$ is a vector of the form $a_1v_1 + \cdots + a_mv_m$, where $a_1\Dots a_m \in \field$.
+
+{\bf Def: span} The set of all linear combinations of a list of vectors $v_1\Dots v_m$ in $V$ is called the {\it span} of $v_1 \Dots v_m$, denoted ${\rm span}(v_1\Dots v_m)$. In other words, ${\rm span}(v_1 \Dots v_m) = \{a_1v_1 + \cdots + a_mv_m : a_1 \Dots a_m \in \field\}$. The span of the empty list $( )$ is defined to be $\{0\}$
+
+{\bf Span is the smallest containing subspace} The span of a list of vectors in $V$ is the smallest subspace of $V$ containing all the vectors in the list.
+
+{\bf Def: spans} If ${\rm span}(v_1 \Dots v_m)$ equals $V$, we say that $v_1 \Dots v_m$ {\it spans} $V$.
+
+{\bf Def: finite-dimensional vector space} A vector space is called {\it finite-dimensional} if some list of vectors in it spans the space.
+
+{\bf Def: polynomial, $\polynomial(\field)$}\par 
+$\bullet$ A function $p : \field \rightarrow \field$ is called a {\it polynomial} with coefficients in $\field$ if there exist $a_0 \Dots a_m \in \field$ such that $p(z) = a_0 + a_1z + a_2z^2+\cdots +a_mz^m$ for all $z \in \field$.\par
+$\bullet$ $\polynomial(\field)$ is the set of all polynomials with coefficients in $\field$.
+
+{\bf Def: degree of a polynomial, ${\rm deg}\ p$}\par
+$\bullet$ A polynomial $p \in \polynomial(\field)$ is said to have {\it degree} $m$ if there exist scalars $a_0, a_1 \Dots a_m \in \field$ with $a_m \ne 0$ such that $p(z) = a_0 + a_1z + \cdots + a_mz^m$ for all $z \in \field$. If $p$ has degree $m$, we write ${\rm deg}\ p = m$.\par
+$\bullet$ The polynomial that is identically 0 is said to have degree $- \infty$.\par
+
+{\bf Def: $\polynomial_m(\field)$}
+For $m$ a nonnegative integer, $\polynomial_m(\field)$ denotes the set of all polynomials with coefficients in $\field$ and degree at most $m$.
+
+{\bf Def: infinite-dimensional vector space} A vector space is called {\it infinite-dimensional} if it is not finite-dimensional.
+
+{\bf Def: linearly independent}\par
+$\bullet$ A list $v_1 \Dots v_m$ of vectors in $V$ is called {\bf linearly independent} if the only choice of $a_1 \Dots a_m \in \field$ that makes $a_1v_1 + \cdots + a_mv_m$ equal $0$ is $a_1 = \cdots = a_m = 0$\par
+$\bullet$ The empty list $(\ )$ is also declared to be linearly independent\par
+
+{\bf Def: linearly dependent}\par
+$\bullet$ A list of vectors in $V$ is called {\it linearly dependent} if it is not linearly independent.\par
+$\bullet$ In other words, a list $v_1\Dots v_m$ of vectors in $V$ is linearly dependent if there exist $a_1 \Dots a_m \in \field$, not all 0, such that $a_1v_1 + \cdots + a_mv_m = 0$.
+
+{\bf Linear Dependence Lemma}
+Suppose $v_1 \Dots v_m$ is a linearly dependent list in V. Then there exists $j \in {1,2\Dots m}$ such that the following hold:\par
+(a) $v_j \in {\rm span}(v_1\Dots v_{j-1})$;\par
+(b) if the $j^{\rm th}$ term is removed from $v_1 \Dots v_m$, the span of the remaining list equals ${\rm span}(v_1 \Dots v_m)$.\par
+
+{\bf Length of linearly independent list $\leq$ length of spanning list}
+In a finite-dimensional vector space, the length of very linearly independent list of vectors is less than or equal to the length of very spanning list of vectors.
+
+{\bf Finite-dimensional subspaces}
+Every subspace of a finite-dimensional vector space if finite-dimensional.
+
+{\bf Def: basis}
+A {\it basis} of $V$ is a list of vectors in $V$ that is linearly independent and spans $V$.
+
+{\bf Criterion for basis}
+A list $v_1 \Dots v_n$ of vectors in $V$ is a basis of $V$ if and only if every $v \in V$ can be written uniquely in the form $v = a_1v_1 + \cdots + a_nv_n$, where $a_1 \Dots a_n \in \field$.
+
+{\bf Spanning list contains a basis}
+Every spanning list in a vector space can be reduced to a basis of the vector space.
+
+{\bf Basis of a finite-dimensional vector space}
+Every finite-dimensional vector space has a basis.
+
+{\bf Linearly independent list extends to a basis}
+Every linearly independent list of vectors in a finite-dimensional vector space can be extended to a basis of the vector space.
+
+{\bf Every subspace of $V$ is part of a direct sum equal to $V$}
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. Then there is a subspace $W$ of $V$ such that $V = U \oplus W$.
+
+{\bf Basis length does not depend on basis}
+Any two bases of a finite-dimensional vector space have the same length.
+
+{\bf Def: dimension, ${\rm dim}\ V$}\par
+$\bullet$ The {\it dimension} of a finite-dimensional vector space is the length of any basis of the vector space.\par
+$\bullet$ The dimension of $V$ (if $V$ is finite-dimensional) is denoted by ${\rm dim}\ V$.\par
+
+{\bf Dimension of a subspace}
+If $V$ is finite-dimensional and $U$ is a subspace of $V$, then ${\rm dim}\ U \leq {\rm dim}\ V$.
+
+{\bf Linearly independent list of the right length is a basis}
+Suppose $V$ is finite dimensional. Then every linearly independent list of vectors in $V$ with length ${\rm dim}\ V$ is a basis of $V$.
+
+{\bf Spanning list of the right length is a basis}
+Suppose $V$ is finite-dimensional. Then every spanning list of vectors in $V$ with length ${\rm dim}\ V$ is a basis of $V$.
+
+{\bf Dimension of a sum}
+If $U_1$ and $U_2$ are subspaces of a finite-dimensional vector space, then $\dim (U_1+U_2) = \dim U_1 + \dim U_2 - \dim (U_1 \cap U_2)$
+
+\chapter{Chapter 3}
+
+{\bf Def: linear map}
+A {\it linear map} from $V$ to $W$ is a function $T:V\rightarrow W$ with the following properties:\par
+\dtablestart{1.2 in}{2.6 in}
+{\it additivity} &  $T(u+v) = Tu + Tv$ for all $u,v \in V$\cr
+{\it homogenity} &  $T(\lambda v) = \lambda (Tv) $ for all $\lambda \in \field$ and all $v \in V$\cr
+\dtableend
+
+{\bf Notation: ${\cal L}(V,W)$}
+The set of all linear maps from $V$ to $W$ is denoted ${\cal L}(V,W)$.
+
+{\bf Linear maps and basis of domain}
+Suppose $v_1 \Dots v_n$ is a basis of $V$ and $w_1 \Dots w_n \in W$. Then there exists a unique linear map $T : V \rightarrow W$ such that $Tv_j = w_j$ for each $j = 1 \Dots n$.
+
+{\bf Def: addition and scalar multiplication on ${\cal L}(V,W)$}
+Suppose $S,T \in {\cal L}(V,W)$ and $\lambda \in \field$. The {\it sum} $S+T$ and the {\it product} $\lambda T$ are the linear maps from $V$ to $W$ defined by $(S+T)(v) = Sv + Tv $ and $(\lambda T)(v) = \lambda (Tv)$, for all $v \in V$.
+
+{\bf $\linear(V,W)$ is  vector space}
+With the operations of addition and scalar multiplication as defined above $\linear(V,W)$ is a vector space.
+
+{\bf Def: Product of Linear Maps}
+If $T \in \linear(U,V)$ and $S \in \linear(V,W)$, then the {\it product} $ST \in \linear(U,W)$ is defined by $(ST)(u) = S(Tu)$ for $u \in U$.
+
+{\bf Algebraic properties of products }\par
+{\it associativity} $(T_1T_2)T_3 = T_1(T_2T_3)$, whenever $T_1$,$T_2$, and $T_3$ are linear maps such that the products make sense (meaning that $T_3$ maps into the domain of $T_2$, and $T_2$ maps into the domain of $T_1$).\par
+{\it identity} $TI = IT = T$, whenver $T \in \linear(V,W)$ (the first $I$ is the identity map on $V$, and the second $I$ is the identity map on $W$).\par
+{\it distributive properties} $(S_1+S_2)T = S_1T + S_2T$ and $S(T_1+T_2) = ST_1 + ST_2$ whenever $T,T_1,T_2 \in \linear(U,V)$ and $S, S_1, S_2 \in \linear(V,W)$.
+
+{\bf Linear maps take 0 to 0} Suppose $T$ is a linear map from $V$ to $W$. Then $T(0) = 0$.
+
+{\bf Def: null space, ${\rm null}\ T$}
+For $T \in \linear(V,W)$, the {\it null space} of $T$, denoted ${\rm null}\ T$, is the subset of $V$ consisting of those vectors that $T$ maps to 0: ${\rm null}\ T = \{v \in V : Tv = 0\}$
+
+{\bf The null space is a subspace}
+Suppose $T \in \linear(V,W)$. Then ${\rm null}\ T$ is a subspace of $V$.
+
+{\bf Def: injective}
+A function $T:V \rightarrow W$ is called {\it injective} if $Tu = Tv$ implies $u = v$.
+
+{\bf Injectivity is equivalent to null space equals $\{0\}$}
+Let $T \in \linear(V,W)$. Then $T$ is injective IFF null $T = \{0\}$.
+
+{\bf Def: range}
+For $T$ a function from $V$ to $W$, the {\it range} of $T$ is the subset of $W$ consisting of those vectors that are of the form $Tv$ for some $v \in V$: ${\rm range}\ T = \{Tv : v \in V\}$.
+
+{\bf The range is a subspace}
+If $T \in \linear(V,W)$, then ${\rm range}\ T$ is a subspace of $W$.
+
+{\bf Def: surjective}
+A function $T : V \rightarrow W$ is called {\it surjective} if its range equals $W$.
+
+{\bf Fundamental Theorem of Linear Maps}
+Suppose $V$ is finite-dimensional and $T \in \linear(V,W)$. Then range $T$ is finite-dimensional and $\dim V = \dim {\rm null}\ T + \dim {\rm range}\ T$.
+
+{\bf A map to a smaller dimensional space if not injective}
+Suppose $V$ and $W$ are finite-dimensional vector spaces such that $\dim V > \dim W$. Then no linear map from $V$ to $W$ is injective.
+
+{\bf A map to a larger dimensional space is not surjective}
+Suppose $V$ and $W$ are finite-dimensional vector spaces such that $\dim V < \dim W$. Then no linear map from $V$ to $W$ is surjective.
+
+{\bf Homogeneous system of linear equations}
+A homogeneous system of linear equations with more variables than equations has nonzero solutions.
+
+{\bf Inhomogeneous system of linear equations}
+An inhomogeneous system of linear equations with more equations than variables has no solution for some choice of the constant terms.
+
+{\bf Def: matrix, $A_{j,k}$}
+Let $m$ and $n$ denote positive integers. An $m$-by-$n$ {\it matrix} $A$ is a rectangular array of elements of $\field$ with $m$ rows and $n$ columns:
+$$A = \left(\matrix{A_{1,1} & \ldots & A_{1,n}\cr \vdots & \ddots & \vdots \cr A_{m,1} & \ldots & A_{m,n}}\right)$$
+The notation $A_{j,k}$ deontes the entry in row $j$, column $k$ of $A$. In other words, the first index refers to the row number and the second index refers to the column number.
+
+{\bf Def: matrix of a linear map, $\mapmatrix(T)$}
+Suppose $T \in \linear(V,W)$ and $v_1 \Dots v_n$ is a basis of $V$ and $w_1 \Dots w_m$ is a basis of $W$. The {\it matrix of $T$} with respect to these bases is the $m$-by-$n$ matrix $\mapmatrix(T)$ whose entries $A_{j,k}$ are defined by $Tv_k = A_{1,k}w_1+ \cdots + A_{m,k}w_m$. If the bases are not clear from the context, then the notation $\mapmatrix(T,(v_1 \Dots v_n),(w_1 \Dots w_m))$ is used.
+
+{\bf matrix addition}
+The {\it sum of two matrices of the same size} is the matrix obtained by adding corresponding entries in the matrices:
+$$\displaylines{\left(\matrix{A_{1,1} & \ldots & A_{1,n}\cr \vdots & \ddots & \vdots \cr A_{m,1} & \ldots & A_{m,n}}\right) + \left(\matrix{C_{1,1} & \ldots & C_{1,n}\cr \vdots & \ddots & \vdots \cr C_{m,1} & \ldots & C_{m,n}}\right)\hfill\cr\hfill= \left(\matrix{A_{1,1}+C_{1,1} & \ldots & A_{1,n}+C_{1,n}\cr \vdots & \ddots & \vdots \cr A_{m,1}+C_{m,1} & \ldots & A_{m,n}+C_{m,n}}\right)}$$
+In other words, $(A+C)_{j,k}=A_{j,k}+C_{j,k}$.
+
+{\bf The matrix of the sum of linear maps}
+Suppose $S,T \in \linear(V,W). Then \mapmatrix(S+T) = \mapmatrix(S) + \mapmatrix(T)$
+
+{\bf Def: scalar multiplication of a matrix}
+The product of a scalar and a matrix is the matrix obtained by multiplying each entry in the matrix by the scalar:
+$$\lambda \left(\matrix{A_{1,1} & \ldots & A_{1,n}\cr \vdots & \ddots & \vdots \cr A_{m,1} & \ldots & A_{m,n}}\right)=\left(\matrix{\lambda A_{1,1} & \ldots & \lambda A_{1,n}\cr \vdots & \ddots & \vdots \cr \lambda A_{m,1} & \ldots & \lambda A_{m,n}}\right)$$
+In other words, $(\lambda A)_{j,k}=\lambda A_{j,k}$.
+
+{\bf The matrix of a scalar times a linear map}
+Suppose $\lambda \in \field$ and $T \in \linear(V,W)$. Then $\mapmatrix(\lambda T) = \lambda \mapmatrix(T)$.
+
+{\bf Notation: $\field^{m,n}$}
+For $m$ and $n$ positive integers, the set of all $m$-by-$n$ matrices with entries in $\field$ is denoted by $F^{m,n}$.
+
+{\bf $\dim \field^{m,n} = mn$} Suppose $m$ and $n$ are positive integers. With addition and scalar multiplication defined as above, $\field^{m,n}$ is a vector space with dimension $m n$.
+
+{\bf Def: matrix multiplication}
+Suppose $A$ is an $m$-by-$n$ matrix and $C$ is an $n$-by-$p$ matrix. Then $AC$ is defined to be the $m$-by-$p$ matrix whose entry in row $j$, column $k$, is given by the following equation: $(AC)_{j,k} = \sum_{r=1}^nA_{j,r}C_{r,k}$. In other words, the entry in row $j$, column $k$, of $AC$ is computed by taking row $j$ of $A$ and column $k$ of $C$, multiplying together corresponding entries, and then summing.
+
+{\bf The matrix of the product of linear maps}
+If $T \in \linear(U,V)$ and $S \in \linear(V,W), then \mapmatrix(ST) = \mapmatrix(S)\mapmatrix(T)$.
+
+{\bf Notation: $A_{j,.}, A_{.,k}$} Suppose $A$ is an $m$-by-$n$ matrix.\par
+$\bullet$ If $1 \leq j \leq m$, then $A_{j,.}$ denotes the $1$-by-$n$ matrix consisting of row $j$ of $A$.\par
+$\bullet$ If $1 \leq k \leq n$, then $A_{.,k}$ denotes the $m$-by-$1$ matrix consisting of row $k$ of $A$.\par
+
+{\bf Entry of matrix product equals row times column}
+Suppose $A$ is an $m$-by-$n$ matrix and $C$ is an $n$-by-$p$ matrix. Then $(AC)_{j,k} = A_{j,.}C_{.,k}$, for $1 \leq j \leq m$ and $1 \leq k \leq p$.
+
+{\bf Column of matrix product equal matrix times column}
+Suppose $A$ is an $m$-by-$n$ matrix and $C$ is an $n$-by-$p$ matrix. Then $(AC)_{.,k} = AC_{.,k}$ for $1 \le k \le p$.
+
+{\bf Linear combination of columns}
+Suppose $A$ is an $m$-by-$n$ matrix and $c = \left(\matrix{c_1 \cr \vdots \cr c_n}\right)$ is an $n$-by-$1$ matrix. Then $Ac = c_1A_{.,1} + \cdots + c_nA_{.,n}$. In other words, $Ac$ is a linear combination of the columns of A, with the scalars that multiply the columns coming from $c$.
+
+{\bf Def: invertible, inverse}\par
+$\bullet$ A linear map $T \in \linear(V,W)$ is called {\it invertible} if there exists a linear map $S \in \linear(W,V)$ such that $ST$ equals the identity map on $V$ and $TS$ equals the identity map on $W$.\par
+$\bullet$ A linear map $S \in \linear(W,V)$ satisfying $ST = I$ and $TS = I$ is called an {\it inverse} of $T$ (note that the first $I$ is the identity map on $V$ and the second $I$ is the identity map on $W$).
+
+{\bf Inverse is unique} An invertible linear map has a unique inverse.
+
+{\bf Notation: $T^{-1}$}
+If $T$ is invertible, then its inverse is denoted by $T^{-1}$. In other words, if $T \in \linear(V,W)$ is invertible, then $T^{-1}$ is the unique element of $\linear(W,V)$ such that $T^{-1}T = I$ and $TT^{-1}=I$.
+
+{\bf Invertibility is equivalent to injectivity and surjectivity}
+A linear map is invertible if and only if it is injective and surjective.
+
+{\bf Def: isomorphism, isomorphic}\par
+$\bullet$ An {\it isomorphism} is an invertible linear map\par
+$\bullet$ Two vector spaces are called {\it isomorphic} if there is an isomorphism from one vector space into the other one.
+
+{\bf Dimension shows whether vector spaces are isomorphic}
+Two finite-dimensional vector spaces over $\field$ are isomorphic IFF they have the same dimension.
+
+{\bf $\linear(V,W)$ and $\field^{m,n}$ are isomorphic}
+Suppose $v_1 \Dots v_n$ is a basis of $V$ and $w_1 \Dots w_m$ is a basis of $W$. Then $\mapmatrix$ is an isomorphism between $\linear(V,W)$ and $\field^{m,n}$.
+
+{\bf $\dim \linear(V,W) = (\dim V)(\dim W)$}
+Suppose $V$ and $W$ are finite-dimensional. Then $\lambda(V,W)$ is finite-dimensional and $\dim \linear(V,W) = (\dim V)(\dim W)$.
+
+{\bf matrix of a vector $\mapmatrix(v)$}
+Suppose $v \in V$ and $v_1 \Dots v_n$ is a basis of $V$. The {\bf matrix of} $v$ with respect to this basis is the $n$-by-$1$ matrix $M(v) = \left(\matrix{c_1\cr \vdots \cr c_n}\right)$, where $c_1 \Dots c_n$ are the scalars such that $v = c_1v_1 + \cdots + c_nv_n$.
+
+{\bf $\mapmatrix(T)_{.,k} = \mapmatrix(v_k)$}
+Suppose $T \in \linear(V,W)$ and $v_1 \Dots v_n$ is a basis of $V$ and $w_1 \Dots w_m$ is a basis of $W$. Let $1 \le k \le n$. Then the $k^{\rm th}$ column of $\mapmatrix(T)$, which is denoted by $\mapmatrix(T)_{.,k}$, equals $\mapmatrix(v_k)$.
+
+{\bf Linear maps act like matrix multiplication}
+Suppose $T \in \linear(V,W)$ and $v \in V$. Suppose $v_1 \Dots v_n$ is a basis of $V$ and $w_1 \Dots w_m$ is a basis of $W$. Then $\mapmatrix(Tv)$ = $\mapmatrix(T)\mapmatrix(v)$.
+
+{\bf Def: operator, $\linear(V)$}\par
+$\bullet$ A linear map from a vector space to itself is called an {\it operator}.\par
+$\bullet$ The notation $\linear(V)$ denotes the set of all operators on $V$. In other words, $\linear(V) = \linear(V,V)$.
+
+{\bf Injectivity is equivalent to surjectivity in finite dimension}
+Suppose $V$ is finite-dimensional and $T \in \linear(V)$. Then the following are equivalent:\par
+(a) $T$ is invertible;\par
+(b) $T$ is injective;\par
+(c) $T$ is surjective;
+
+{\bf Def: product of vector spaces} Suppose $V_1 \Dots V_m$ are vector spaces over $\field$.\par
+$\bullet$ The {\it product} $V_1 \times \cdots \times V_m$ is defined by $V_1 \times \cdots \times V_m = \{(v_1 \Dots v_m) : v_1 \in V_1 \Dots v_m \in V_m\}$.\par
+$\bullet$ Addition on $V_1 \times \cdots \times V_m$ is defined by $(u_1\Dots u_m) + (v_1 \Dots v_m) = (u_1+v_1 \Dots u_m+v_m)$.\par
+$\bullet$ Scalar multiplication on $V_1 \times \cdots \times V_m$ is defined by $\lambda(v_1 \Dots v_m) = (\lambda v_1 \Dots \lambda v_m)$.
+
+{\bf Product of vector spaces is a vector space}
+Suppose $V_1 \Dots V_m$ are vector spaces over $\field$. Then $V_1 \times \cdots \times V_m$ is a vector space over $\field$.
+
+{\bf Dimension of a product is the sum of dimensions}
+Suppose $V_1 \Dots V_m$ are finite-dimensional vector spaces. Then $V_1 \times \cdots \times V_m$ is finite-dimensional and $\dim (V_1 \times \cdots \times V_m) = \dim V_1 + \cdots + \dim V_m$.
+
+{\bf Products and direct sums}
+Suppose that $U_1 \Dots U_m$ are subspaces of $V$. Define a linear map $\Gamma : U_1 \times \cdots \times U_m \rightarrow U_1 + \cdots + U_m$ by $\Gamma (u_1 \Dots u_m) = u_1 + \cdots + u_m$. Then $U_1 + \cdots + U_m$ is a direct sum IFF $\Gamma$ is injective.
+
+{\bf A sum is a direct sum IFF dimensions add up}
+Suppose $V$ is finite-dimensional and $U_1 \Dots U_m$ are subspaces of $V$. Then $U_1 + \cdots + U_m$ is a direct sum IFF $\dim (U_1+\cdots+U_m) = \dim U_1 + \cdots + \dim U_m$
+
+{\bf Def: $v+U$}
+Suppose $v \in V$ and $U$ is a subspace of $V$. Then $v + U$ is the subset of $V$ defined by $v+U = \{v+u: u \in U\}$.
+
+{\bf Def: affine subset, parallel}\par
+$\bullet$ An {\it affine subset} of $V$ is a subset of $V$ of the form $v + U$ for some $v \in V$ and some subspace $U$ of $V$.\par
+$\bullet$ For $v \in V$ and $U$ a subspace of $V$, the affine subset $v + U$ is said to be {\it parallel} to $U$.
+
+{\bf Def: quotient space, $V/U$}
+Suppose $U$ is a subspace of $V$. Then the {\it quotient space} $V/U$ is the set of all affine subsets of $V$ parallel to $U$. In other words, $V/U = \{v+U : v \in V\}$.
+
+{\bf Two affine subsets parallel to $U$ are equal or disjoint}
+Suppose $U$ is a subspace of $V$ and $v,w \in V$. Then the following are equivalent.\par
+(a) $v-w \in U$;\par
+(b) $v+U = w+U$;\par
+(c) $(v+U) \cap (w+U) \ne \phi$.
+
+{\bf Def: addition and scalar multiplication on $V/U$}
+Suppose $U$ is a subspace of $V$. Then {\it addition} and {\it scalar multiplication} are defined on $V/U$ by $(v+U) + (w+U) = (v+w)+U$, $\lambda(v+U) = (\lambda v) + U$, for $v,w \in V$ and $\lambda \in \field$.
+
+{\bf Quotient space is a vector space}
+Suppose $U$ is a subspace of $V$. Then $V/U$, with the operations of addition and scalar multiplication as defined above, is a vector space.
+
+{\bf Def: quotient map, $\pi$}
+Suppose $U$ is a subspace of $V$. The {\it quotient map} $\pi$ is the linear map $\pi : V \rightarrow V/U$ defined by $\pi(v) = v + U$, for $v \in V$.
+
+{\bf Dimension of a quotient space} Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. Then $\dim V/U = \dim V - \dim U$.
+
+{\bf Def: $\tilde T$}
+Suppose $T \in \linear(V,W)$. Define $\tilde T: V/({\rm null}\ T) \rightarrow W$ by $\tilde T(v+ {\rm null}\ T) = Tv$.
+
+{\bf Null space and range of $\tilde T$}
+Suppose $T \in \linear(V,W)$. Then\par
+(a) $\tilde T$ is a linear map from $V/({\rm null}\ T)$ to $W$;\par
+(b) $\tilde T$ is injective;\par
+(c) ${\rm range}\ \tilde T = {\rm range}\ T$;\par
+(d) $V / ({\rm null}\ T)$ is isomorphic to ${\rm range}\ T$.
+
+{\bf Def: linear functional} A {\it linear functional} on $V$ is a linear map from $V$ to $\field$. In other words, a linear functional is an element of $\linear(V,\field)$.
+
+{\bf Def: dual space, $V'$}
+The {\it dual space} of $V$, denoted $V'$, is the vector space of all linear functionals on $V$. In other words, $V' = \linear(V,\field)$.
+
+{\bf $\dim V' = \dim V$}
+Suppose $V$ is finite-dimensional. Then $V'$ is also finite-dimensional and $\dim V' = \dim V$.
+
+{\bf Def: dual basis}
+If $v_1 \Dots v_n$ is a basis of $V$, then the {\it dual basis} of $v_1 \Dots v_n$ is the list $\varphi_1 \Dots \varphi_n$ of elements of $V'$, where each $\varphi_j$ is the linear functional on $V$ such that \vskip -7pt $$\varphi_j(v_k)=\cases{1 & if $k = j$ \cr 0 & if $k \ne j$}$$
+
+{\bf Dual basis is a basis of the dual space}
+Suppose $V$ is finite-dimensional. Then the dual basis of a basis of $V$ is a basis of $V'$.
+
+{\bf Def: dual map, $T'$}
+If $T \in \linear(V,W)$, then the {\it dual map} of $T$ is the linear map $T' \in \linear(W',V')$ defined by $T'(\varphi) = \varphi \circ T$ for $\varphi \in W'$.
+
+{\bf Algebraic properties of dual maps}\par
+$\bullet$ $(S+T)' = S' + T'$ for all $S,T \in \linear(V,W)$.\par
+$\bullet$ $(\lambda T)' = \lambda T'$ for all $\lambda \in \field$ and all $T \in \linear(V,W)$.\par
+$\bullet$ $(ST)' = T'S'$ for all $T \in \linear(U,V)$ and all $S \in \linear(V,W)$.\par
+
+{\bf Def: annihilator, $U^0$}
+For $U \subset V$, the {\it annihilator} of $U$, denoted $U^0$, is defined by $U^0 = \{\varphi \in V' : \varphi(u) = 0$ for all $u \in U\}$.
+
+{\bf The annihilator is a subspace}
+Suppose $U \subset V$. Then $U^0$ is a subspace of $V'$.
+
+{\bf Dimension of the annihilator}
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. Then $\dim U + \dim U^0 = \dim V$.
+
+{\bf The null space of $T'$}
+Suppose $V$ and $W$ are finite-dimensional and $T \in \linear(V,W)$. Then\par
+(a) $\mnull T' = (\mrange T)^0$;\par
+(b) $\dim \mnull T' = \dim \mnull T + \dim W - \dim V$.
+
+{\bf $T$ surjective is equivalent to $T'$ injective}
+Suppose $V$ and $W$ are finite-dimensional and $T \in \linear(V,W)$. Then $T$ is surjective IFF $T'$ is injective.
+
+{\bf The range of $T'$}
+Suppose $V$ and $W$ are finite-dimensional and $T \in \linear(V,W)$. Then\par
+(a) $\dim \mrange T' = \dim \mrange T$;\par
+(b) $\mrange T' = (\mnull T)^0$.
+
+{\bf $T$ injective is equivalent to $T'$ surjective}
+Suppose $V$ and $W$ are finite-dimensional and $T \in \linear(V,W)$. Then $T$ is injective IFF $T'$ is surjective.
+
+{\bf Def: transpose, $A^t$}
+The {\it transpose} of a matrix $A$, denoted $A^t$, is the matrix obtained from $A$ by interchanging the rows and columns. More specifically, if $A$ is an $m$-by-$n$ matrix, then $A^t$ is the $n$-by-$m$ matrix whose entries are given by the equation $(A^t)_{k,j}=A_{j,k}$.
+
+{\bf The transpose of the product of matrices}
+If $A$ is an $m$-by-$n$ matrix and $C$ is an $n$-by-$p$ matrix, then $(AC)^t = C^tA^t$.
+
+{\bf The matrix of $T'$ is the transpose of the matrix of $T$}
+Suppose $T \in \linear(V,W)$. Then $\mapmatrix(T') = (\mapmatrix(T))^t$.
+
+{\bf Def: row rank, column rank}
+Suppose $A$ is an $m$-by-$n$ matrix with entries in $\field$.\par
+$\bullet$ The {\it row rank} of $A$ is the dimension of the span of the rows of $A$ in $\field^{1,n}$.\par
+$\bullet$ The {\it column rank} of $A$ is the dimension of the span of the columns of $A$ in $\field^{m,1}$.
+
+{\bf Dimension of $\mrange T$ equals column rank of $\mapmatrix T$}
+Suppose $V$ and $W$ are finite-dimensional and $T \in \linear(V,W)$. Then $\dim \mrange T$ equals the column rank of $\mapmatrix(T)$.
+
+{\bf Row rank equals column rank}
+Suppose $A \in \field^{m,n}$. Then the row rank of $A$ equals the column rank of $A$.
+
+{\bf Def: rank}
+The {\it rank} of a matrix $A \in \field^{m,n}$ is the column rank of $A$.
+
+\chapter{Chapter 5}
+
+{\bf Def: invariant subspace}
+Suppose $T \in \linear(V)$. A subspace $U$ of $V$ is called {\it invariant} under $T$ if $u \in U$ implies $Tu \in U$.
+
+{\bf Def: eigenvalue}
+Suppose $T \in \linear(U,V)$. A number $\lambda \in \field$ is called an {\it eigenvalue} of $T$ if there exists $v \in V$ such that $v \ne 0$ and $Tv = \lambda v$.
+
+{\bf Equivalent conditions to be an eigenvalue}
+Suppose $V$ is finite-dimensional. $T \in \linear(V)$, and $\lambda \in \field$. Then the following are equivalent:\par
+(a) $\lambda$ is an eigenvalue of $T$;\par
+(b) $T - \lambda I$ is not injective;\par
+(c) $T - \lambda I$ is not surjective;\par
+(d) $T - \lambda I$ is not invertible.\par
+
+{\bf Def: eigenvector}
+Suppose $T \in \linear(V)$ and $\lambda \in \field$ is an eigenvalue of $T$. A vector $v \in V$ is called an {\it eigenvector} of $T$ corresponding to $\lambda$ if $v \ne 0$ and $Tv = \lambda v$.
+
+{\bf Linearly independent eigenvectors}
+Let $T \in \linear(V)$. Suppose $\lambda_1 \Dots \lambda_m$ are distinct eigenvalues of $T$ and $v_1 \Dots v_m$ are corresponding eigenvectors. Then $v_1 \Dots v_m$ is linearly independent.
+
+{\bf Number of eigenvalues}
+Suppose $V$ is finite-dimensional. Then each operator on $V$ has at most $\dim V$ distinct eigenvalues.
+
+{\bf Def: $T|_U$ and $T/U$}
+Suppose $T \in \linear(V)$ and $U$ is a subspace of $V$ invariant under $T$.\par
+$\bullet$ The {\it restriction operator} $T|_U \in \linear(U)$ is defined by $T|_U(u) = Tu$ for $u \in U$.\par
+$\bullet$ The {\it quotient operator} $T/U \in \linear(U)$ is defined by $(T/U)(v+U) = Tv+U$ for $v \in V$.\par
+
+{\bf Def: $T^m$}
+Suppose $T \in \linear(V)$ and $m$ is a positive integer.\par
+$\bullet$ $T^m$ is defined by $T^m = T \cdots T$ ($m$ times).\par
+$\bullet$ $T^0$ is defined to be the identity operator $I$ on $V$.\par
+$\bullet$ If $T$ is invertible with inverse $T^{-1}$, then $T^{-m}$ is defined by $T^{-m} = (T^{-1})^m$.\par
+
+{\bf Def: $p(T)$}
+Suppose $T \in \linear(V)$ and $p \in \polynomial(\field)$ is a polynomial given by $p(z) = a_0 + a_1z+a_2z^2+\cdots+a_mz^m$ for $z \in \field$. Then $p(T)$ is the operator defined by $p(T) = a_0I + a_1T + a_2T^2+\cdots+a_mT^m$.
+
+{\bf Def: product of polynomials}
+If $p,q \in \polynomial(\field)$, then $pq \in \polynomial(\field)$ is the polynomial defined by $(pq)(z) = p(z)q(z)$, for $z \in \field$.
+
+{\bf Multiplicative properties}
+Suppose $p,q \in \polynomial(\field)$ and $T \in \linear(V)$. Then\par
+(a) $(pq)(T) = p(T)q(T)$;\par
+(a) $p(T)q(T)=q(T)p(T)$;
+
+{\bf Operators on complex vector spaces have an eigenvalue}
+Every operator on a finite-dimensional, nonzero, complex vector space has an eigenvalue.
+
+{\bf Def: matrix of an operator, $\mapmatrix(T)$}
+Suppose $T \in \linear(V)$ and $v_1 \Dots v_n$ is a basis of $V$. The {\it matrix of $T$} with respect to the basis is the $n$-by-$n$ matrix
+\vskip -7pt
+$$\mapmatrix(T) = \left(\matrix{A_{1,1} & \ldots & A_{1,n}\cr \vdots & \ddots & \vdots \cr A_{n,1} & \ldots & A_{n,n}}\right)$$
+\vskip -3pt
+whose entries $A_{j,k}$ are defined by $Tv_k = A_{1,k}v_1 + \cdots + A_{n,k}v_n$. If the basis is not clear from the context then the notation $\mapmatrix(T,(v_1 \Dots v_n))$ is used.
+
+{\bf Def: diagonal of a matrix}
+The {\it diagonal} of a square matrix consists of the entries along the line from the upper left corner to the bottom right corner.
+
+{\bf Def: upper-triangular matrix}
+A matrix is called {\it upper triangular} if all the entries below the diagonal equal 0.
+
+{\bf Conditions for upper-triangular matrix}
+Suppose $T \in \linear(V)$ and $v_1 \Dots v_n$ is a basis of V. Then the following are equivalent:\par
+(a) the matrix of $T$ with respect to $v_1 \Dots v_n$ is upper triangular.\par
+(b) $Tv_j \in \mspan(v_1 \Dots v_j)$ for each $j = 1 \Dots n$;\par
+(c) $\mspan (v_1 \Dots v_j)$ is invariant under $T$ for each $j = 1 \Dots n$.
+
+{\bf Over $\complex$, every operator has an upper-triangular matrix}
+Suppose $V$ is a finite-dimensional complex vector space and $T \in \linear(V)$. Then $T$ has an upper-triangular matrix with respect to some basis of $V$.
+
+{\bf Determination of invertibility from upper-triangular matrix}
+Suppose $T \in \linear(V)$ has an upper-triangular matrix with respect to some basis of $V$. Then $T$ is invertible IFF all the entries on the diagonal of that upper-triangular matrix are nonzero.
+
+{\bf Determination of eigenvalues from upper-triangular matrix}
+Suppose $T \in \linear(V)$ has an upper-triangular matrix with respect to some basis of $V$. Then the eigen values of $T$ are precisely the entries on the diagonal of that upper-triangular matrix.
+
+
+%% \vskip 10em
+%% {\bf Common Terms} Prior probabilities, posterior probabilities, space/range of r.v. $X$, support of r.v. $X$., discrete r.v., continuous r.v.,
+
+%% {\bf Symbols}
+%% \Hrule
+%% \halign{$#$\hfil&\enskip#\hfil&\vtop{\parindent=0pt\hsize=2.4in\strut#\strut}\cr
+%%    & \bf Name & \bf Note \cr
+%% \piflong{B & $\sigma$-field & Collection of events $\in$ $C$, closed under countable complements, unions, and intersections \cr}%
+%% C & sample space &  \cr
+%% C^c & Complement & ``Complement of C'' \cr
+%% D & sample space & space$\{(X_1,\dots,X_n)\}$\cr
+%% E(X) & expectation & expectation of X\cr
+%% M(X) & mgf & moment generating function $E(e^{tX})$.\cr
+%% P(X) & pdf & probability density function of X\cr
+%% S & support & $S$ often used to denote support of r.v.\cr
+%% S^2 & & sample variance \cr
+%% \sigma^2 & & population variance \cr
+%% X,Y & r.v. & common letters to denote random variables.\cr
+%% \mu & mean & is same as expectation\cr
+%% \theta_0 & true value & true value of parameter $\theta_0$\cr
+%% \xi_p & & 100pth distribution percentile\cr
+%% }
+
+}
+
+\newbox\bigtable
+
+\setbox\bigtable=\vbox{
+{\parindent=0pt
+
+\def\tablerule{\noalign{\hrule}}
+\def\mstartstrut{\vrule height10.5pt depth3.5pt width0pt}
+\def\mendstrut{\vrule height 8.5pt depth4.5pt width0pt}
+
+\tabskip=0pt
+%\halign{\vtop{\hsize=0.8 in\mstartstrut#\mendstrut}\hfil&\kern0.1in \vtop{\hsize=1.4in\mstartstrut#\mendstrut}\hfil&\kern0.1in \vtop{\hsize=2.0in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \vtop{\hsize=0.4in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \vtop{\hsize=0.8in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \vtop{\hsize=1.2in\mstartstrut$#$\mendstrut}\cr
+\raggedright
+\halign{\vtop{\hsize=0.8 in\mstartstrut#\mendstrut}\hfil&\kern0.1in \mstartstrut#\mendstrut\hfil&\kern0.1in \vtop{\hsize=2.0in\mstartstrut$#$\mendstrut}\hfil&\kern0.1in \mstartstrut$#$\mendstrut\hfil&\kern0.1in \mstartstrut$#$\mendstrut\hfil&\kern0.1in \vtop{\hsize=1.9in\mstartstrut$#$\mendstrut}\cr
+\bf name & \bf note & \bf $\bf pdf$ & \bf \mu & \bf \sigma^2 & \bf mgf  \cr\noalign{\hrule height 1pt}
+\multispan6{\centerline{\mstartstrut Discrete \mendstrut}}\cr\tablerule
+Bernoulli($p$) & $0<p<1$ & p^x(1-p)^{1-x}, x=0,1 & p & p(1-p) & [(1-p)+pe^t], \enskip\scriptstyle-\infty < t < \infty\cr\tablerule
+Binomial($p$) & $0<p<1, n=1,2,\dots$ & {n \choose x}p^x(1-p)^{n-x}, x=0,1,2,\dots,n & np & np(1-p) & [(1-p)+pe^t]^n, \enskip\scriptstyle -\infty < t < \infty\cr\tablerule
+Geometric($p$) & $0<p<1$ & p(1-p)^{x}, x=0,1,2,\dots & 1-p\over p & 1-p \over p^2 & p[1-(1-p)e^t]^{-1}, t < -\log{1-p}\cr\noalign{\vskip -0pt\hrule}
+Hypergeom ($N,D,n$) &\raggedright $n=1,2,\dots,{\rm min}\{N,D\}$ & {{N - D \choose n - x}{D \choose x}\over{N \choose n}}, x= 0,1,\dots,n& n{D\over N} & n{D\over N}{N-D\over N}{N-n \over N-1} & {\rm complicated\dots} \cr\tablerule
+Neg. Binom($p,r$) & $0<p<1,r=1,2,\dots$ & {x+r-1 \choose r-1}p^r(1-p)^x, x=0,1,2,\dots & pr \over r(1-p) & 1-p \over p^2 & p^r[1-(1-p)e^t]^{-r}, t < -\log(1-p)\cr\noalign{\hrule}
+Poisson($\lambda$) & %name
+$\lambda > 0$ & %note
+e^{-\lambda}{\lambda^x\over x!}&%PDF
+\lambda &%mean
+\lambda & %variance
+\exp{\lambda(e^t-1)}\cr\tablerule %mgf
+\multispan6{\centerline{\mstartstrut Continuous \mendstrut}}\cr\tablerule
+Beta($\alpha,\beta$) & %name
+$\alpha > 0, \beta > 0$ & %note
+{\Gamma(\alpha+\beta)\over \Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}, \enskip\scriptstyle 0 < x < 1&%PDF
+\alpha \over \alpha + \beta &%mean
+\alpha\beta \over (\alpha+\beta+1)(\alpha+\beta)^2& %variance
+1+\sum_{i=1}^\infty\left(\prod_{j=0}^{k-1}{\alpha+j\over \alpha+\beta+j}\right){t^i\over i!},\break\scriptstyle-\infty < t < \infty\cr\tablerule %mgf
+Cauchy($x$) & %name
+ & %note
+{1\over \pi}{1 \over x^2+1}, \enskip\scriptstyle -\infty < x < \infty&%PDF
+$n/a$ &%mean
+$n/a$ & %variance
+{\rm n/a} \cr\tablerule %mgf
+$\chi^2(r)$ & %name
+$=\Gamma(r/2,2)$. $r>0$,  & %note
+{1\over \Gamma(r/2)2^{r/2}}x^{(r/2)-1}e^{-x/2}, x > 0&%PDF
+r &%mean
+2r & %variance
+(1-2t)^{-r/2}, t<1/2 \cr\tablerule %mgf
+Expontl.($\lambda$) & %name
+$=\Gamma(1,1/\lambda)$. $\lambda>0$,& %note
+\lambda e^{-\lambda x}, x > 0&%PDF
+1 \over \lambda &%mean
+1 \over \lambda^2 & %variance
+[1-(t/\lambda)]^{-1}, t<\lambda \cr\tablerule %mgf
+%TODO, add F
+$\Gamma(\alpha,\beta)$& %name
+$\alpha>0,\beta>0$& %note
+{1\over \Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}e^{-x/\beta}, x > 0&%PDF
+\alpha \beta &%mean
+\alpha \beta^2 & %variance
+(1-\beta t)^{-\alpha}, t<1/\beta \cr\tablerule %mgf
+Laplace($\theta$)& %name
+$-\infty < \theta < \infty$& %note
+{1\over 2} e^{-|x-\theta|}, \enskip\scriptstyle -\infty < x < \infty&%PDF
+\theta &%mean
+2 & %variance
+e^{t \theta}{1 \over 1-t^2},\enskip\scriptstyle -1 < t < 1 \cr\tablerule %mgf
+Logistic($\theta$)& %name
+$-\infty < \theta < \infty$& %note
+{exp\{-(x-\theta)\}\over (1+exp\{-(x-\theta)\})^2},\enskip\scriptstyle -\infty < x < \infty&%PDF
+\theta &%mean
+\pi^2\over 3 & %variance
+e^{t \theta}\Gamma(1-t)\Gamma(1+t),\enskip\scriptstyle -1 < t < 1 \cr\tablerule %mgf
+$N(\mu,\sigma^2)$& %name
+$-\infty < \mu < \infty, \sigma > 0$& %note
+{1 \over \sqrt{2\pi}\sigma}{\exp{\left(-{1\over 2}{(x-\mu)^2 \over \sigma^2}\right)}},\enskip\scriptstyle -\infty < x < \infty&%PDF
+\mu &%mean
+\sigma^2 & %variance
+\exp(\mu t + (1/2)\sigma^2t^2),\enskip\scriptstyle -\infty < t < \infty \cr\tablerule %mgf
+$t(r)$& %name
+$r>0$& %note
+{\Gamma[(r+1)/2]  \over \sqrt{\pi r} \Gamma(r/w)} {1 \over (1+x^2/r)^{(r+1)/2}},\enskip\scriptstyle -\infty < x < \infty&%PDF
+0 \scriptstyle {\rm\ if\ } r>1&%mean
+{r\over r-2} \scriptstyle {\rm\ if\ } r>2 & %variance
+{\rm n/a} \cr\tablerule %mgf
+Unif($a,b$)& %name
+$\scriptstyle -\infty < a < b < \infty$& %note
+{1 \over b-a},\enskip\scriptstyle a < x < b &%PDF
+a+b\over2&%mean
+(b-a)^2\over 12& %variance
+e^{bt}-e^{at} \over (b-a)^t, \enskip\scriptstyle -\infty < t < \infty \cr\tablerule %mgf
+}}}
+
+
+%below we populate the pages!
+
+%\newdimen\fullcolheight
+%\fullcolheight=10.5 in
+
+\vbox{
+\vskip -7pt
+\hbox{\smallfont \centerline{Linear Algebra Study Sheet.  Based on``Linear Algebra Done Right'' chapters 1-3, 5A, 5B }}
+\makeandprintfullheightcols\bigbox{10.5 in}
+}
+
+
+\makeandprintfullheightcols\bigbox{10.5 in}
+
+\makeandprintfullheightcols\bigbox{10.5 in}
+
+\makeandprintfullheightcols\bigbox{10.5 in}
+
+\makeandprintfullheightcols\bigbox{10.5 in}
+
+%\iflong
+%\makeandprintfullheightcols\bigbox{10.5 in}
+%\else
+%\makeandprintequalheightcols\bigbox
+%\fi
+
+%\hrule
+%\hbox to \hsize{\box\bigtable}
+
+\end
