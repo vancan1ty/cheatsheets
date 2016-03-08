@@ -5,7 +5,7 @@ PAGES	= t1.pdf t2.pdf
 cheat:	cheat.pdf
 
 cheat.pdf: $(PAGES)
-	$(CAT) output/$(PAGES) output/cheat.pdf
+	$(CAT) output/t1.pdf output/t2.pdf output/cheat.pdf
 
 cheat.tex: ../core/psfig.tex ../core/stables.tex ../core/macros.tex
 

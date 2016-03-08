@@ -1,0 +1,49 @@
+\input ../core/macros.tex
+
+\outer\def\mbeginsection#1\par{\vskip 0pt plus.3\vsize\penalty-250
+  \vskip 0pt plus-.3\vsize\smallskip\vskip 0pt
+  \message{#1}\leftline{\bf#1}\nobreak\smallskip\noindent}
+
+\pdfpagewidth 8.5 true in
+\pdfpageheight 11 true in
+\parindent=0pt
+\parskip=4pt
+
+\centerline{\bigger Statistics Question}
+\smallskip
+\leftline{Thanks Simonne!}
+\smallskip
+I am not good at variable transformations.  I always get stumped.
+
+\mbeginsection{Problem statement}
+
+Let X and Y have the pdf $f(x,y) =1, 0 < x < 1, 0 < y < 1$, zero elsewhere. Find the cdf and the pdf of the product $Z = XY$.
+
+\mbeginsection{Question}
+
+For this particular problem, the answer can be found \pdfklink{here}{http://math.stackexchange.com/questions/659254/product-distribution-of-two-uniform-distribution-what-about-3-or-more}. I am trying to work out how to obtain this answer using the standard integration technique.
+
+Below is how I approached the problem.  I get an incorrect answer.  Can you figure out what I am doing wrong? Thank you!
+
+\def\prooftablestart#1#2{\halign\bgroup \vtop{\parindent=0pt\hsize=#1\strut##\strut}\hfil&\hskip 0.10 in\vtop{\parindent=0pt\hsize=#2\strut##\strut}\cr}
+\def\prooftableend{\egroup}
+
+$$
+\eqalignno{P(Z \le z) &= P(XY \le z)\cr
+\noalign{\hbox{because $x(w/x)=w, w \leq z$}}
+&= \int_{-\infty}^{\infty}\int_{-\infty}^zp_x(x)p_y(w / x)dw dx\cr
+\noalign{\hbox{use support of $x,y$. pdf of $x,y$}}
+&=\int_{0}^{1}\int_{0}^z1 \times1dw dx\cr
+\noalign{\hbox{evaluate integral}}
+&=\int_0^1 z dx\cr
+\noalign{\hbox{evaluate integral}}
+&=z\cr
+&={\rm CDF\ of\ Z}\cr
+}
+$$
+
+The above answer is clearly wrong. 
+
+
+\end
+
