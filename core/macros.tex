@@ -285,3 +285,43 @@
 \normalbaselineskip=9pt
 \setbox\strutbox=\hbox{\vrule height7pt depth2pt width0pt}%
 \let\sc=\sixrm \let\big=\eightbig \normalbaselines\rm}
+
+\def\usetimes {
+\font\tenrm=ptmr7t at 10pt % roman text
+\font\sevenrm=ptmr7t at 7pt
+\font\fiverm=ptmr7t at 5pt
+
+\font\tenbf=ptmb7t at 10pt % boldface extended
+\font\sevenbf=ptmb7t at 7pt
+\font\fivebf=ptmb7t at 5pt
+
+\font\tensl=ptmro7t at 10pt % slanted roman
+
+\font\tenit=ptmri7t at 10pt % text italic
+
+% for math family 0 we need a font different from ptmr7t    
+\font\tenrmop=zptmcm7t at 10pt
+\font\sevenrmop=zptmcm7t at 7pt
+\font\fivermop=zptmcm7t at 5pt
+
+\textfont0=\tenrmop
+\scriptfont0=\sevenrmop
+\scriptscriptfont0=\fivermop
+
+\font\teni=zptmcm7m at 10pt % math italic
+\font\seveni=zptmcm7m at 7pt
+\font\fivei=zptmcm7m at 5pt
+
+\font\tensy=zptmcm7y at 10pt % math symbols
+\font\sevensy=zptmcm7y at 7pt
+\font\fivesy=zptmcm7y at 5pt
+
+\font\tenex=zptmcm7v at 10pt % math extension
+
+\tenrm % choose default
+}
+
+%#1: width of left col
+%#2: width of right col
+\def\dtablestart#1#2{\halign\bgroup \vtop{\parindent=0pt\hsize=#1\strut##\strut}\hfil&\hskip 0.10 in\vtop{\parindent=0pt\hsize=#2\strut##\strut}\cr}
+\def\dtableend{\egroup}

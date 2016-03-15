@@ -5,23 +5,37 @@
 %\input tikz
 %\usetikzlibrary{intersections,arrows}
 \input ../core/macros.tex
-%\tolerance=1000
-\sloppy
 
+\input opmac
+\input chelvet
+\input tx-math
+\input ctimes
+\typosize[9/10.5]
+%\usetimes
+%\eightpoint
+\font\titlefont =phvb at 13 pt
+\font\headeronefont =phvb at 12 pt
+\font\headertwofont =phvb at 10pt
+\font\smallfont=ptmr at 8pt
+
+\def\title#1{{\titlefont \vskip 0.02 in #1 \vskip 0.03 in}}
+\def\headerone#1{{\vskip 0.02 in \headeronefont #1 \vskip 0.02 in}}
+\def\headertwo#1{{\vskip 0.02 in \headertwofont #1 \vskip 0.02 in}}
 
 % the following two lines only work with pdftex.  set the paper size to letter, as pdftex
 % defaults to A4 and this is not what we want here.
-\pdfpagewidth 8.5 true in
-\pdfpageheight 11 true in
+\pdfpagewidth 11 true in
+\pdfpageheight 8.5 true in
 \nopagenumbers
 
 \voffset=-0.75 in
 \hoffset=-0.75 in
-\hsize=8in
-\vsize=10.5in
+\hsize=10.6in
+\vsize=8.0in
 \parindent=0pt
 
 \font\smallfont=cmr7
+\sloppy
 
 %\centerline{Currell Berry -- {\bf Formulas} -- \number\year --\number\month --\number\day}
 %\smallskip % This puts a little extra space after the title line.
@@ -29,94 +43,92 @@
 %\splittopskip=18.3pt
 \def\strutA#1#2{\vrule height#1 depth#2 width0pt}
 
-\dimen1=3.9in
+\dimen1=3.40in
+\raggedright
 
 \newbox\bigbox
-\setbox\bigbox=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}{\bf Newton's Laws}
+\setbox\bigbox=\vbox{\hsize=\dimen1\title{Physics Equations -- Currell Berry}
+\headerone{Fundamental Equations}
 
-First: Momentum stays the same as long as $\vec{F_{\rm net}} = 0$.
+\def\dtablerulemulti{\noalign{\enskip\hrule\enskip}}
+\def\dtablerulesingle{\noalign{\hrule\enskip}}
 
-Second: $ \vec{F_{\rm net}} = m\vec{a}$.
+\dtablestart{2.0 in}{1.2 in}
+{\bf Equation} & {\bf Name}\cr\noalign{\hrule\enskip}
+$\vec V$ stays constant IFF $\vec F_{\rm net}= \vec 0$ & Newton's first law\cr\dtablerulesingle
+$\vec F_{\rm net} = ma$ & Newton's second law\cr\dtablerulemulti
+$\vec F_{\rm A\ on\ B} = - \vec F_{\rm B\ on\ A}$ & Newton's third law\cr\dtablerulesingle
+$F = G{m_1m_2 \over r^2}$ & Newton's law of gravity\cr\dtablerulemulti
+$\oint \vec E \cdot d\vec A = {Q_{\rm in} \over \epsilon_0}$ & Gauss's law\cr\dtablerulesingle
+$\oint \vec B \cdot d\vec A = 0$ & Gauss's law for magnetism\cr\dtablerulemulti
+$\oint \vec E \cdot d\vec s = -d{\Phi_m \over dt}$ & Faraday's law\cr\dtablerulesingle
+$\oint \vec B \cdot d\vec s = \mu_0I_{\rm through}+\epsilon_0\mu_0 d {\Phi_e \over dt}$ & Ampere-Maxwell law\cr\dtablerulemulti
+$\vec F = q(\vec E+\vec v \times \vec B)$ & Lorentz force law\cr\dtablerulesingle
+$\Delta E_{\rm th} = W+Q$ & First law of thermodynamics\cr\dtablerulemulti
+Entropy of an isolated system never decreases. & Second law of thermodynamics\cr\dtablerulemulti
+\dtableend
 
-Third: Every force occurs as one member of an action/reaction pair of forces.
-\smallskip
-{\bf Conservation}
+\headerone{Conservation}
 
 Momentum, energy, angular momentum, charge are conserved for an isolated system.  Mass is conserved in normal situations.
-\smallskip
-{\bf Linear Motion}
-\Dis 5pt 
-\baselineskip=22pt
-\Fm d = v_it+{1 \over 2}at^2\Mf
-\Fm v_f = v_i+at\Mf
-\Fm v_f^2 = v_i^2+2ad\Mf
-\Fm v_f^2 = v_i^2+2ad\Mf
-\Fm K={1 \over 2}mv^2\Mf
-\Fm \vec{p}=m\vec{v}\Mf
-\Fm \Delta K = J_x=\int_{t_i}^{t_f}{F_x(t)\ dt}\Mf
-\Fm \Delta p_s = W=\int_{s_i}^{s_f}{F_s\ ds}\Mf
-\EndDis
-{\bf Springs}
-\Dis 5pt 
-\baselineskip=22pt
-\Fm $Hooke's law: $(F_{sp})_s=-k\Delta s\Mf
-\Fm U_s= {1 \over 2}k(\Delta s)^2\Mf
-\EndDis
 
-{\bf Rotational Motion}
-\Dis 5pt 
-\baselineskip=22pt
-\Fm \omega_f=\omega_i + \alpha\Delta t\Mf
-\Fm \theta_f=\theta_i + \omega_i\Delta t + {1 \over 2}\alpha(\Delta t)^2\Mf
-\Fm \omega_f^2=\omega_i^2 + 2\alpha\Delta \theta\Mf
-\Fm a_{\rm tangential}=\alpha r\Mf
-\Fm a_{\rm centripital}=v^2/r=\omega^2r\Mf
-\Fm x_{\rm cm} = {1 \over M}\int{x\ dm}\Mf
-\Fm I=\sum_im_ir_i^2\Mf
-\Fm I=\int{r^2 dm}\Mf
-\Fm K_{\rm rot}={1 \over 2}I\omega^2\Mf
-\Fm E_{\rm mech}=K_{\rm rot}+U_g={1 \over 2}I\omega^2+Mgy_{\rm cm}\Mf
-\Fm $parallel axis theorem: $ I = I_{\rm cm}+Md^2\Mf
-\Fm \tau \equiv rF\sin{\phi}\Mf
-\Fm \alpha = {\tau_{\rm net}\over I}\Mf
-\Fm v_{\rm cm}=R\omega\Mf
-\Fm K_{\rm rolling}=K_{\rm rot}+K_{\rm cm}\Mf
-\Fm \vec{\tau}=\vec{r}\times\vec{F}\Mf
-\Fm \vec{L}=\vec{r}\times\vec{p}\Mf
-\Fm {d\vec{L}/dt}=\vec{\tau}_{net}\Mf
-\Fm \vec{L}=I\vec{\omega}\Mf
-\EndDis
+\headerone{Various Equations}
+\headertwo{Linear Motion}
+$ d = v_it+{1 \over 2}at^2$\quad
+$ v_f = v_i+at$\quad
+$ v_f^2 = v_i^2+2ad$\quad
+$ v_f^2 = v_i^2+2ad$\quad
+$ K={1 \over 2}mv^2$\quad
+$ \vec{p}=m\vec{v}$\quad
+$ \Delta K = J_x=\int_{t_i}^{t_f}{F_x(t)\ dt}$\quad
+$ \Delta p_s = W=\int_{s_i}^{s_f}{F_s\ ds}$\quad
+\headertwo{Springs}
+{\bf Hooke's law:} $(F_{sp})_s=-k\Delta s$\quad
+$U_s= {1 \over 2}k(\Delta s)^2$
 
-{\bf Planets}
-\Dis 5pt 
-\baselineskip=22pt
-\Fm $$ F_{\rm 1 on 2}=F_{\rm 2 on 1}={Gm_1m_2 \over r^2}\Mf
-\Fm $Satellite Speed: $ v=\sqrt{GM\over r}\Mf
-\Fm $Escape Velocity: $ v=\sqrt{2GM\over r}\Mf
-\Fm $On Surface: $ g={GM\over R_L}\Mf
-\Fm U_g={Gm_1m_2 \over r}\Mf
-\Fm $Kepler's 3rd: $ T^2=\left(4\pi^2 \over GM \right)r^3\Mf
-\Fm $Kepler's 2nd: $ {\Delta A \over\Delta t} = {L \over 2m}\Mf
-\EndDis
+\headertwo{Rotational Motion}
+$ \omega_f=\omega_i + \alpha\Delta t$\quad
+$ \theta_f=\theta_i + \omega_i\Delta t + {1 \over 2}\alpha(\Delta t)^2$\quad
+$ \omega_f^2=\omega_i^2 + 2\alpha\Delta \theta$\quad
+$ a_{\rm tangential}=\alpha r$\quad
+$ a_{\rm centripital}=v^2/r=\omega^2r$\quad
+$ x_{\rm cm} = {1 \over M}\int{x\ dm}$\quad
+$ I=\sum_im_ir_i^2$\quad
+$ I=\int{r^2 dm}$\quad
+$ K_{\rm rot}={1 \over 2}I\omega^2$\quad
+$ E_{\rm mech}=K_{\rm rot}+U_g={1 \over 2}I\omega^2+Mgy_{\rm cm}$\quad
+{\bf parallel axis theorem:} $ I = I_{\rm cm}+Md^2$\quad
+$ \tau \equiv rF\sin{\phi}$\quad
+$ \alpha = {\tau_{\rm net}\over I}$\quad
+$ v_{\rm cm}=R\omega$\quad
+$ K_{\rm rolling}=K_{\rm rot}+K_{\rm cm}$\quad
+$ \vec{\tau}=\vec{r}\times\vec{F}$\quad
+$ \vec{L}=\vec{r}\times\vec{p}$\quad
+$ {d\vec{L}/dt}=\vec{\tau}_{net}$\quad
+$ \vec{L}=I\vec{\omega}$\quad
 
-{\bf Simple Harmonic/Circular Motion}
+\headertwo{Planets}
+$F_{\rm 1 on 2}=F_{\rm 2 on 1}={Gm_1m_2 \over r^2}$\quad
+{\bf Satellite Speed:} $ v=\sqrt{GM\over r}$\quad
+{\bf Escape Velocity:} $ v=\sqrt{2GM\over r}$\quad
+{\bf On Surface:} $ g={GM\over R_L}$\quad
+$ U_g={Gm_1m_2 \over r}$\quad
+{\bf Kepler's 3rd:} $ T^2=\left(4\pi^2 \over GM \right)r^3$\quad
+{\bf Kepler's 2nd:} $ {\Delta A \over\Delta t} = {L \over 2m}$\quad
+
+\headertwo{Simple Harmonic/Circular Motion}
 
 Uniform circular motion projected onto one dimension is simple harmonic motion.
 
 Any system with a linear restoring force will undergo simple harmonic motion around the equilibrium position.
-\Dis 5pt 
-\baselineskip=22pt
-\Fm x(t) = A\cos{(\omega t + \phi_0)}\Mf
-\Fm v_x(t) = -\omega A\sin{(\omega t + \phi_0)}\Mf
-\Fm $pendulum: $ \omega = 2\pi f = \sqrt{g \over L}\Mf
+$x(t) = A\cos{(\omega t + \phi_0)}$\quad
+$v_x(t) = -\omega A\sin{(\omega t + \phi_0)}$\quad
+{\bf pendulum:} $ \omega = 2\pi f = \sqrt{g \over L}$\quad
+{\bf damped oscillator:} $ x(t) = Ae^{-bt/2m}\cos(\omega t + \phi_0)$\quad
+{\bf time constant:} $ \tau = m/b$\quad
+{\bf damped system:} $ E = E_0e^{-t/\tau}$\quad
 
-\Fm $damped oscillator: $ x(t) = Ae^{-bt/2m}\cos(\omega t + \phi_0)\Mf
-\Fm $time constant: $ \tau = m/b\Mf
-\Fm $damped system: $ E = E_0e^{-t/\tau}\Mf
-\EndDis
-
-
-{\bf Fluids and Elasticity}
+\headertwo{Fluids and Elasticity}
 
 Archimedes' principle: The magnitude of the buoyant force equals the weight of the fluid displaced by the object.
 
@@ -124,91 +136,119 @@ Ideal-fluid model: Incompressible. Smooth, laminar flow. Nonviscuous.
 
 Bernoulli's is a statement of energy conservation.
 %TODO come back and fix up elasticity stuff
-\Dis 5pt 
-\baselineskip=22pt
-\Fm p = F/A\Mf
-\Fm p_g = p-1\Mf
-\Fm \rho = m/V \Mf
-\Fm v_1A_1=v_2A_2\Mf
-\Fm $Bernoulli's: $ p_1+{1 \over 2}\rho g y_1 = p_2 + {1 \over 2}\rho v_2^2 + \rho gy_2\Mf
-\Fm (F/A) = Y(\Delta L/L)\Mf
-\Fm p = -B(\Delta V/V)\Mf
-\EndDis
+$ p = F/A$\quad
+$ p_g = p-1$\quad
+$ \rho = m/V $\quad
+$ v_1A_1=v_2A_2$\quad
+{\bf Bernoulli's:} $ p_1+{1 \over 2}\rho g y_1 = p_2 + {1 \over 2}\rho v_2^2 + \rho gy_2$\quad
+$ (F/A) = Y(\Delta L/L)$\quad
+$ p = -B(\Delta V/V)$\quad
 
-{\bf Matter}
+\headertwo{Matter}
 
 Phases: solid, liquid gas. Ideal-gas model. Isochoric process $\rightarrow$ $V$ constant and $W$=0, Isobaric $\rightarrow$ $p$=constant, Isothermal $\rightarrow$ $T$ constant and $\Delta E_{th}=0$, Adiabatic $\rightarrow$ $Q$=0. conduction, convection, radiation, evaporation. 
 
 %CB TODO come back and figure out monatomic, diatomic gases, elemental solids.
 %CB TODO ideal gas summary?
-Second law: entropy cannot decrease.
-\Dis 5pt 
-\baselineskip=22pt
-\Fm $Ideal Gas Law: $ pV = nRT \Mf
+{\bf Second law:} entropy cannot decrease.
+{\bf Ideal Gas Law:} $ pV = nRT $\quad
+{\bf First Law of Thermo:} $ \Delta E_{th}= W + Q $\quad
+$ W = -\int_{V_{\rm i}}^{V_{\rm f}}{p\ dV} $\quad
+{\bf specific heat:} $ Q = Mc\Delta T $\quad
+$ \epsilon_{\rm avg}={3 \over 2}k_{\rm B}T$\quad
+$ p = {2 \over 3}{N \over V}\epsilon_{\rm avg}$\quad
+${Q \over \Delta t} = e \rho A T^4$\quad
 
-\Fm $First Law of Thermo: $ \Delta E_{th}= W + Q \Mf
-\Fm W = -\int_{V_{\rm i}}^{V_{\rm f}}{p\ dV} \Mf
-\Fm $specific heat: $ Q = Mc\Delta T \Mf
-\Fm \epsilon_{\rm avg}={3 \over 2}k_{\rm B}T\Mf
-\Fm p = {2 \over 3}{N \over V}\epsilon_{\rm avg}\Mf
-\EndDis
-
-{\bf Waves}
+\headertwo{Waves}
 
 Transverse, Longitudinal.  Snapshot graph, history graph. Superposition, nodes, and antinodes.
-\Dis 5pt 
-\baselineskip=22pt
-\Fm v = \lambda f\Mf
-\Fm \omega = vk\Mf
-\Fm D(x,t) = A\sin{(kx - \omega t + \phi_0)}\Mf
-\Fm I = P/a\Mf
-\Fm I \propto A^2\Mf
-\Fm $Doppler: $ f_{\pm} = {f_0 \over 1 \mp v_s/v}\Mf
-\Fm $Doppler: $ f_{\pm} = 1 \pm {v_o \over v}f_0 \Mf
-\EndDis
-Double slit. angles of bright fringes: $\theta_m=m{\lambda \over d}$ where m = $0,1,2,\dots$, $d$ is slit spacing.
-\quad $I_{double}=4I_1\cos^2{{\pi d \over \lambda L}y}$.
 
-Diffraction grating: angles of bright fringes: $d\sin{\theta_m} = mA$, $m=0,1,2,\dots$.
+$ v = \lambda f$\quad
+$ \omega = vk$\quad
+$ D(x,t) = A\sin{(kx - \omega t + \phi_0)}$\quad
+$ I = P/a$\quad
+$ I \propto A^2$\quad
 
-Single slit: angles of dark fringes $\theta_p=p{\lambda \over a}$, $p = 1,2,3,\dots$
+{\bf Doppler: }$ f_{\pm} = {f_0 \over 1 \mp v_s/v}$\quad
+$ f_{\pm} = 1 \pm {v_o \over v}f_0 $\quad
+{\bf Double slit:} angles of bright fringes: $\theta_m=m{\lambda \over d}$ where m = $0,1,2,\dots$, $d$ is slit spacing.
+\quad $I_{double}=4I_1\cos^2{{\pi d \over \lambda L}y}$.\quad
+{\bf Diffraction grating:} angles of bright fringes: $d\sin{\theta_m} = mA$, $m=0,1,2,\dots$.\quad
+{\bf Single slit:} angles of dark fringes $\theta_p=p{\lambda \over a}$, $p = 1,2,3,\dots$\quad
+{\bf Circular aperture:} $w = 2y_1=2L\tan{\theta_1}\approx {2.44\lambda L\over D}$\quad
+{\bf de broglie wavelength:} $ \lambda = {h \over p} = {h \over mv}$\quad
+{\bf wave intensity:} $I = P/A$\quad {\bf radiation pressure} $p_{\rm rad} = F/A = I/c$
 
-Circular aperture: $w = 2y_1=2L\tan{\theta_1}\approx {2.44\lambda L\over D}$
+\headertwo{Optics}
+{\bf Snell's:} $ n_1\sin(\theta_1) = n_2\sin(\theta_2) $\quad
 
-{\bf Electricity and Magnetism}
-\Dis 5pt 
-\baselineskip=22pt
-\Fm $Coulomb's $ F_{\rm 1\ on\ 2} = F_{\rm 2\ on\ 1}={K|q_1||q_2| \over r^2}\Mf
-\Fm \vec{E}(x,y,z) = {\vec{F}_{\rm on\ q}{\rm\ at\ } (x,y,z) \over q} \Mf
-\Fm $point charge: $\vec{E} = {1 \over 4\pi\epsilon_0}{q \over r^2}\hat{r}\Mf
-\Fm \vec{E}_{\rm dipole} = {1 \over 4\pi\epsilon_0}{2 \vec{p} \over r^3} $ (on axis)$\Mf
-\Fm $gauss's law $\phi_e = \oint \vec{E}\cdot d\vec{A}={Q_{\rm in} \over \epsilon_0}\Mf
-\Fm $unif. elec. field: $U_{\rm elec} = U_0 + qEs \Mf
-\Fm $point charges: $U_{\rm elec} = {Kq_1q_2 \over r} \Mf
-\Fm $dipole: $U_{\rm dipole} = -\vec{p}\cdot\vec{E} \Mf
-\Fm U_{q + {\rm sources}} = qV \Mf
-\EndDis
+\headertwo{Electricity and Magnetism}
+{\bf Coulomb's} $ F_{\rm 1\ on\ 2} = F_{\rm 2\ on\ 1}={K|q_1||q_2| \over r^2}$\quad
+$ \vec{E}(x,y,z) = {\vec{F}_{\rm on\ q}{\rm\ at\ } (x,y,z) \over q} $\quad
+{\bf point charge:} $\vec{E} = {1 \over 4\pi\epsilon_0}{q \over r^2}\hat{r}$\quad
+$ \vec{E}_{\rm dipole} = {1 \over 4\pi\epsilon_0}{2 \vec{p} \over r^3} $ (on axis)\quad
+{\bf gauss's law} $\phi_e = \oint \vec{E}\cdot d\vec{A}={Q_{\rm in} \over \epsilon_0}$\quad
+{\bf unif. elec. field:} $U_{\rm elec} = U_0 + qEs $\quad
+{\bf point charges:} $U_{\rm elec} = {Kq_1q_2 \over r} $\quad
+{\bf dipole:} $U_{\rm dipole} = -\vec{p}\cdot\vec{E} $\quad
+$ U_{q + {\rm sources}} = qV $\quad
+
+Gauss's Law, Faraday's Law, Ampere-Maxwell law, Lorentz force law (see fundamentals).
+
+\headertwo{Special Relativity}
+{\bf proper time} $\Delta \tau$: time in reference frame for which clock is at rest.\quad
+{\bf time dilation} $\Delta t = {\Delta \tau \over \sqrt{1-\beta^2}} \ge \Delta \tau$\quad
+{\bf proper length} $\ell$: length in reference frame where objects are at rest\quad
+{\bf length contraction} $L' = \sqrt{1-\beta^2} \le \ell$\quad
+{\bf spacetime interval} $s^2 = c^2(\Delta t)^2-(\Delta x)^2$ (invariant)\quad
+
+We have inertial reference frames $S$ and $S'$. $S'$ is travelling at velocity $v$ along x-axis, relative to $S$. Origins of $S$ and $S'$ coincide at $t=0$.
+
+{\bf Lorentz transformations: }
+\dtablestart{1.6 in}{1.6 in}
+$x' = \gamma(x - vt) $ & $x = \gamma(x' + vt')$\cr
+$y' = y $ & $y = y'$\cr
+$z' = z $ & $z = z'$\cr
+$t' = \gamma(t - vx/c^2)$&$t = \gamma(t' + vx'/c^2)$\cr
+$u' = {u-v \over 1 - uv/c^2}$&$u = {u' + v \over 1 + u'v/c^2}$\cr
+\dtableend
+
+Where $u,u'$ are the $x,x'$ components of an object's velocity, $\beta = {v \over c}$, and $\gamma = 1/\sqrt{1-v^2/c^2}=1/\sqrt{1-\beta^2}$
+
+\headertwo{Emission Spectra and Atomic Physics}
+
+{\bf energy of electromagnetic radiation:} $E = hf$\quad
+$p = \gamma_p m u$\quad
+{\bf Photoelectric effect} Light can eject electrons from a metal only if $f \ge f_0 = E_0 / h$, where $E_0$ is the metal's {\it work function}. {\bf stopping potential} $V_{\rm stop} = {h \over e}(f-f_0)$
+{\bf Wien's law} (blackbody radiation) $\lambda_{\rm peak} = {2.90 \times 10^6 {\rm nm\ K} \over T}$\quad
+{\bf Particle in a box} $E_n = {h^2 \over 8 m L^2}n^2, n = 1,2,3,\dots$\quad
+{\bf mass-energy equiv:} $E = mc^2 + (\gamma_p - 1)mc^2=\gamma_p m c^2$,
+$\gamma_p = {1 \over \sqrt{1-u^2/c^2}}$\quad
+{\bf Bohr Model (for hydrogen):} $r_n = n^2 a_B$\quad $E_n = - {1 \over n^2} {e^2 \over 4 \pi \epsilon_0 2 a_B} = - {13.5 {\rm eV} \over n^2}$, $a_B = {4 \pi \epsilon_0 \hbar^2 \over m e^2} \approx 0.0529 nm$\quad
+
+\headertwo{Quantum}
+{\bf wave function} $\psi(x)$ determines the probability that a particle will be found in some region of space.\quad
+Prob(in $\delta x$ at $x$) = $|\psi(x)|^2 \delta x$
+
+{\bf Heisenberg Uncertainty:} $\Delta x \Delta p_x \ge h/2$\quad {\bf wave packet} $\Delta f \Delta t \approx 1$.\quad
+{\bf Schrodinger Eq.} ${d^2\psi \over d x^2} = - {2 m \over \hbar^2} [E - U(x)] \psi(x)$
 
 
-
-{\bf New}
-\Dis 5pt 
-\baselineskip=22pt
-\Fm $de broglie: $ \lambda = {h \over p} = {h \over mv}\Mf
-\Fm E_n =n^2 {h^2 \over 8mL^2},\enskip n = 1,2,3,\dots \Mf
-\Fm $snells: $ n_1\sin(\theta_1) = n_2\sin(\theta_2) \Mf
-\EndDis
 
 }
 
+
 \newbox\zbox
 
-\setbox\zbox=\vbox{\hsize=\dimen1\strutA{\splittopskip}{0pt}
+\setbox\zbox=\vbox{\hsize=\dimen1
+\headerone{Constants, Symbols, Units}
 {\bf Base SI Units} length:~m, mass:~kg, time:~s, current:~A(ampere), temp:~K, amount:~mol, luminous intensity: cd(candela)
 
-{\bf Symbols}
+{\bf Selected Other Units} $1 {\rm\ eV} = 1.602 \times 10^{-19} $ joules.
+
+\headertwo{Symbols}
 \Hrule
-\halign{$#$\hfil&\enskip#\hfil&\vtop{\parindent=0pt\hsize=2.4in\strut#\strut}\cr
+\halign{$#$\hfil&\enskip#\hfil&\vtop{\parindent=0pt\hsize=2.0in\strut#\strut}\cr
    & \bf Name & \bf Units \cr
 A & area & $\rm m^2$ \cr
     & amplitude & \cr
@@ -292,8 +332,9 @@ Z & elec. impedance & 1 ohm = 1 $\Omega$ \cr
 \rho & mass density & $\rm kg/m^3$ --- $\rho = m/V$\cr
 & resistivity &$\rm \Omega\ m$ --- $\rho = 1/\sigma$\cr
 \sigma & conductivity & 1/$\Omega$ m\cr
+&stefan-b. constant&$5.67\times 10^{-8}\ W/m^2K^4$\cr
 \tau & torque & N m --- $\tau = \vec{r}\times\vec{F}$\cr
- & time constant & different for circuits, oscillations, etc\dots\cr
+ & time constant & different for circuits, oscillations, etc.\cr
  & 2$\pi$& 6.28319\dots\cr
 \Phi & field strength & units vary dep. on context\cr
 \Phi_e & electric flux & $\int_{\rm surface}\vec{E}\cdot d\vec{A}$\cr
@@ -304,25 +345,17 @@ Z & elec. impedance & 1 ohm = 1 $\Omega$ \cr
 \omega & ang. velocity & rad/s\cr
 }
 
-\medskip
-\Dis 5pt 
-\baselineskip=22pt
-\Fm F \rightarrow N = {kg\ m \over s^2}\Mf
-\EndDis
-{\bf Miscellaneous}
+$F \rightarrow N = {kg\ m \over s^2}$
+\headertwo{Miscellaneous}
 
 $\vec{A}\times\vec{B} \equiv AB\sin \alpha$, in the direction given by right-hand rule
 }
 
 %below we populate the pages!
 
-\vbox{
-\vskip -7pt
-\hbox{\smallfont \centerline{Physics Reference Card v0.2, Currell Berry. Based on ``Physics for Scientists and Engineers'' by Randall Knight.}}
-\makeandprintfullheightcols\bigbox{10.5 in}
-}
+\makeandprintthreefullheightcols\bigbox{\vsize}
 
-\makeandprintequalheightcols\zbox
+\makeandprintthreefullheightcols\zbox{\vsize}
 
 %{\smallfont Currell Berry, 2016}
 %\medskip
